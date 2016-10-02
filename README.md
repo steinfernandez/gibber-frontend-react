@@ -1,2 +1,2 @@
-# interface.server.monitor
-A front-end for monitoring client connections to interface.server
+# gibber frontend with react
+experimenting with react to make gibber frontend
