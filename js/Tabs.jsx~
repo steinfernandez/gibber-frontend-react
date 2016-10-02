@@ -1,0 +1,39 @@
+import React from 'react'
+
+import {
+  Tabs,
+  TabMenu,
+  Tab,
+  MenuItem
+} from 'semantic-react'
+
+let GUIClass = React.createClass({
+  getInitialState() { return { active:1 } },
+
+  render() {
+    return (
+      <Tabs onTabChange={(val) => this.setState({ active: val })} activeTab={this.state.active}>
+        <TabMenu>
+          <MenuItem menuValue={1}>First</MenuItem>
+          <MenuItem menuValue={2}>second</MenuItem>
+          <MenuItem menuValue={3}>Third</MenuItem>
+          <MenuItem menuValue={4}>Four</MenuItem>
+        </TabMenu>
+        <Tab value={1}>
+          First content
+        </Tab>
+        <Tab value={2}>
+          Second content
+        </Tab>
+        <Tab value={3}>
+          Third content
+        </Tab>
+        <Tab value={4} loading>
+          Four content
+        </Tab>
+      </Tabs>
+    )
+  }
+})
+
+export default GUIClass

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Interface.js Monitor</title>
+    
+    <link href="./node_modules/semantic-ui-css/semantic.min.css" rel="stylesheet"></link>
+
+    <style>
+      body { 
+        background-color: #666;
+        font-family: 'Helvetica Neue', Helvetica, sans-serif !important;
+        margin:1em;
+      }
+    </style>
+
+  </head>
+
+  <body>
+    <div id="app" style="{height:500}"></div>
+
+    <script src="./index.js"></script>
+  </body>
+
+</html>
