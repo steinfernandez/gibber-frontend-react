@@ -7,8 +7,14 @@ import {
   MenuItem
 } from 'semantic-react'
 
-let GUIClass = React.createClass({
-  getInitialState() { return { active:1,tabnames:["First","Second","Third","+"] ,tabarray:["content1","content2","content3","content4"] };},
+class GUIClass extends React.Component{
+
+  constructor(props) {
+    super(props);
+    this.state = { active:1,tabnames:["First","Second","Third","+"] ,tabarray:["content1","content2","content3","content4"] };
+    this.onNewTab = this.onNewTab.bind(this);
+    this.blah = this.blah.bind(this);
+  }
 
   onNewTab(e) { 
         let tn = this.state.tabnames;
@@ -18,9 +24,9 @@ let GUIClass = React.createClass({
         ta[ta.length-1] = "this is new tab content";
         ta.push("");
         this.setState({tabnames:tn,tabarray:ta});
-},
+}
 
-  blah: function(){ console.log("hi");}.bind(this),
+  blah() { console.log("hi");}
 
   render() {
     let tabnames=this.state.tabnames;
@@ -35,7 +41,7 @@ let GUIClass = React.createClass({
                         }
                         else
                         {
-                                return(<MenuItem menuValue={i+1} key={i} onClick={blah()}>{tabnames[i]}</MenuItem>);                                
+                                return(<div onClick={this.blah}><MenuItem menuValue={i+1} key={i}>{tabnames[i]}</MenuItem></div>);                                
                         }
                 })}
         </TabMenu>
@@ -43,6 +49,6 @@ let GUIClass = React.createClass({
       </Tabs>
     )
   }
-})
+}
 
 export default GUIClass
