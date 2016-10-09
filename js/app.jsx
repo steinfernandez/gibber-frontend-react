@@ -23,22 +23,30 @@ import GUIClass from './GibberTabs.jsx'
 
 class App extends React.Component {
   render() {
+/*css goes here*/
+
+let gibbertabStyle = {
+        backgroundColor: "#ffffff",
+        display: "inline-block",
+        borderRadius: "10px",
+        float: "left"
+    };
+
+let sidemenuStyle = {
+        display: "inline-block",
+        float: "left"
+    };
+
     return (
-        <div style={{height:500}}>
-                <Table><tbody>
-                        <Tr>
-                                <Td>
-                                <ul>
-                                        <li><Button>one</Button></li>
-                                        <li><Button>two</Button></li>
-                                        <li><Button>three</Button></li>
-                                </ul>
-                                </Td>
-                                <Td>
-                                        <GUIClass/>
-                                </Td>
-                        </Tr>
-                </tbody></Table>
+        <div>
+           <div style={sidemenuStyle}>
+                <ul>
+                       <li><Button>one</Button></li>
+                       <li><Button>two</Button></li>
+                       <li><Button>three</Button></li>
+                </ul>
+           </div>
+              <div style={gibbertabStyle}><GUIClass/></div>
         </div>
     );
   }

@@ -7,6 +7,8 @@ import {
   MenuItem
 } from 'semantic-react'
 
+import TabContent from './TabContent.jsx'
+
 class GUIClass extends React.Component{
 
   constructor(props) {
@@ -34,18 +36,18 @@ class GUIClass extends React.Component{
     return (
       <Tabs onTabChange={(val) => this.setState({ active: val })} activeTab={this.state.active}>
         <TabMenu>
-                {tabnames.map(function(tab,i){ 
+                {tabnames.map((tab,i)=>{ 
                         if(i<tabnames.length-1)
                         {
                                 return(<MenuItem menuValue={i+1} key={i}>{tabnames[i]}</MenuItem>);
                         }
                         else
                         {
-                                return(<div onClick={this.blah}><MenuItem menuValue={i+1} key={i}>{tabnames[i]}</MenuItem></div>);                                
+                                return(<div onClick={this.onNewTab}><MenuItem menuValue={i+1} key={i}>{tabnames[i]}</MenuItem></div>);                                
                         }
                 })}
         </TabMenu>
-        {tabarray.map(function(tabcontent,i){ return(<Tab value={i+1} key={i}>{tabcontent}</Tab>)})}
+        {tabarray.map(function(tabcontent,i){ return(<Tab value={i+1} key={i}><TabContent/></Tab>)})}
       </Tabs>
     )
   }
