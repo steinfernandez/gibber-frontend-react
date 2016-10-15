@@ -25,12 +25,18 @@ class App extends React.Component {
   render() {
 /*css goes here*/
 
-let gibbertabStyle = {
+let gibbertabdivStyle = {
         backgroundColor: "#ffffff",
         display: "inline-block",
         borderRadius: "10px",
-        float: "left"
+        float: "left",
+        height: "95vh",
+        width: "90vw"
     };
+
+let guiclassStyle = {
+        padding: "20px 20px 20px 20px"
+}
 
 let sidemenuStyle = {
         display: "inline-block",
@@ -46,7 +52,7 @@ let sidemenuStyle = {
                        <li><Button>three</Button></li>
                 </ul>
            </div>
-              <div style={gibbertabStyle}><GUIClass/></div>
+              <div style={gibbertabdivStyle}><GUIClass style={guiclassStyle}/></div>
         </div>
     );
   }

@@ -11,10 +11,11 @@ class TabContent extends React.Component{
 
         let textstyle = {
                 height: "90vh",
-                width: "75vw"
+                width: "85vw",
+                border: "1px solid"
         };
         
-        return( <input type="text" style={textstyle}></input> );  
+        return( <div contentEditable="true" style={textstyle}>this is a new tab default text</div> );  
 }
 
 }
