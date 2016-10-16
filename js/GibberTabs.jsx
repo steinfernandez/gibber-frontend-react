@@ -31,8 +31,8 @@ class GUIClass extends React.Component{
   blah() { console.log("hi");}
 
   render() {
-    let tabnames=this.state.tabnames;
-    let tabarray=this.state.tabarray;
+    let tabnames=store.getState().tabnames;
+    let tabarray=store.getState().tabarray;
     return (
       <Tabs onTabChange={(val) => this.setState({ active: val })} activeTab={this.state.active}>
         <TabMenu>

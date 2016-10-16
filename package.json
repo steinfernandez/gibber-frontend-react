@@ -12,6 +12,9 @@
     "gulp-babel": "^6.1.2",
     "gulp-buffer": "^0.0.2",
     "gulp-notify": "^2.2.0",
+    "react-redux": "^4.4.5",
+    "redux": "^3.6.0",
+    "redux-devtools": "^3.3.1",
     "semantic-react": "^0.8.5",
     "semantic-ui-css": "^2.2.2",
     "vinyl-source-stream": "^1.1.0"

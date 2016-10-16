@@ -19,6 +19,10 @@ import { Table } from 'semantic-react';
 import { Td } from 'semantic-react';
 import { Tr } from 'semantic-react';
 import GUIClass from './GibberTabs.jsx'
+import { createStore } from 'redux';
+import gibberReducer from './reducers/reducers.js';
+
+let store = createStore(gibberReducer);
 
 
 class App extends React.Component {
