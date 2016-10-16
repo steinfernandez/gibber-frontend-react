@@ -21,6 +21,7 @@ import { Tr } from 'semantic-react';
 import GUIClass from './GibberTabs.jsx'
 import { createStore } from 'redux';
 import gibberReducer from './reducers/reducers.js';
+import { Provider } from 'react-redux';
 
 let store = createStore(gibberReducer);
 
@@ -48,6 +49,7 @@ let sidemenuStyle = {
     };
 
     return (
+        <Provider store={store}>
         <div>
            <div style={sidemenuStyle}>
                 <ul>
@@ -56,8 +58,9 @@ let sidemenuStyle = {
                        <li><Button>three</Button></li>
                 </ul>
            </div>
-              <div style={gibbertabdivStyle}><GUIClass style={guiclassStyle}/></div>
+              <div style={gibbertabdivStyle}><GUIClass store={store} style={guiclassStyle}/></div>
         </div>
+        </Provider>
     );
   }
 }

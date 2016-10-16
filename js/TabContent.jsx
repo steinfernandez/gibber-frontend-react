@@ -22,7 +22,7 @@ class TabContent extends React.Component{
                 right: "22"
         };
         
-        return( <div contentEditable="true" style={textstyle}>this is a new tab default text<input id="button" style={buttonstyle} type="button" value="X"/></div> );  
+        return( <div contentEditable="true" style={textstyle}>this is a new tab default text</div> );  
 }
 
 }

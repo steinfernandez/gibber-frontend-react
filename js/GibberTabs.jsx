@@ -8,19 +8,22 @@ import {
 } from 'semantic-react'
 
 import TabContent from './TabContent.jsx'
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {addTab} from './actions/actions.js'
 
 class GUIClass extends React.Component{
 
   constructor(props) {
     super(props);
-    this.state = { active:1,tabnames:["First","Second","Third","+"] ,tabarray:["content1","content2","content3","content4"] };
+    this.state = { active:1};
     this.onNewTab = this.onNewTab.bind(this);
     this.blah = this.blah.bind(this);
   }
 
   onNewTab(e) { 
-        let tn = this.state.tabnames;
-        let ta = this.state.tabarray;
+        let tn = this.props.tabnames;
+        let ta = this.props.tabarray;
         tn[tn.length-1] = "Tab"+(tn.length-1).toString();
         tn.push("+");
         ta[ta.length-1] = "this is new tab content";
@@ -31,26 +34,32 @@ class GUIClass extends React.Component{
   blah() { console.log("hi");}
 
   render() {
-    let tabnames=store.getState().tabnames;
-    let tabarray=store.getState().tabarray;
     return (
       <Tabs onTabChange={(val) => this.setState({ active: val })} activeTab={this.state.active}>
         <TabMenu>
-                {tabnames.map((tab,i)=>{ 
-                        if(i<tabnames.length-1)
+                {this.props.tabnames.map((tab,i)=>{ 
+                        if(i<this.props.tabnames.length-1)
                         {
-                                return(<MenuItem menuValue={i+1} key={i}>{tabnames[i]}</MenuItem>);
+                                return(<MenuItem menuValue={i+1} key={i}>{this.props.tabnames[i]}</MenuItem>);
                         }
                         else
                         {
-                                return(<div onClick={this.onNewTab}><MenuItem menuValue={i+1} key={i}>{tabnames[i]}</MenuItem></div>);                                
+                                return(<div onClick={() => this.props.addTab()}><MenuItem menuValue={i+1} key={i}>{this.props.tabnames[i]}</MenuItem></div>);                                
                         }
                 })}
         </TabMenu>
-        {tabarray.map(function(tabcontent,i){ return(<Tab value={i+1} key={i}><TabContent/></Tab>)})}
+        {this.props.tabarray.map(function(tabcontent,i){ return(<Tab value={i+1} key={i}><TabContent/></Tab>)})}
       </Tabs>
     )
   }
 }
 
-export default GUIClass
+const mapStateToProps = function (state) {
+        return{ tabnames: state.tabnames, tabarray: state.tabarray };
+}
+
+const mapDispatchToProps = function (dispatch) {
+  return bindActionCreators({addTab: addTab}, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(GUIClass);
