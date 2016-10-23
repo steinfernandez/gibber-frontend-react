@@ -1,30 +1,28 @@
 import React from 'react';
+import Codemirror from 'react-codemirror';
 
 class TabContent extends React.Component{
 
   constructor(props) {
     super(props);
-    this.state = { active:1,tabnames:["First","Second","Third","+"] ,tabarray:["content1","content2","content3","content4"] };
+    this.state = { code: "// Code" };
+    this.updateCode = this.updateCode.bind(this);
   }
 
-  render(){
+    updateCode(newCode) {
+        this.setState({
+            code: newCode
+        });
+    }
 
-        let textstyle = {
-                height: "90vh",
-                width: "88vw",
-                border: "1px solid",
-                overflow: "auto"
+    render() {
+        var options = {
+            lineNumbers: true,
+            mode: "javascript"
         };
+        return <Codemirror value={this.state.code} onChange={this.updateCode} options={options} />
+    }
+};
 
-        let buttonstyle = {
-                position: "absolute",
-                top: "15",
-                right: "22"
-        };
-        
-        return( <div contentEditable="true" style={textstyle}>this is a new tab default text</div> );  
-}
-
-}
 
 export default TabContent;

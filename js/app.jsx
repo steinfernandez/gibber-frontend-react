@@ -18,6 +18,8 @@ import { Label } from 'semantic-react';
 import { Table } from 'semantic-react';
 import { Td } from 'semantic-react';
 import { Tr } from 'semantic-react';
+import { Column } from 'semantic-react';
+import { Grid } from 'semantic-react';
 import GUIClass from './GibberTabs.jsx'
 import { createStore } from 'redux';
 import gibberReducer from './reducers/reducers.js';
@@ -34,13 +36,17 @@ let gibbertabdivStyle = {
         backgroundColor: "#ffffff",
         display: "inline-block",
         borderRadius: "10px",
-        float: "left",
-        height: "95vh",
+        height: "90vh",
         width: "90vw"
     };
 
 let guiclassStyle = {
         padding: "20px 20px 20px 20px"
+}
+
+let mainDivWrapperStyle = {
+        display: "flex",
+        flexDirection: "row"
 }
 
 let sidemenuStyle = {
@@ -51,14 +57,20 @@ let sidemenuStyle = {
     return (
         <Provider store={store}>
         <div>
-           <div style={sidemenuStyle}>
+        <Grid>
+        <Column>
+           <div>
                 <ul>
                        <li><Button>one</Button></li>
                        <li><Button>two</Button></li>
                        <li><Button>three</Button></li>
                 </ul>
            </div>
-              <div style={gibbertabdivStyle}><GUIClass store={store} style={guiclassStyle}/></div>
+        </Column>
+        <Column>
+           <div style={gibbertabdivStyle}><GUIClass store={store} style={guiclassStyle}/></div>
+        </Column>
+        </Grid>
         </div>
         </Provider>
     );
