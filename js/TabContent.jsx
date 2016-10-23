@@ -1,5 +1,6 @@
 import React from 'react';
 import Codemirror from 'react-codemirror';
+import '../node_modules/codemirror/mode/javascript/javascript';
 
 class TabContent extends React.Component{
 
@@ -18,7 +19,8 @@ class TabContent extends React.Component{
     render() {
         var options = {
             lineNumbers: true,
-            mode: "javascript"
+            mode: "text/javascript",
+            inputStyle: "contenteditable"
         };
         return <Codemirror value={this.state.code} onChange={this.updateCode} options={options} />
     }
