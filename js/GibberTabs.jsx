@@ -4,10 +4,12 @@ import {
   Tabs,
   TabMenu,
   Tab,
-  MenuItem
+  MenuItem,
+  Icon
 } from 'semantic-react'
 
-import TabContent from './TabContent.jsx'
+import TabContent from './TabContent.jsx';
+import SureModal from './SureModal.jsx';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {addTab} from './actions/actions.js'
@@ -17,21 +19,8 @@ class GUIClass extends React.Component{
   constructor(props) {
     super(props);
     this.state = { active:1};
-    this.onNewTab = this.onNewTab.bind(this);
-    this.blah = this.blah.bind(this);
   }
 
-  onNewTab(e) { 
-        let tn = this.props.tabnames;
-        let ta = this.props.tabarray;
-        tn[tn.length-1] = "Tab"+(tn.length-1).toString();
-        tn.push("+");
-        ta[ta.length-1] = "this is new tab content";
-        ta.push("");
-        this.setState({tabnames:tn,tabarray:ta});
-}
-
-  blah() { console.log("hi");}
 
   render() {
     return (
@@ -40,7 +29,7 @@ class GUIClass extends React.Component{
                 {this.props.tabnames.map((tab,i)=>{ 
                         if(i<this.props.tabnames.length-1)
                         {
-                                return(<MenuItem menuValue={i+1} key={i}>{this.props.tabnames[i]}</MenuItem>);
+                                return(<MenuItem menuValue={i+1} key={i}>{this.props.tabnames[i]}<SureModal/></MenuItem>);
                         }
                         else
                         {
