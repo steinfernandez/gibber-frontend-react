@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import {render} from 'react-dom';
 import { DropdownMenu } from 'semantic-react';
 import { MenuItem } from 'semantic-react';
@@ -21,9 +21,12 @@ import { Tr } from 'semantic-react';
 import { Column } from 'semantic-react';
 import { Grid } from 'semantic-react';
 import GUIClass from './GibberTabs.jsx'
+import GibberSidebar from './Sidebar.jsx'
 import { createStore } from 'redux';
 import gibberReducer from './reducers/reducers.js';
 import { Provider } from 'react-redux';
+
+//let Sidebar = Semantify.Sidebar;
 
 let store = createStore(gibberReducer);
 
@@ -59,16 +62,11 @@ let sidemenuStyle = {
         <div>
         <Grid>
         <Column>
-           <div>
-                <ul>
-                       <li><Button>one</Button></li>
-                       <li><Button>two</Button></li>
-                       <li><Button>three</Button></li>
-                </ul>
-           </div>
         </Column>
         <Column>
+        <GibberSidebar>
            <div style={gibbertabdivStyle}><GUIClass store={store} style={guiclassStyle}/></div>
+        </GibberSidebar>
         </Column>
         </Grid>
         </div>
