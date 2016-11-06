@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import {render} from 'react-dom';
 import { DropdownMenu } from 'semantic-react';
 import { MenuItem } from 'semantic-react';
@@ -33,43 +33,10 @@ let store = createStore(gibberReducer);
 
 class App extends React.Component {
   render() {
-/*css goes here*/
-
-let gibbertabdivStyle = {
-        backgroundColor: "#ffffff",
-        display: "inline-block",
-        borderRadius: "10px",
-        height: "90vh",
-        width: "90vw"
-    };
-
-let guiclassStyle = {
-        padding: "20px 20px 20px 20px"
-}
-
-let mainDivWrapperStyle = {
-        display: "flex",
-        flexDirection: "row"
-}
-
-let sidemenuStyle = {
-        display: "inline-block",
-        float: "left"
-    };
-
     return (
         <Provider store={store}>
-        <div>
-        <Grid>
-        <Column>
-        </Column>
-        <Column>
-        <GibberSidebar>
-           <div style={gibbertabdivStyle}><GUIClass store={store} style={guiclassStyle}/></div>
+        <GibberSidebar store={store}>
         </GibberSidebar>
-        </Column>
-        </Grid>
-        </div>
         </Provider>
     );
   }
