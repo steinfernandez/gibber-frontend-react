@@ -26,6 +26,7 @@ class GUIClass extends React.Component{
     return (
       <Tabs onTabChange={(val) => this.setState({ active: val })} activeTab={this.state.active}>
         <TabMenu>
+        <div><a className="item" onClick={this.props.sidebarToggler}><i className="sidebar icon"></i></a></div>
                 {this.props.tabnames.map((tab,i)=>{ 
                         if(i<this.props.tabnames.length-1)
                         {
@@ -36,6 +37,8 @@ class GUIClass extends React.Component{
                                 return(<div onClick={() => this.props.addTab()}><MenuItem menuValue={i+1} key={i}>{this.props.tabnames[i]}</MenuItem></div>);                                
                         }
                 })}
+        <a className="item">
+        <i className="sign in icon"></i></a>
         </TabMenu>
         {this.props.tabarray.map(function(tabcontent,i){ return(<Tab value={i+1} key={i}><TabContent/></Tab>)})}
       </Tabs>

@@ -1,5 +1,8 @@
 import React from 'react';
 import GUIClass from './GibberTabs.jsx'
+import LoginModal from './LoginModal.jsx';
+
+var request = require('request');
 
 
 var GibberSidebar = React.createClass({
@@ -12,6 +15,20 @@ var GibberSidebar = React.createClass({
     toggleSidebar: function () {
         $('.ui.sidebar').sidebar('toggle');
     },
+
+   signIn: function() {
+        request.post({url:'http://127.0.0.1:8081/login',jar:true,form:{username:"user1", password:"user1user1"}}, function (error, response, body) {
+	if (!error && response.statusCode == 200) {
+	console.log(body);
+	//console.log(response);
+	}
+	else
+	{
+		console.log(error);
+		//console.log(response);
+	}
+})
+   },
 
     render: function () {
                 let store = this.props.store;
@@ -26,15 +43,8 @@ var GibberSidebar = React.createClass({
                 	<a className="item">Credits</a>
 				</div>
             	<div className="pusher">
-            		<div className="ui top menu">
-                		<a className="item" onClick={this.toggleSidebar}>
-                    		<i className="sidebar icon"></i>
-                    	</a>
-                	</div>
                 	<div className="ui segment">
-                		{this.props.children}
-                        <div className="pusher"><GUIClass store={store}/></div>
-                	</div>
+                        <GUIClass sidebarToggler={this.toggleSidebar} store={store}/></div>
             	</div>
         	</div>
 		);
