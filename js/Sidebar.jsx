@@ -1,6 +1,6 @@
 import React from 'react';
 import GUIClass from './GibberTabs.jsx'
-import LoginModal from './LoginModal.jsx';
+
 
 var request = require('request');
 

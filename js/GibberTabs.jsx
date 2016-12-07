@@ -10,6 +10,7 @@ import {
 
 import TabContent from './TabContent.jsx';
 import SureModal from './SureModal.jsx';
+import LoginModal from './LoginModal.jsx';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {addTab} from './actions/actions.js'
@@ -37,8 +38,8 @@ class GUIClass extends React.Component{
                                 return(<div onClick={() => this.props.addTab()}><MenuItem menuValue={i+1} key={i}>{this.props.tabnames[i]}</MenuItem></div>);                                
                         }
                 })}
-        <a className="item">
-        <i className="sign in icon"></i></a>
+        <a className="ui item floated right">
+        <LoginModal/></a>
         </TabMenu>
         {this.props.tabarray.map(function(tabcontent,i){ return(<Tab value={i+1} key={i}><TabContent/></Tab>)})}
       </Tabs>
