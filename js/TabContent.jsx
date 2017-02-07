@@ -16,13 +16,18 @@ class TabContent extends React.Component{
         });
     }
 
+    componentDidMount() {
+        this.cmRef.getCodeMirror().refresh();  
+    }
+
     render() {
         var options = {
             lineNumbers: true,
             mode: "text/javascript",
-            inputStyle: "contenteditable"
+            inputStyle: "contenteditable",
+            fixedGutter: false
         };
-        return <Codemirror value={this.state.code} onChange={this.updateCode} options={options} />
+        return <Codemirror value={this.state.code} onChange={this.updateCode} options={options} ref={(Codemirror) => { this.cmRef = Codemirror; }}/>
     }
 };
 

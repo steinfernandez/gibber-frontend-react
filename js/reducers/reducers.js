@@ -1,4 +1,4 @@
-const initialState = { tabnames:["First","Second","Third","+"] ,tabarray:["content1","content2","content3","content4"] };
+const initialState = { tabnames:["Tab 1","Tab 2","Tab 3","+"] ,tabarray:["content1","content2","content3","content4"] };
 
 function gibberReducer(state = initialState, action) 
 {

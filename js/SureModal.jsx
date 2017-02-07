@@ -1,14 +1,5 @@
 import React from 'react';
 
-import {
-  Icon,
-  Modal,
-  Header,
-  Content,
-  Actions,
-  Button
-} from 'semantic-react'
-
 class SureModal extends React.Component {
     constructor(props) {
         super(props);
@@ -17,40 +8,37 @@ class SureModal extends React.Component {
         }
     }
     
-    onCloseModal() {
-        this.setState({
-            active: false
-        });
+    closeModal() {
+        $('.ui.modal').hide();
+    }
+
+    activateModal() {
+        $('.ui.modal').show();
     }
         
     render() {
         return (
-            <div>
-                <Icon name="delete" onClick={() => this.setState({ active: true })}/>
-                <Modal basic onRequestClose={this.onCloseModal.bind(this)} active={this.state.active}>
-                    <Header icon="save">Closing unsaved file</Header>
-                    <Content>
-                        <p>Warning: This file has not been saved. Would you like to close this file?</p>
-                    </Content>
-                    <Actions>
-                        <Button color="green"
-                                inverted 
-                                onClick={this.onCloseModal.bind(this)}
-                        >
-                            <Icon name="checkmark"/>
-                            Yes
-                       </Button>
-                        <Button color="red" 
-                                basic 
-                                inverted 
-                                onClick={this.onCloseModal.bind(this)}
-                        >
-                            <Icon name="remove"/>
-                            No
-                        </Button>
-                    </Actions>
-                </Modal>
-             </div>
+                <div>
+                        <i className="close icon" onClick={this.activateModal}></i>
+                        <div className="ui modal">
+                                <i className="close icon"></i>
+                                <div className="header">
+                                        Save before closing?
+                                </div>
+                                <div className="image content">
+                                        <div className="image">
+                                                <i className="archive icon"></i>
+                                        </div>
+                                        <div className="description">
+                                                Would you like to save before closing?
+                                        </div>
+                                </div>
+                                <div className="actions">
+                                        <div className="ui button" onClick={this.closeModal}>Close without saving</div>
+                                        <div className="ui button">Save</div>
+                                </div>
+                        </div>
+                </div>
         );
     }
 }
