@@ -6,21 +6,23 @@ class LoginModal extends React.Component {
         this.state = {
             active: false
         }
+        this.activateModal = this.activateModal.bind(this);
+        this.closeModal = this.activateModal.bind(this);
     }
     
     closeModal() {
-        $('.ui.modal').hide();
+        $('#'+this.props.modalId.toString()).modal('hide');
     }
 
     activateModal() {
-        $('.ui.modal').show();
+        $('#'+this.props.modalId.toString()).modal('show');
     }
-        
+
     render() {
         return (
                 <div>
                         <i className="sign in icon" onClick={this.activateModal}></i>
-                        <div className="ui modal">
+                        <div className="ui modal" id={this.props.modalId}>
                                 <i className="close icon"></i>
                                 <div className="header">
                                         Sign in to Gibber
@@ -34,7 +36,6 @@ class LoginModal extends React.Component {
                                         </div>
                                 </div>
                                 <div className="actions">
-                                        <div className="ui cancel button" onClick={this.closeModal}>Cancel</div>
                                         <div className="ui approve button">Sign In</div>
                                 </div>
                         </div>

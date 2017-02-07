@@ -6,21 +6,23 @@ class SureModal extends React.Component {
         this.state = {
             active: false
         }
+        this.activateModal = this.activateModal.bind(this);
+        this.closeModal = this.activateModal.bind(this);
     }
     
     closeModal() {
-        $('.ui.modal').hide();
+        $('#'+this.props.modalId.toString()).modal('hide');
     }
 
     activateModal() {
-        $('.ui.modal').show();
+        $('#'+this.props.modalId.toString()).modal('show');
     }
-        
+
     render() {
         return (
                 <div>
                         <i className="close icon" onClick={this.activateModal}></i>
-                        <div className="ui modal">
+                        <div className="ui modal" id={this.props.modalId}>
                                 <i className="close icon"></i>
                                 <div className="header">
                                         Save before closing?
