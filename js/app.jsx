@@ -11,6 +11,18 @@ let store = createStore(gibberReducer);
 
 
 class App extends React.Component {
+
+  componentDidMount() {
+        /* Define API endpoints once globally */
+        $.fn.api.settings.api = {
+                                  'createNewUser' : '/createNewUser',
+                                  'login'         : '/login',
+                                  'add user'      : '/add/{id}',
+                                  'follow user'   : '/follow/{id}',
+                                  'search'        : '/search/?query={value}'
+                                };        
+        }
+
   render() {
     return (
         <Provider store={store}>

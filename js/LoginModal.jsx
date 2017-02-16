@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 class LoginModal extends React.Component {
     constructor(props) {
         super(props);
@@ -7,7 +8,7 @@ class LoginModal extends React.Component {
             active: false
         }
         this.activateModal = this.activateModal.bind(this);
-        this.closeModal = this.activateModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
     }
     
     closeModal() {
@@ -18,7 +19,69 @@ class LoginModal extends React.Component {
         $('#'+this.props.modalId.toString()).modal('show');
     }
 
+    componentDidMount() {
+       //validation rules
+       $('.ui.form')
+        .form({
+          fields: {
+            username: {
+              identifier  : 'username',
+              rules: [
+                {
+                  type   : 'empty',
+                  prompt : 'Please enter your username'
+                }
+              ]
+            },
+            password: {
+              identifier  : 'password',
+              rules: [
+                {
+                  type   : 'empty',
+                  prompt : 'Please enter your password'
+                },
+                {
+                  type   : 'length[6]',
+                  prompt : 'Your password must be at least 6 characters'
+                }
+              ]
+            }
+          }
+        });
+        //submit button api
+        $('form')
+          .api({
+            url: window.location.origin+"/login",
+            method: 'POST',
+            serializeForm: true,
+            beforeSend: function(settings) 
+            {
+              console.log(settings.data);
+              return settings;
+            },
+            successTest: function(response)
+            {
+              if(response && response.success)
+              {
+                console.log("server responded with successful login");
+                return response.success;
+              }
+              return false;
+            },
+            onSuccess: (response) => { this.closeModal(); } 
+             });
+    }
+
+    validationPassed() { console.log("hello!"); }
+
     render() {
+
+        var formdivStyle = {  
+                        float: "right",
+                        padding: 10,
+                        margin: 50,                        
+                };        
+
         return (
                 <div>
                         <i className="sign in icon" onClick={this.activateModal}></i>
@@ -29,14 +92,28 @@ class LoginModal extends React.Component {
                                 </div>
                                 <div className="image content">
                                         <div className="image">
-                                                An image can appear on left or an icon
+                                                <i className="sign in icon"/>
                                         </div>
-                                        <div className="description">
-                                                A description can appear on the right
+                                        <div className="formdiv" style={formdivStyle}>
+                                                <form className="ui large form">
+                                                <div className="ui stacked segment">
+                                                        <div className="field">
+                                                                <div className="ui left icon input">
+                                                                        <i className="user icon"></i>
+                                                                        <input type="text" name="username" placeholder="Gibber username"/>
+                                                                </div>
+                                                        </div>
+                                                        <div className="field">
+                                                                <div className="ui left icon input">
+                                                                        <i className="lock icon"></i>
+                                                                        <input type="password" name="password" placeholder="Password"/>
+                                                                </div>
+                                                        </div>
+                                                        <div className="ui fluid large teal submit button">Login</div>
+                                                </div>
+                                                <div className="ui error message"></div>
+                                                </form>
                                         </div>
-                                </div>
-                                <div className="actions">
-                                        <div className="ui approve button">Sign In</div>
                                 </div>
                         </div>
                 </div>

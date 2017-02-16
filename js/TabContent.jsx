@@ -16,6 +16,10 @@ class TabContent extends React.Component{
         });
     }
 
+    refreshCodemirror() {
+        this.cmRef.getCodeMirror().refresh();
+    }
+
     componentDidMount() {
         this.cmRef.getCodeMirror().refresh();  
     }
