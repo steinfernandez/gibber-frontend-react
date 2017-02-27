@@ -1,4 +1,7 @@
 import React from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {login} from './actions/actions.js'
 
 
 class LoginModal extends React.Component {
@@ -61,6 +64,7 @@ class LoginModal extends React.Component {
             },
             successTest: function(response)
             {
+              console.log(response);
               if(response && response.success)
               {
                 console.log("server responded with successful login");
@@ -68,13 +72,35 @@ class LoginModal extends React.Component {
               }
               return false;
             },
-            onSuccess: (response) => { this.closeModal(); } 
+            onSuccess: (response) => { this.props.login(response.username); this.closeModal(); }
              });
     }
 
     validationPassed() { console.log("hello!"); }
 
+    /*test greetings
+
+        function UserGreeting(props) {
+          return <h1>Welcome back!</h1>;
+        }
+
+        function GuestGreeting(props) {
+          return <h1>Please sign up.</h1>;
+        }
+
+        function Greeting(props) {
+          const isLoggedIn = props.isLoggedIn;
+          if (isLoggedIn) {
+            return <UserGreeting />;
+          }
+          return <GuestGreeting />;
+        }
+
+    /*end test greetings*/
+
     render() {
+
+        let store = this.props.store;
 
         var formdivStyle = {  
                         float: "right",
@@ -121,4 +147,12 @@ class LoginModal extends React.Component {
     }
 }
 
-export default LoginModal;
+const mapStateToProps = function (state) {
+        return{ currentUser: state.currentUser };
+}
+
+const mapDispatchToProps = function (dispatch) {
+  return bindActionCreators({login: login}, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginModal);

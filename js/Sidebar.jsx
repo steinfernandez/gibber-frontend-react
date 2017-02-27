@@ -8,7 +8,9 @@ var request = require('request');
 var GibberSidebar = React.createClass({
     componentDidMount() {
         $('.ui.sidebar').sidebar({
-            transition: 'push'
+            transition: 'push',
+            dimPage: false,
+            closable: false
         });
     },
 

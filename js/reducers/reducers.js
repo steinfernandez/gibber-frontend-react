@@ -1,4 +1,10 @@
-const initialState = { tabnames:["Tab 1","Tab 2","Tab 3","+"] ,tabarray:["content1","content2","content3","content4"] };
+var clone = require('clone');
+
+const initialState = { 
+                        currentUser: null, 
+                        tabnames:["Tab first","Tab 2","Tab 3","+"],
+                        tabarray:["content1","content2","content3","content4"] 
+                     };
 
 function gibberReducer(state = initialState, action) 
 {
@@ -11,6 +17,8 @@ function gibberReducer(state = initialState, action)
                                 tabarray_temp.push("here's some empty text");
                                 return(Object.assign({}, state, {tabnames:tabnames_temp, tabarray:tabarray_temp} ));
                                 break;
+                case "LOGIN":   let state_temp = clone(state);
+                                return(Object.assign({},state_temp,{currentUser: action.text}));
                 default:        return state;
         }
 }

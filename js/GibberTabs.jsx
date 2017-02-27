@@ -20,6 +20,16 @@ class GUIClass extends React.Component{
 
 
   render() {
+    let store = this.props.store;
+    let greeting = null;
+    if(this.props.currentUser==null)
+    {
+        greeting = <div>Not currently logged in.</div>;
+    }
+    else
+    {
+        greeting = <div>Currently logged in as {this.props.currentUser}.</div>;
+    }
     return (   
         <div>
                 <div id="tabmenu" className="ui top attached tabular menu">
@@ -38,7 +48,8 @@ class GUIClass extends React.Component{
                                         return(<a className="item" key={i.toString()} onClick={()=>{this.props.addTab(); $('.tabular .item').tab();}}>{this.props.tabnames[i]}</a>);
                                 }
                         })}
-                <a className="item"><LoginModal modalId={"modal999"}/></a>
+                <a className="item"><LoginModal store={store} modalId={"modal999"}/></a>
+                {greeting}
                 </div>
                 {
                         this.props.tabarray.map((tabcontent,i)=>{
@@ -62,7 +73,7 @@ class GUIClass extends React.Component{
 }
 
 const mapStateToProps = function (state) {
-        return{ tabnames: state.tabnames, tabarray: state.tabarray };
+        return{ tabnames: state.tabnames, tabarray: state.tabarray, currentUser: state.currentUser };
 }
 
 const mapDispatchToProps = function (dispatch) {
