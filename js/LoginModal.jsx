@@ -78,26 +78,6 @@ class LoginModal extends React.Component {
 
     validationPassed() { console.log("hello!"); }
 
-    /*test greetings
-
-        function UserGreeting(props) {
-          return <h1>Welcome back!</h1>;
-        }
-
-        function GuestGreeting(props) {
-          return <h1>Please sign up.</h1>;
-        }
-
-        function Greeting(props) {
-          const isLoggedIn = props.isLoggedIn;
-          if (isLoggedIn) {
-            return <UserGreeting />;
-          }
-          return <GuestGreeting />;
-        }
-
-    /*end test greetings*/
-
     render() {
 
         let store = this.props.store;
@@ -110,7 +90,7 @@ class LoginModal extends React.Component {
 
         return (
                 <div>
-                        <i className="sign in icon" onClick={this.activateModal}></i>
+                        <button className="ui basic button"  onClick={this.activateModal}><i className="sign in icon"></i>Login</button>
                         <div className="ui modal" id={this.props.modalId}>
                                 <i className="close icon"></i>
                                 <div className="header">
@@ -144,6 +124,7 @@ class LoginModal extends React.Component {
                         </div>
                 </div>
         );
+        
     }
 }
 

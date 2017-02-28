@@ -17,8 +17,10 @@ function gibberReducer(state = initialState, action)
                                 tabarray_temp.push("here's some empty text");
                                 return(Object.assign({}, state, {tabnames:tabnames_temp, tabarray:tabarray_temp} ));
                                 break;
-                case "LOGIN":   let state_temp = clone(state);
-                                return(Object.assign({},state_temp,{currentUser: action.text}));
+                case "LOGIN":   return(Object.assign({}, state, {currentUser: action.text}));
+                                break;
+                case "LOGOUT":  return(Object.assign({}, state, {currentUser: null}));
+                                break;
                 default:        return state;
         }
 }

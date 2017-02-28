@@ -5,6 +5,7 @@
 export const ADD_TAB = 'ADD_TAB'
 export const REMOVE_TAB = 'REMOVE_TAB'
 export const LOGIN = 'LOGIN'
+export const LOGOUT = 'LOGOUT'
 
 /*
  * other constants
@@ -20,5 +21,9 @@ export function addTab() {
 
 export function login(text) {
   return { type: LOGIN, text }
+}
+
+export function logout() {
+  return { type: LOGOUT }
 }
 

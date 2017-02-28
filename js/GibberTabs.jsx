@@ -3,6 +3,7 @@ import React from 'react'
 import TabContent from './TabContent.jsx';
 import SureModal from './SureModal.jsx';
 import LoginModal from './LoginModal.jsx';
+import LogoutButton from './LogoutButton.jsx';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {addTab} from './actions/actions.js'
@@ -24,11 +25,11 @@ class GUIClass extends React.Component{
     let greeting = null;
     if(this.props.currentUser==null)
     {
-        greeting = <div>Not currently logged in.</div>;
+        greeting = <div>Not currently logged in.<LoginModal store={store} modalId={"modal999"}/></div>;
     }
     else
     {
-        greeting = <div>Currently logged in as {this.props.currentUser}.</div>;
+        greeting = <div>Currently logged in as {this.props.currentUser}.<LogoutButton store={store}/></div>;
     }
     return (   
         <div>
@@ -48,7 +49,6 @@ class GUIClass extends React.Component{
                                         return(<a className="item" key={i.toString()} onClick={()=>{this.props.addTab(); $('.tabular .item').tab();}}>{this.props.tabnames[i]}</a>);
                                 }
                         })}
-                <a className="item"><LoginModal store={store} modalId={"modal999"}/></a>
                 {greeting}
                 </div>
                 {
