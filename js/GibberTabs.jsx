@@ -19,6 +19,10 @@ class GUIClass extends React.Component{
         $('.tabular .item').tab();
   }
 
+  componentDidUpdate() {
+        $('.tabular .item').tab();
+  }
+
 
   render() {
     let store = this.props.store;
@@ -31,7 +35,7 @@ class GUIClass extends React.Component{
     {
         greeting = <div>Currently logged in as {this.props.currentUser}.<LogoutButton store={store}/></div>;
     }
-    return (   
+    return (
         <div>
                 <div id="tabmenu" className="ui top attached tabular menu">
                         <div><a className="item" onClick={this.props.sidebarToggler}><i className="sidebar icon"></i></a></div>
@@ -55,15 +59,15 @@ class GUIClass extends React.Component{
                         this.props.tabContent.map((tabContent,i)=>{
                                 if(i==0)
                                 {
-                                        return(<div className="ui bottom attached active tab segment" key={i.toString()} data-tab={i.toString()}><TabContent/></div>);
+                                        return(<div className="ui bottom attached active tab segment" key={i.toString()} data-tab={i.toString()}><TabContent tabContentID={i} store={store}/></div>);
                                 }
                                 else if(i<(tabContent.length - 1))
                                 {
-                                        return(<div className="ui bottom attached tab segment" key={i.toString()} data-tab={i.toString()}><TabContent/></div>);
+                                        return(<div className="ui bottom attached tab segment" key={i.toString()} data-tab={i.toString()}><TabContent tabContentID={i} store={store}/></div>);
                                 }
                                 else
                                 {
-                                        return(<div className="ui bottom attached tab segment" key={i.toString()}><TabContent/></div>);
+                                        return(<div className="ui bottom attached tab segment" key={i.toString()}><TabContent tabContentID={i} store={store}/></div>);
                                 }
                         })
                 }

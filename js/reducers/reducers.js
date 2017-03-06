@@ -1,13 +1,13 @@
 var clone = require('clone');
 
-const initialState = { 
+const initialState = {
                         currentUser: null,
-                        currentGiblets: [], 
+                        currentGiblets: [],
                         tabNames:["Tab first","Tab 2","Tab 3","+"],
-                        tabContent:["content1","content2","content3","content4"] 
+                        tabContent:["content1","content2","content3"]
                      };
 
-function gibberReducer(state = initialState, action) 
+function gibberReducer(state = initialState, action)
 {
         switch(action.type)
         {

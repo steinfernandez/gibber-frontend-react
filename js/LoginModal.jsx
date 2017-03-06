@@ -1,7 +1,7 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {login} from './actions/actions.js'
+import {login} from './actions/actions.js';
 
 
 class LoginModal extends React.Component {

@@ -1,12 +1,14 @@
 import React from 'react';
 import Codemirror from 'react-codemirror';
 import '../node_modules/codemirror/mode/javascript/javascript';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 
 class TabContent extends React.Component{
 
   constructor(props) {
     super(props);
-    this.state = { code: "// Code" };
+    this.state = { code: this.props.tabContent[this.props.tabContentID]+'' };
     this.updateCode = this.updateCode.bind(this);
   }
 
@@ -16,12 +18,16 @@ class TabContent extends React.Component{
         });
     }
 
-    refreshCodemirror() {
-        this.cmRef.getCodeMirror().refresh();
+    LogCode() {
+        console.log(this.props.tabContent[this.props.tabContentID]);
     }
 
     componentDidMount() {
-        this.cmRef.getCodeMirror().refresh();  
+        this.cmRef.getCodeMirror().refresh();
+    }
+
+    componentDidUpdate() {
+        this.cmRef.getCodeMirror().refresh();
     }
 
     render() {
@@ -31,9 +37,13 @@ class TabContent extends React.Component{
             inputStyle: "contenteditable",
             fixedGutter: false
         };
-        return <Codemirror value={this.state.code} onChange={this.updateCode} options={options} ref={(Codemirror) => { this.cmRef = Codemirror; }}/>
+        return <Codemirror onClick={this.LogCode()} value={this.state.code} onChange={this.updateCode} options={options} ref={(Codemirror) => { this.cmRef = Codemirror; }}/>
     }
 };
 
+const mapStateToProps = function (state) {
+        return{ tabContent: state.tabContent };
+}
 
-export default TabContent;
+
+export default connect(mapStateToProps)(TabContent);
