@@ -8,7 +8,9 @@ class TabContent extends React.Component{
 
   constructor(props) {
     super(props);
-    this.state = { code: this.props.tabContent[this.props.tabContentID]+'' };
+    console.log(this.props.tabs);
+    console.log(this.props.tabContentID);
+    this.state = { code: this.props.tabs[this.props.tabContentID].tabContent };
     this.updateCode = this.updateCode.bind(this);
   }
 
@@ -16,10 +18,6 @@ class TabContent extends React.Component{
         this.setState({
             code: newCode
         });
-    }
-
-    LogCode() {
-        console.log(this.props.tabContent[this.props.tabContentID]);
     }
 
     componentDidMount() {
@@ -37,12 +35,21 @@ class TabContent extends React.Component{
             inputStyle: "contenteditable",
             fixedGutter: false
         };
-        return <Codemirror onClick={this.LogCode()} value={this.state.code} onChange={this.updateCode} options={options} ref={(Codemirror) => { this.cmRef = Codemirror; }}/>
+        return( <div>
+                        <div className="ui top attached menu">
+                                <div className="ui vertical animated button" tabIndex="0">
+                                        <div className="hidden content">Save</div>
+                                        <div className="visible content"><i className="save icon"></i></div>
+                                </div>
+                        </div>
+                        <Codemirror value={this.state.code} onChange={this.updateCode} options={options} ref={(Codemirror) => { this.cmRef = Codemirror; }}/>
+                </div>
+              );
     }
 };
 
 const mapStateToProps = function (state) {
-        return{ tabContent: state.tabContent };
+        return{ tabs: state.tabs };
 }
 
 

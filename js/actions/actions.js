@@ -8,6 +8,7 @@ export const LOGIN = 'LOGIN'
 export const LOGOUT = 'LOGOUT'
 export const UPDATE_CURRENT_GIBLETS = 'UPDATE_CURRENT_GIBLETS';
 export const OPEN_GIBLET = 'OPEN_GIBLET';
+export const PUBLISH_GIBLET = 'PUBLISH_GIBLET';
 
 /*
  * other constants
@@ -36,4 +37,3 @@ export function updateCurrentGiblets(newGiblets) {
 export function openGiblet(gibletName, gibletContent) {
   return { type: OPEN_GIBLET, gibletName, gibletContent }
 }
-
