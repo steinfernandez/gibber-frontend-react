@@ -9,6 +9,7 @@ export const LOGOUT = 'LOGOUT'
 export const UPDATE_CURRENT_GIBLETS = 'UPDATE_CURRENT_GIBLETS';
 export const OPEN_GIBLET = 'OPEN_GIBLET';
 export const PUBLISH_GIBLET = 'PUBLISH_GIBLET';
+export const SAVE_GIBLET = 'SAVE_GIBLET';
 
 /*
  * other constants

@@ -29,10 +29,8 @@ class GibberSidebar extends React.Component{
                     on: 'click',
                     successTest: function(response)
                     {
-                      console.log(response);
                       if(response && response.success)
                       {
-                        console.log("successfully retrieved filelist");
                         return response.success;
                       }
                       else
@@ -42,7 +40,7 @@ class GibberSidebar extends React.Component{
                      });
     }
 
-    InitializeGibletLoaders() 
+    InitializeGibletLoaders()
     {
         $('.loadgiblet')
                 .api({
@@ -61,7 +59,7 @@ class GibberSidebar extends React.Component{
                       else
                         return false;
                     },
-                    onSuccess: (response) => { console.log("calling open giblet"); this.props.openGiblet(response.results[0]._id, response.results[0].text); }
+                    onSuccess: (response) => { this.props.openGiblet(response.results[0]._id, response.results[0].text); }
                      });
     }
 
@@ -71,15 +69,15 @@ class GibberSidebar extends React.Component{
 
     render() {
                 let store = this.props.store;
-		return ( 
+		return (
         	<div id="layout">
         		<div className="ui left vertical menu sidebar">
                         <a className="item" key={9999} id="refreshfiles">Click here to show/refresh files</a>
                         {
                                 this.props.currentGiblets.map(
-                                        (giblet,i) => 
+                                        (giblet,i) =>
                                         {
-                                                return(<a className="item loadgiblet" key={i} data-filename={giblet._id}>{giblet._id}</a>)    
+                                                return(<a className="item loadgiblet" key={i} data-filename={giblet._id}>{giblet._id}</a>)
                                         }
                                 )
                         }
