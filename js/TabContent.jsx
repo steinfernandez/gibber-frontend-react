@@ -1,6 +1,7 @@
 import React from 'react';
 import Codemirror from 'react-codemirror';
 import '../node_modules/codemirror/mode/javascript/javascript';
+import PublishModal from './PublishModal.jsx';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
@@ -72,16 +73,15 @@ class TabContent extends React.Component{
             fixedGutter: false
         };
         let savebutton = null;
-        if(this.props.tabs[this.props.tabContentID].published)
+        if(this.props.tabs[this.props.tabContentID].published && this.props.currentUser!=null)
                 savebutton = <div className="ui vertical animated save button" tabIndex="0">
                                 <div className="hidden content">Save</div>
                                 <div className="visible content"><i className="save icon"/></div>
                         </div>;
+        else if(this.props.currentUser!=null)
+                savebutton = <PublishModal modalId={"pm"+this.props.tabContentID} code={this.state.code}/>;
         else
-                savebutton = <div className="ui vertical animated publish button" tabIndex="0">
-                                <div className="hidden content">Publish</div>
-                                <div className="visible content"><i className="save icon"/></div>
-                        </div>;
+                savebutton = <div className="ui compact message">Please log in to save or share your giblets.</div>;
         return( <div>
                         <div className="ui top attached menu">
                                 {savebutton}
@@ -93,7 +93,7 @@ class TabContent extends React.Component{
 };
 
 const mapStateToProps = function (state) {
-        return{ tabs: state.tabs };
+        return{ tabs: state.tabs, currentUser: state.currentUser };
 }
 
 

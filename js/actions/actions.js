@@ -38,3 +38,7 @@ export function updateCurrentGiblets(newGiblets) {
 export function openGiblet(gibletName, gibletContent) {
   return { type: OPEN_GIBLET, gibletName, gibletContent }
 }
+
+export function publishGiblet(tabId, newName) {
+  return { type: PUBLISH_GIBLET, tabId, newName }
+}

@@ -37,6 +37,13 @@ function gibberReducer(state = initialState, action)
                                 tabs_temp.push({tabName:"+", tabContent:""});
                                 return(Object.assign({}, state, {tabs: tabs_temp}));
                                 break;}
+                case "PUBLISH_GIBLET":
+                                {let tabs_temp = state.tabs.slice();
+                                tabs_temp[action.tabId].tabName = action.newName;
+                                tabs_temp[action.tabId].published = true;
+                                console.log(tabs_temp);
+                                return(Object.assign({}, state, {tabs: tabs_temp}));
+                                break;}
                 default:        return state;
         }
 }
