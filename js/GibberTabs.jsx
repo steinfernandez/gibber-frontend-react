@@ -42,15 +42,15 @@ class GUIClass extends React.Component{
                         {this.props.tabs.map((tab,i)=>{
                                 if(i==0)
                                 {
-                                        return(<a className="active item" key={i.toString()} data-tab={i.toString()}>{this.props.tabs[i].tabName}<SureModal modalId={"modal"+i.toString()}/></a>);
+                                        return(<a className="active item" key={i.toString()} data-tab={i.toString()}>{this.props.tabs[i]._id}<SureModal modalId={"modal"+i.toString()}/></a>);
                                 }
                                 else if(i<(this.props.tabs.length - 1))
                                 {
-                                        return(<a className="item" key={i.toString()} data-tab={i.toString()}>{this.props.tabs[i].tabName}<SureModal modalId={"modal"+i.toString()}/></a>);
+                                        return(<a className="item" key={i.toString()} data-tab={i.toString()}>{this.props.tabs[i]._id}<SureModal modalId={"modal"+i.toString()}/></a>);
                                 }
                                 else
                                 {
-                                        return(<a className="item" key={i.toString()} onClick={()=>{this.props.addTab(); $('.tabular .item').tab();}}>{this.props.tabs[i].tabName}</a>);
+                                        return(<a className="item" key={i.toString()} onClick={()=>{this.props.addTab(); $('.tabular .item').tab();}}>{this.props.tabs[i]._id}</a>);
                                 }
                         })}
                 {greeting}

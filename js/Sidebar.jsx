@@ -50,7 +50,6 @@ class GibberSidebar extends React.Component{
                     beforeSend: function(settings) { settings.data = { filename: $(this).attr('data-filename') }; return settings; },
                     successTest: function(response)
                     {
-                      console.log(response);
                       if(response && response.success)
                       {
                         console.log("successfully loaded giblet");
@@ -59,7 +58,7 @@ class GibberSidebar extends React.Component{
                       else
                         return false;
                     },
-                    onSuccess: (response) => { this.props.openGiblet(response.results[0]._id, response.results[0].text); }
+                    onSuccess: (response) => { this.props.openGiblet(response.results[0]); }
                      });
     }
 

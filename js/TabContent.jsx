@@ -9,7 +9,7 @@ class TabContent extends React.Component{
 
   constructor(props) {
     super(props);
-    this.state = { code: this.props.tabs[this.props.tabContentID].tabContent };
+    this.state = { code: this.props.tabs[this.props.tabContentID].text };
     this.updateCode = this.updateCode.bind(this);
   }
 
@@ -27,7 +27,7 @@ class TabContent extends React.Component{
                 .api({
                     url: window.location.origin+"/update",
                     method: 'POST',
-                    beforeSend: function(settings) { console.log(newText);settings.data = { filename: temp_props.tabs[temp_props.tabContentID].tabName, newtext: newText }; return settings; },
+                    beforeSend: function(settings) { console.log(newText);settings.data = { filename: temp_props.tabs[temp_props.tabContentID]._id, newtext: newText }; return settings; },
                     successTest: function(response)
                     {
                       console.log(response);

@@ -35,8 +35,8 @@ export function updateCurrentGiblets(newGiblets) {
   return { type: UPDATE_CURRENT_GIBLETS, newGiblets}
 }
 
-export function openGiblet(gibletName, gibletContent) {
-  return { type: OPEN_GIBLET, gibletName, gibletContent }
+export function openGiblet(gibletData) {
+  return { type: OPEN_GIBLET, gibletData }
 }
 
 export function publishGiblet(tabId, newName) {
