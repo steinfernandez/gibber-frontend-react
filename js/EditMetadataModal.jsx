@@ -3,8 +3,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {publishGiblet} from './actions/actions.js';
 
-
-class PublishModal extends React.Component {
+class EditMetadataModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -40,11 +39,11 @@ class PublishModal extends React.Component {
             }
           }
         });
+        $('.tagthing').dropdown({
+                allowAdditions: true
+        });
         $('form input').on('keypress', function(e) {
             return e.which !== 13;
-        });
-        $('.publishtags').dropdown({
-                allowAdditions: true
         });
         //submit button api
         function bs(settings)
@@ -63,15 +62,15 @@ class PublishModal extends React.Component {
             {
               //TODO: language
               //settings.data.tags = settings.data.tags.split(",");
-              console.log(settings.data);
-              var tagArray = $(".publishtags option:selected");
+              //console.log(settings.data);
+              var tagArray = $(".tagthing option:selected");
               var tagValueArray = [];
               for(var i=0;i<tagArray.length;i++)
               {
                 tagValueArray.push(tagArray[i].value);
               }
               console.log(tagValueArray);
-              settings.data = Object.assign({},settings.data,{code:this.props.code, tags: tagValueArray});
+              /*settings.data = Object.assign({},settings.data,{code:this.props.code});*/
               return settings;
             },
             successTest: function(response)
@@ -84,7 +83,7 @@ class PublishModal extends React.Component {
               }
               return false;
             },
-            onSuccess: (response) => {  this.props.publishGiblet(parseInt(this.props.modalId[2]),response.filename); this.closeModal(); }
+            onSuccess: (response) => {  /*this.props.publishGiblet(parseInt(this.props.modalId[2]),response.filename);*/ this.closeModal(); }
              });
     }
 
@@ -102,9 +101,9 @@ class PublishModal extends React.Component {
 
         return (
                 <div>
-                        <div className="ui vertical animated publish button" onClick={this.activateModal} tabIndex="0">
+                        <div className="ui vertical animated editmetadata button" onClick={this.activateModal} tabIndex="0">
                                 <div className="hidden content">Publish</div>
-                                <div className="visible content"><i className="save icon"/></div>
+                                <div className="visible content"><i className="unordered list icon"/></div>
                         </div>
                         <div className="ui modal" id={this.props.modalId}>
                                 <i className="close icon"></i>
@@ -118,29 +117,8 @@ class PublishModal extends React.Component {
                                         <div className="formdiv" style={formdivStyle}>
                                                 <form className="ui form">
                                                 <div className="ui stacked segment">
-                                                        <div className="field">
-                                                                <div className="ui left icon input">
-                                                                        <i className="file text icon"></i>
-                                                                        <input type="text" name="filename" placeholder="Giblet Filename"/>
-                                                                </div>
-                                                        </div>
-                                                        <div className="field">
-                                                                <div className="ui left icon input">
-                                                                        <i className="comment outline icon"></i>
-                                                                        <input type="text" name="notes" placeholder="Giblet Notes"/>
-                                                                </div>
-                                                        </div>
-                                                        <div className="field">
-                                                                        <select multiple className="publishtags large ui fluid multiple search selection dropdown" name="tags">
-                                                                                  <option value="">Giblet Tags</option>
-                                                                        </select>
-                                                        </div>
-                                                        <div className="field">
-                                                                <div className="ui checkbox">
-                                                                  <input type="checkbox" name="ispublic"/>
-                                                                  <label>Make this giblet public.</label>
-                                                                </div>
-                                                        </div>
+                                                                <select multiple className="tagthing large ui fluid multiple search dropdown" name="tags">
+                                                                </select>
                                                         <div className="ui fluid large teal submit button">Publish</div>
                                                 </div>
                                                 <div className="ui error message"></div>
@@ -162,4 +140,4 @@ const mapDispatchToProps = function (dispatch) {
   return bindActionCreators({publishGiblet: publishGiblet}, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PublishModal);
+export default connect(mapStateToProps, mapDispatchToProps)(EditMetadataModal);

@@ -20,8 +20,9 @@ class App extends React.Component {
                                   'add user'      : '/add/{id}',
                                   'follow user'   : '/follow/{id}',
                                   'search'        : '/search/?query={value}'
-                                };        
+                                };
         }
+
 
   render() {
     return (
@@ -33,4 +34,7 @@ class App extends React.Component {
   }
 }
 
-render(<App/>, document.getElementById('app'));
+if(typeof window !== 'undefined')
+{
+        render(<App/>, document.getElementById('app'));
+}

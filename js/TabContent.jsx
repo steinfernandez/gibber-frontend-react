@@ -1,7 +1,7 @@
 import React from 'react';
 import Codemirror from 'react-codemirror';
-import '../node_modules/codemirror/mode/javascript/javascript';
 import PublishModal from './PublishModal.jsx';
+import EditMetadataModal from './EditMetadataModal.jsx';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
@@ -73,6 +73,7 @@ class TabContent extends React.Component{
             fixedGutter: false
         };
         let savebutton = null;
+        let editmetadatabutton = <EditMetadataModal modalId={"em"+this.props.tabContentID}/>;
         if(this.props.tabs[this.props.tabContentID].published && this.props.currentUser!=null)
                 savebutton = <div className="ui vertical animated save button" tabIndex="0">
                                 <div className="hidden content">Save</div>
@@ -85,6 +86,7 @@ class TabContent extends React.Component{
         return( <div>
                         <div className="ui top attached menu">
                                 {savebutton}
+                                {editmetadatabutton}
                         </div>
                         <Codemirror value={this.state.code} onChange={this.updateCode} options={options} ref={(Codemirror) => { this.cmRef = Codemirror; }}/>
                 </div>

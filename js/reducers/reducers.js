@@ -41,7 +41,6 @@ function gibberReducer(state = initialState, action)
                                 {let tabs_temp = state.tabs.slice();
                                 tabs_temp[action.tabId].tabName = action.newName;
                                 tabs_temp[action.tabId].published = true;
-                                console.log(tabs_temp);
                                 return(Object.assign({}, state, {tabs: tabs_temp}));
                                 break;}
                 default:        return state;
