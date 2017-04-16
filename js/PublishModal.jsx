@@ -64,7 +64,7 @@ class PublishModal extends React.Component {
               //TODO: language
               //settings.data.tags = settings.data.tags.split(",");
               console.log(settings.data);
-              var tagArray = $(".publishtags option:selected");
+              var tagArray = $('#'+this.props.modalId.toString()+' form .publishtags option:selected');
               var tagValueArray = [];
               for(var i=0;i<tagArray.length;i++)
               {

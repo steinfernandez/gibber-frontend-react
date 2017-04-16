@@ -39,12 +39,15 @@ class EditMetadataModal extends React.Component {
             }
           }
         });
-        $('.tagthing').dropdown({
+        $('.edittags').dropdown({
                 allowAdditions: true
         });
         $('form input').on('keypress', function(e) {
             return e.which !== 13;
         });
+        $('.edittags').dropdown('refresh');
+        //populate with pre-existing tags from redux store
+        setTimeout(() => {$('#'+this.props.modalId.toString()+' form .edittags').dropdown('set selected',this.props.tabs[this.props.modalId.toString()[2]].tags);},1000);
         //submit button api
         function bs(settings)
         {
@@ -55,7 +58,7 @@ class EditMetadataModal extends React.Component {
         bs = bs.bind(this);
         $('#'+this.props.modalId.toString()+' form')
           .api({
-            url: window.location.origin+"/publish",
+            url: window.location.origin+"/dasdasd",
             method: 'POST',
             serializeForm: true,
             beforeSend: (settings) =>
@@ -63,7 +66,7 @@ class EditMetadataModal extends React.Component {
               //TODO: language
               //settings.data.tags = settings.data.tags.split(",");
               //console.log(settings.data);
-              var tagArray = $(".tagthing option:selected");
+              var tagArray = $('#'+this.props.modalId.toString()+' form .edittags option:selected');
               var tagValueArray = [];
               for(var i=0;i<tagArray.length;i++)
               {
@@ -101,24 +104,27 @@ class EditMetadataModal extends React.Component {
 
         return (
                 <div>
-                        <div className="ui vertical animated editmetadata button" onClick={this.activateModal} tabIndex="0">
-                                <div className="hidden content">Publish</div>
+                        <div className="ui animated fade editmetadata button" onClick={this.activateModal} tabIndex="0">
+                                <div className="hidden content">Metadata</div>
                                 <div className="visible content"><i className="unordered list icon"/></div>
                         </div>
                         <div className="ui modal" id={this.props.modalId}>
                                 <i className="close icon"></i>
                                 <div className="header">
-                                        Publish file
+                                        Edit File Metadata
                                 </div>
                                 <div className="image content">
                                         <div className="image">
-                                                <i className="sign in icon"/>
+                                                <i className="save icon"/>
                                         </div>
                                         <div className="formdiv" style={formdivStyle}>
                                                 <form className="ui form">
                                                 <div className="ui stacked segment">
-                                                                <select multiple className="tagthing large ui fluid multiple search dropdown" name="tags">
-                                                                </select>
+                                                        <div className="field">
+                                                                        <label>Giblet Tags</label>
+                                                                        <select multiple className="edittags large ui fluid multiple search selection dropdown" name="tags">
+                                                                        </select>
+                                                        </div>
                                                         <div className="ui fluid large teal submit button">Publish</div>
                                                 </div>
                                                 <div className="ui error message"></div>

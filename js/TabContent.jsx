@@ -73,16 +73,25 @@ class TabContent extends React.Component{
             fixedGutter: false
         };
         let savebutton = null;
-        let editmetadatabutton = <EditMetadataModal modalId={"em"+this.props.tabContentID}/>;
+        let editmetadatabutton = null;
         if(this.props.tabs[this.props.tabContentID].published && this.props.currentUser!=null)
+        {
                 savebutton = <div className="ui vertical animated save button" tabIndex="0">
                                 <div className="hidden content">Save</div>
                                 <div className="visible content"><i className="save icon"/></div>
                         </div>;
+                editmetadatabutton = <EditMetadataModal modalId={"em"+this.props.tabContentID}/>;
+        }
         else if(this.props.currentUser!=null)
+        {
                 savebutton = <PublishModal modalId={"pm"+this.props.tabContentID} code={this.state.code}/>;
+                editmetadatabutton = null;
+        }
         else
+        {
                 savebutton = <div className="ui compact message">Please log in to save or share your giblets.</div>;
+                editmetadatabutton = null;
+        }
         return( <div>
                         <div className="ui top attached menu">
                                 {savebutton}
