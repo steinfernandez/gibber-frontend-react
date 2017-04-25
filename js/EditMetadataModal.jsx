@@ -48,6 +48,15 @@ class EditMetadataModal extends React.Component {
         $('.edittags').dropdown('refresh');
         //populate with pre-existing tags from redux store
         setTimeout(() => {$('#'+this.props.modalId.toString()+' form .edittags').dropdown('set selected',this.props.tabs[this.props.modalId.toString()[2]].tags);},1000);
+        //set existing isPublic state
+        if(this.props.tabs[this.props.modalId.toString()[2]].isPublic)
+        {
+                $('#'+this.props.modalId.toString()+' form .editispublic').checkbox('check');
+        }
+        else
+        {
+                $('#'+this.props.modalId.toString()+' form .editispublic').checkbox('uncheck');
+        }
         //submit button api
         function bs(settings)
         {
@@ -58,7 +67,7 @@ class EditMetadataModal extends React.Component {
         bs = bs.bind(this);
         $('#'+this.props.modalId.toString()+' form')
           .api({
-            url: window.location.origin+"/dasdasd",
+            url: window.location.origin+"/filesetmetadata",
             method: 'POST',
             serializeForm: true,
             beforeSend: (settings) =>
@@ -72,8 +81,8 @@ class EditMetadataModal extends React.Component {
               {
                 tagValueArray.push(tagArray[i].value);
               }
-              console.log(tagValueArray);
-              /*settings.data = Object.assign({},settings.data,{code:this.props.code});*/
+              settings.data = Object.assign({},settings.data,{newtags: tagValueArray, newlanguage: "",  });
+              console.log(settings.data);
               return settings;
             },
             successTest: function(response)
@@ -121,11 +130,31 @@ class EditMetadataModal extends React.Component {
                                                 <form className="ui form">
                                                 <div className="ui stacked segment">
                                                         <div className="field">
+                                                                <label>Rename Giblet</label>
+                                                                <div className="ui left icon input">
+                                                                        <i className="file text icon"></i>
+                                                                        <input type="text" name="filename" defaultValue={this.props.tabs[this.props.modalId.toString()[2]]._id.toString()}/>
+                                                                </div>
+                                                        </div>
+                                                        <div className="field">
+                                                                <label>Edit Giblet Notes</label>
+                                                                <div className="ui left icon input">
+                                                                        <i className="file text icon"></i>
+                                                                        <input type="text" name="newnotes" defaultValue={this.props.tabs[this.props.modalId.toString()[2]].notes.toString()}/>
+                                                                </div>
+                                                        </div>
+                                                        <div className="field">
                                                                         <label>Giblet Tags</label>
-                                                                        <select multiple className="edittags large ui fluid multiple search selection dropdown" name="tags">
+                                                                        <select multiple className="edittags large ui fluid multiple search selection dropdown" name="newtags">
                                                                         </select>
                                                         </div>
-                                                        <div className="ui fluid large teal submit button">Publish</div>
+                                                        <div className="field">
+                                                                <div className="editispublic ui checkbox">
+                                                                        <input type="checkbox" name="ispublic"/>
+                                                                        <label>Is this giblet public?</label>
+                                                                </div>
+                                                        </div>
+                                                        <div className="ui fluid large teal submit button">Save Changes</div>
                                                 </div>
                                                 <div className="ui error message"></div>
                                                 </form>

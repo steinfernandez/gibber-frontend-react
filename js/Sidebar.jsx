@@ -22,6 +22,9 @@ class GibberSidebar extends React.Component{
             dimPage: false,
             closable: false
         });
+        $('.browsepane').transition('hide');
+        $('.codepane').transition('hide');
+        $('.helppane').transition('hide');
         $('#refreshfiles')
                 .api({
                     url: window.location.origin+"/userreadaccessall",
@@ -66,21 +69,81 @@ class GibberSidebar extends React.Component{
         $('.ui.sidebar').sidebar('toggle');
     }
 
+    showBrowsepane()
+    {
+        if($('.menupane').transition('is visible'))
+        {
+                $('.menupane').transition('slide right');
+        }
+        $('.browsepane').transition('slide left');
+    }
+
+    showCodepane()
+    {
+        if($('.menupane').transition('is visible'))
+        {
+                $('.menupane').transition('slide right');
+        }
+        $('.codepane').transition('slide left');
+    }
+
+    showHelppane()
+    {
+        if($('.menupane').transition('is visible'))
+        {
+                $('.menupane').transition('slide right');
+        }
+        $('.helppane').transition('slide left');
+    }
+
+    showMenupane()
+    {
+        if($('.browsepane').transition('is visible'))
+        {
+                $('.browsepane').transition('slide left');
+        }
+        if($('.codepane').transition('is visible'))
+        {
+                $('.codepane').transition('slide left');
+        }
+        if($('.helppane').transition('is visible'))
+        {
+                $('.helppane').transition('slide left');
+        }
+        $('.menupane').transition('slide right');
+    }
+
     render() {
                 let store = this.props.store;
 		return (
         	<div id="layout">
         		<div className="ui left vertical menu sidebar">
-                        <a className="item" key={9999} id="refreshfiles">Click here to show/refresh files</a>
-                        {
-                                this.props.currentGiblets.map(
-                                        (giblet,i) =>
+                                <div className="ui button" onClick={this.showMenupane}>Back</div>
+                                <div className="menupane">
+                                        <div className="massive fluid ui vertical menu">
+                                                <a className="item" onClick={this.showBrowsepane}>Browse</a>
+                                                <a className="item" onClick={this.showCodepane}>Code</a>
+                                                <a className="item" onClick={this.showHelppane}>Help</a>
+                                        </div>
+                                </div>
+                                <div className="browsepane">
+                                        <a className="item" key={9999} id="refreshfiles">Click here to show/refresh files</a>
                                         {
-                                                return(<a className="item loadgiblet" key={i} data-filename={giblet._id}>{giblet._id}</a>)
+                                                this.props.currentGiblets.map(
+                                                        (giblet,i) =>
+                                                        {
+                                                                return(<a className="item loadgiblet" key={i} data-filename={giblet._id}>{giblet._id}</a>)
+                                                        }
+                                                )
                                         }
-                                )
-                        }
-				</div>
+                                </div>
+                                <div className="codepane">
+                                        code pane goes here
+                                </div>
+                                <div className="helppane">
+                                        help pane goes here
+                                </div>
+			</div>
             	<div className="pusher">
                 	<div className="ui segment">
                         <GUIClass sidebarToggler={this.toggleSidebar} store={store}/></div>
