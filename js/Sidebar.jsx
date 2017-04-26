@@ -13,7 +13,14 @@ class GibberSidebar extends React.Component{
 
   constructor(props) {
     super(props);
-    this.state = { active:1};
+    this.state = { active:1,
+                 rerender:false
+                };
+        this.showBrowsepane = this.showBrowsepane.bind(this);
+        this.showMenupane = this.showMenupane.bind(this);
+        this.showHelppane = this.showHelppane.bind(this);
+        this.showCodepane = this.showCodepane.bind(this);
+
   }
 
     componentDidMount() {
@@ -25,6 +32,7 @@ class GibberSidebar extends React.Component{
         $('.browsepane').transition('hide');
         $('.codepane').transition('hide');
         $('.helppane').transition('hide');
+        $('.backbutton').transition('hide');
         $('#refreshfiles')
                 .api({
                     url: window.location.origin+"/userreadaccessall",
@@ -76,6 +84,8 @@ class GibberSidebar extends React.Component{
                 $('.menupane').transition('slide right');
         }
         $('.browsepane').transition('slide left');
+        $('.backbutton').transition('slide left');
+        this.forceUpdate();
     }
 
     showCodepane()
@@ -85,6 +95,8 @@ class GibberSidebar extends React.Component{
                 $('.menupane').transition('slide right');
         }
         $('.codepane').transition('slide left');
+        $('.backbutton').transition('slide left');
+        this.forceUpdate();
     }
 
     showHelppane()
@@ -94,6 +106,8 @@ class GibberSidebar extends React.Component{
                 $('.menupane').transition('slide right');
         }
         $('.helppane').transition('slide left');
+        $('.backbutton').transition('slide left');
+        this.forceUpdate();
     }
 
     showMenupane()
@@ -110,15 +124,46 @@ class GibberSidebar extends React.Component{
         {
                 $('.helppane').transition('slide left');
         }
-        $('.menupane').transition('slide right');
+        //$('.backbutton').transition('slide left');
+        if($('.menupane').transition('is visible') == false)
+        {
+                $('.menupane').transition('slide right');
+        }
+        $('.browsepane').transition('hide');
+        $('.codepane').transition('hide');
+        $('.helppane').transition('hide');
+        this.forceUpdate();
     }
 
     render() {
                 let store = this.props.store;
+                let bc1 = <a className="section" onClick={this.showMenupane}>Home</a>;
+                let bc2 = null;
+                let bc3 = null;
+
+                if($('.browsepane').transition('is visible') == true)
+                {
+                        bc2 =  <a className="active section">Browse</a>
+                }
+                else if($('.codepane').transition('is visible') == true)
+                {
+                        bc2 =  <a className="active section">Code</a>
+                }
+                else if($('.helppane').transition('is visible') == true)
+                {
+                        bc2 =  <a className="active section">Help</a>
+                }
+                else
+                {
+                        bc2 = null;
+                }
 		return (
         	<div id="layout">
         		<div className="ui left vertical menu sidebar">
-                                <div className="ui button" onClick={this.showMenupane}>Back</div>
+                                <div className="ui breadcrumb">
+                                        {bc1}  <div className="divider"> / </div>{bc2}
+                                </div>
+
                                 <div className="menupane">
                                         <div className="massive fluid ui vertical menu">
                                                 <a className="item" onClick={this.showBrowsepane}>Browse</a>
