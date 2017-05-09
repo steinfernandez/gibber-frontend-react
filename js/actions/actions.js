@@ -10,6 +10,8 @@ export const UPDATE_CURRENT_GIBLETS = 'UPDATE_CURRENT_GIBLETS';
 export const OPEN_GIBLET = 'OPEN_GIBLET';
 export const PUBLISH_GIBLET = 'PUBLISH_GIBLET';
 export const SAVE_GIBLET = 'SAVE_GIBLET';
+export const ADD_BREADCRUMB = 'ADD_BREADCRUMB';
+export const REMOVE_BREADCRUMB = 'REMOVE_BREADCRUMB';
 
 /*
  * other constants
@@ -41,4 +43,12 @@ export function openGiblet(gibletData) {
 
 export function publishGiblet(tabId, newName) {
   return { type: PUBLISH_GIBLET, tabId, newName }
+}
+
+export function addBreadcrumb(position, value) {
+  return { type: ADD_BREADCRUMB, position, value }
+}
+
+export function removeBreadcrumb(position) {
+  return { type: REMOVE_BREADCRUMB, position }
 }

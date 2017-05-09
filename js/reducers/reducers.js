@@ -3,6 +3,7 @@ var clone = require('clone');
 const initialState = {
                         currentUser: null,
                         currentGiblets: [],
+                        breadcrumbValues: ["Home"],
                         tabs:  [{_id: "Tab 1", text: "content1", published: false},
                                 {_id: "Tab 2", text: "content2", published: false},
                                 {_id: "Tab 3", text: "content3", published: false},
@@ -43,6 +44,16 @@ function gibberReducer(state = initialState, action)
                                 tabs_temp[action.tabId].tabName = action.newName;
                                 tabs_temp[action.tabId].published = true;
                                 return(Object.assign({}, state, {tabs: tabs_temp}));
+                                break;}
+                case "ADD_BREADCRUMB":
+                                {let breadcrumbValues_temp = state.breadcrumbValues.slice();
+                                breadcrumbValues_temp[action.position] = action.value.toString();
+                                return(Object.assign({}, state, {breadcrumbValues: breadcrumbValues_temp}));
+                                break;}
+                case "REMOVE_BREADCRUMB":
+                                {let breadcrumbValues_temp = state.breadcrumbValues.slice();
+                                breadcrumbValues_temp[action.position] = null;
+                                return(Object.assign({}, state, {breadcrumbValues: breadcrumbValues_temp}));
                                 break;}
                 default:        return state;
         }

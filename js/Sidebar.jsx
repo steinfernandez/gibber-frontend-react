@@ -1,9 +1,12 @@
 import React from 'react';
-import GUIClass from './GibberTabs.jsx'
+import GUIClass from './GibberTabs.jsx';
+import CommunityPane from './CommunityPane.jsx';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {updateCurrentGiblets} from './actions/actions.js';
 import {openGiblet} from './actions/actions.js';
+import {addBreadcrumb} from './actions/actions.js';
+import {removeBreadcrumb} from './actions/actions.js';
 
 
 var request = require('request');
@@ -19,7 +22,8 @@ class GibberSidebar extends React.Component{
         this.showBrowsepane = this.showBrowsepane.bind(this);
         this.showMenupane = this.showMenupane.bind(this);
         this.showHelppane = this.showHelppane.bind(this);
-        this.showCodepane = this.showCodepane.bind(this);
+        this.showCommunitypane = this.showCommunitypane.bind(this);
+        this.showCommunityMenuPane = this.showCommunityMenuPane.bind(this);
 
   }
 
@@ -30,7 +34,7 @@ class GibberSidebar extends React.Component{
             closable: false
         });
         $('.browsepane').transition('hide');
-        $('.codepane').transition('hide');
+        $('.communitypane').transition('hide');
         $('.helppane').transition('hide');
         $('.backbutton').transition('hide');
         $('#refreshfiles')
@@ -85,17 +89,19 @@ class GibberSidebar extends React.Component{
         }
         $('.browsepane').transition('slide left');
         $('.backbutton').transition('slide left');
+        this.props.addBreadcrumb(1, "Browse");
         this.forceUpdate();
     }
 
-    showCodepane()
+    showCommunitypane()
     {
         if($('.menupane').transition('is visible'))
         {
                 $('.menupane').transition('slide right');
         }
-        $('.codepane').transition('slide left');
+        $('.communitypane').transition('slide left');
         $('.backbutton').transition('slide left');
+        this.props.addBreadcrumb(1, "Community");
         this.forceUpdate();
     }
 
@@ -107,6 +113,7 @@ class GibberSidebar extends React.Component{
         }
         $('.helppane').transition('slide left');
         $('.backbutton').transition('slide left');
+        this.props.addBreadcrumb(1, "Help");
         this.forceUpdate();
     }
 
@@ -116,9 +123,9 @@ class GibberSidebar extends React.Component{
         {
                 $('.browsepane').transition('slide left');
         }
-        if($('.codepane').transition('is visible'))
+        if($('.communitypane').transition('is visible'))
         {
-                $('.codepane').transition('slide left');
+                $('.communitypane').transition('slide left');
         }
         if($('.helppane').transition('is visible'))
         {
@@ -130,9 +137,24 @@ class GibberSidebar extends React.Component{
                 $('.menupane').transition('slide right');
         }
         $('.browsepane').transition('hide');
-        $('.codepane').transition('hide');
+        $('.communitypane').transition('hide');
         $('.helppane').transition('hide');
+        this.props.removeBreadcrumb(1);
+        this.props.removeBreadcrumb(2);
         this.forceUpdate();
+    }
+
+    showCommunityMenuPane()
+    {
+        console.log("communitymenu");
+        $('.creategrouppane').transition('hide');
+        $('.viewgrouppane').transition('hide');
+        $('.friendspane').transition('hide');
+        if($('.communitymenu').transition('is visible') == false)
+        {
+                $('.communitymenu').transition('slide right');
+        }
+        this.props.removeBreadcrumb(2);
     }
 
     render() {
@@ -140,34 +162,47 @@ class GibberSidebar extends React.Component{
                 let bc1 = <a className="section" onClick={this.showMenupane}>Home</a>;
                 let bc2 = null;
                 let bc3 = null;
+                console.log(this.props.breadcrumbValues);
 
-                if($('.browsepane').transition('is visible') == true)
+                if(this.props.breadcrumbValues[1]=="Browse")
                 {
-                        bc2 =  <a className="active section">Browse</a>
+                        bc2 =  <span><div className="divider"> / </div><a className="active section" onClick={this.showBrowsepane}>Browse</a></span>
                 }
-                else if($('.codepane').transition('is visible') == true)
+                else if(this.props.breadcrumbValues[1]=="Community")
                 {
-                        bc2 =  <a className="active section">Code</a>
+                        bc2 =  <span><div className="divider"> / </div><a className="active section" onClick={this.showCommunityMenuPane}>Community</a></span>
                 }
-                else if($('.helppane').transition('is visible') == true)
+                else if(this.props.breadcrumbValues[1]=="Help")
                 {
-                        bc2 =  <a className="active section">Help</a>
+                        bc2 =  <span><div className="divider"> / </div><a className="active section" onClick={this.showHelppane}>Help</a></span>
                 }
                 else
                 {
                         bc2 = null;
                 }
+
+                switch(this.props.breadcrumbValues[2])
+                {
+                        case "Create Group":    bc3 = <span><div className="divider"> / </div><a className="active section">Create Group</a></span>
+                                                break;
+                        case "View Group":    bc3 = <span><div className="divider"> / </div><a className="active section">View Group</a></span>
+                                                break;
+                        case "Friends":    bc3 = <span><div className="divider"> / </div><a className="active section">Friends</a></span>
+                                                break;
+                        default:                bc3 = null;
+                                                break;
+                }
 		return (
         	<div id="layout">
         		<div className="ui left vertical menu sidebar">
                                 <div className="ui breadcrumb">
-                                        {bc1}  <div className="divider"> / </div>{bc2}
+                                        {bc1}{bc2}{bc3}
                                 </div>
 
                                 <div className="menupane">
                                         <div className="massive fluid ui vertical menu">
                                                 <a className="item" onClick={this.showBrowsepane}>Browse</a>
-                                                <a className="item" onClick={this.showCodepane}>Code</a>
+                                                <a className="item" onClick={this.showCommunitypane}>Community</a>
                                                 <a className="item" onClick={this.showHelppane}>Help</a>
                                         </div>
                                 </div>
@@ -182,8 +217,8 @@ class GibberSidebar extends React.Component{
                                                 )
                                         }
                                 </div>
-                                <div className="codepane">
-                                        code pane goes here
+                                <div className="communitypane">
+                                        <CommunityPane store={store} />
                                 </div>
                                 <div className="helppane">
                                         help pane goes here
@@ -199,11 +234,11 @@ class GibberSidebar extends React.Component{
 }
 
 const mapStateToProps = function (state) {
-        return{ currentGiblets: state.currentGiblets };
+        return{ currentGiblets: state.currentGiblets, breadcrumbValues: state.breadcrumbValues };
 }
 
 const mapDispatchToProps = function (dispatch) {
-  return bindActionCreators({ updateCurrentGiblets: updateCurrentGiblets, openGiblet: openGiblet }, dispatch)
+  return bindActionCreators({ updateCurrentGiblets: updateCurrentGiblets, openGiblet: openGiblet, addBreadcrumb: addBreadcrumb, removeBreadcrumb: removeBreadcrumb }, dispatch)
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(GibberSidebar);
