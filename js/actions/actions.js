@@ -7,6 +7,7 @@ export const REMOVE_TAB = 'REMOVE_TAB'
 export const LOGIN = 'LOGIN'
 export const LOGOUT = 'LOGOUT'
 export const UPDATE_CURRENT_GIBLETS = 'UPDATE_CURRENT_GIBLETS';
+export const UPDATE_USER_GROUPS = 'UPDATE_USER_GROUPS';
 export const OPEN_GIBLET = 'OPEN_GIBLET';
 export const PUBLISH_GIBLET = 'PUBLISH_GIBLET';
 export const SAVE_GIBLET = 'SAVE_GIBLET';
@@ -35,6 +36,10 @@ export function logout() {
 
 export function updateCurrentGiblets(newGiblets) {
   return { type: UPDATE_CURRENT_GIBLETS, newGiblets}
+}
+
+export function updateUserGroups(grouplist) {
+  return { type: UPDATE_USER_GROUPS, grouplist}
 }
 
 export function openGiblet(gibletData) {

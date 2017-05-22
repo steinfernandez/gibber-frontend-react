@@ -13,7 +13,7 @@ class LoginModal extends React.Component {
         this.activateModal = this.activateModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
     }
-    
+
     closeModal() {
         $('#'+this.props.modalId.toString()).modal('hide');
     }
@@ -52,12 +52,12 @@ class LoginModal extends React.Component {
           }
         });
         //submit button api
-        $('form')
+        $('#'+this.props.modalId.toString()+' form')
           .api({
             url: window.location.origin+"/login",
             method: 'POST',
             serializeForm: true,
-            beforeSend: function(settings) 
+            beforeSend: function(settings)
             {
               console.log(settings.data);
               return settings;
@@ -82,11 +82,11 @@ class LoginModal extends React.Component {
 
         let store = this.props.store;
 
-        var formdivStyle = {  
+        var formdivStyle = {
                         float: "right",
                         padding: 10,
-                        margin: 50,                        
-                };        
+                        margin: 50,
+                };
 
         return (
                 <div>
@@ -124,7 +124,7 @@ class LoginModal extends React.Component {
                         </div>
                 </div>
         );
-        
+
     }
 }
 

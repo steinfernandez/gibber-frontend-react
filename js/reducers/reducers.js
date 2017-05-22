@@ -3,6 +3,7 @@ var clone = require('clone');
 const initialState = {
                         currentUser: null,
                         currentGiblets: [],
+                        userGroups: [],
                         breadcrumbValues: ["Home"],
                         tabs:  [{_id: "Tab 1", text: "content1", published: false},
                                 {_id: "Tab 2", text: "content2", published: false},
@@ -27,6 +28,9 @@ function gibberReducer(state = initialState, action)
                                 break;
                 case "UPDATE_CURRENT_GIBLETS":
                                 return(Object.assign({}, state, {currentGiblets: action.newGiblets}));
+                                break;
+                case "UPDATE_USER_GROUPS":
+                                return(Object.assign({}, state, {userGroups: action.grouplist}));
                                 break;
                 case "OPEN_GIBLET":
                                 {let tabs_temp = state.tabs.slice();
