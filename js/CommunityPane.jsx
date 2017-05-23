@@ -14,6 +14,8 @@ class CommunityPane extends React.Component{
         this.showViewGroupPane = this.showViewGroupPane.bind(this);
         this.showFriendsPane = this.showFriendsPane.bind(this);
         this.activateCreateGroupForm = this.activateCreateGroupForm.bind(this);
+        this.activateViewGroupList = this.activateViewGroupList.bind(this);
+        this.activateGroupInfoButton = this.activateGroupInfoButton.bind(this);
   }
 
         componentDidMount()
@@ -52,6 +54,52 @@ class CommunityPane extends React.Component{
                      });
         }
 
+        activateViewGroupList()
+        {
+                $('.viewgroupbutton')
+                .api({
+                    url: window.location.origin+"/usercheckinfo",
+                    method: 'POST',
+                    on: 'click',
+                    beforeSend: function(settings) { console.log(settings.data); return settings; },
+                    successTest: function(response)
+                    {
+                      if(response && response.success)
+                      {
+                        return response.success;
+                      }
+                      else
+                        return false;
+                    },
+                    onSuccess: (response) => { console.log("onsuccess"); this.props.updateUserGroups(response.response.grouplist);}
+                     });
+        }
+
+        activateGroupInfoButton(groupname)
+        {
+                console.log("activating group delete buttons");
+                let identifier = '#'+groupname+'delete';
+                console.log(identifier);
+                console.log($(identifier));
+                $(identifier)
+                .api({
+                    url: window.location.origin+"/groupdestroy",
+                    method: 'POST',
+                    on: 'click',
+                    beforeSend: function(settings) { settings.data.groupname = groupname; console.log(settings.data); return settings; },
+                    successTest: function(response)
+                    {
+                      if(response && response.success)
+                      {
+                        return response.success;
+                      }
+                      else
+                        return false;
+                    },
+                    onSuccess: (response) => { console.log(response); }
+                     });
+        }
+
         showCreateGroupPane()
         {
                 if($('.communitymenu').transition('is visible'))
@@ -70,24 +118,6 @@ class CommunityPane extends React.Component{
                 }
                 $('.viewgrouppane').transition('slide left');
                 this.props.addBreadcrumb(2, "View Group");
-
-                $('.viewgroupbutton')
-                .api({
-                    url: window.location.origin+"/usercheckinfo",
-                    method: 'POST',
-                    on: 'click',
-                    beforeSend: function(settings) { console.log(settings.data); return settings; },
-                    successTest: function(response)
-                    {
-                      if(response && response.success)
-                      {
-                        return response.success;
-                      }
-                      else
-                        return false;
-                    },
-                    onSuccess: (response) => { console.log("onsuccess"); console.log(response); this.props.updateUserGroups(response.response.grouplist);}
-                     });
         }
 
         showFriendsPane()
@@ -112,9 +142,24 @@ class CommunityPane extends React.Component{
                         viewgrouplist = this.props.userGroups.map(
                                                         (group,i) =>
                                                         {
-                                                                return(<a className="item" key={i} data-groupname={group}>{group}</a>)
+                                                                let infoID = {group}.group+"info";
+                                                                let addID = {group}.group+"add";
+                                                                let removeID = {group}.group+"remove";
+                                                                let deleteID = {group}.group+"delete";
+                                                                let infobutton = <button className="ui icon tiny basic button" id={infoID}><i className="info icon"/></button>
+                                                                let addbutton = <button className="ui icon tiny basic button" id={addID}><i className="add user icon"/></button>
+                                                                let removebutton = <button className="ui icon tiny basic button" id={removeID}><i className="remove user icon"/></button>
+                                                                let deletebutton = <button className="ui icon tiny basic button" id={deleteID}><i className="trash icon"/></button>
+                                                                return(<a className="item" key={i} data-groupname={group}>{group} {infobutton} {addbutton} {removebutton} {deletebutton}</a>)
                                                         }
                                                 );
+                        this.activateViewGroupList();
+                        this.props.userGroups.map(
+                                        (group,i) =>
+                                        {
+                                                setTimeout(this.activateGroupInfoButton,300,{group}.group);
+                                        }
+                                        );
                 }
                 let creategroupform = null;
                 if(this.props.currentUser==null)
