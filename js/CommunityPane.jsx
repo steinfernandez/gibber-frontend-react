@@ -4,19 +4,23 @@ import {connect} from 'react-redux';
 import {addBreadcrumb} from './actions/actions.js';
 import {removeBreadcrumb} from './actions/actions.js';
 import {updateUserGroups} from './actions/actions.js';
+import {updateTargetGroup} from './actions/actions.js';
 
 class CommunityPane extends React.Component{
 
-        constructor(props) {
+        constructor(props)
+        {
                 super(props);
                 this.state = { active:1 };
-        this.showCreateGroupPane = this.showCreateGroupPane.bind(this);
-        this.showViewGroupPane = this.showViewGroupPane.bind(this);
-        this.showFriendsPane = this.showFriendsPane.bind(this);
-        this.activateCreateGroupForm = this.activateCreateGroupForm.bind(this);
-        this.activateViewGroupList = this.activateViewGroupList.bind(this);
-        this.activateGroupInfoButton = this.activateGroupInfoButton.bind(this);
-  }
+                this.showCreateGroupPane = this.showCreateGroupPane.bind(this);
+                this.showViewGroupPane = this.showViewGroupPane.bind(this);
+                this.showFriendsPane = this.showFriendsPane.bind(this);
+                this.activateCreateGroupForm = this.activateCreateGroupForm.bind(this);
+                this.activateViewGroupList = this.activateViewGroupList.bind(this);
+                this.activateGroupInfoButton = this.activateGroupInfoButton.bind(this);
+                this.showDeleteConfirmationModal = this.showDeleteConfirmationModal.bind(this);
+                this.hideDeleteConfirmationModal = this.hideDeleteConfirmationModal.bind(this);
+        }
 
         componentDidMount()
         {
@@ -24,7 +28,45 @@ class CommunityPane extends React.Component{
                 $('.viewgrouppane').transition('hide');
                 $('.friendspane').transition('hide');
 
+                //activate group deletion modalId
+                $('#dcmodal').modal();
+                //activate confirmation button in deletion modal
+                $('#dcbutton')
+                .api({
+                    url: window.location.origin+"/groupdestroy",
+                    method: 'POST',
+                    on: 'click',
+                    beforeSend: (settings) => { settings.data.groupname = this.props.targetGroup; console.log(settings.data); return settings; },
+                    successTest: function(response)
+                    {
+                      if(response && response.success)
+                      {
+                        return response.success;
+                      }
+                      else
+                        return false;
+                    },
+                    onSuccess: (response) => {
+                                                console.log(response);
+                                                let newarr = this.props.userGroups.slice();
+                                                newarr.splice(newarr.indexOf(this.props.targetGroup),1);
+                                                this.props.updateUserGroups(newarr);
+                                                this.hideDeleteConfirmationModal();
+                                             }
+                     });
+        }
 
+        showDeleteConfirmationModal(groupname)
+        {
+                console.log("dctrigger "+groupname);
+                this.props.updateTargetGroup(groupname);
+                $('#dcmodal').modal('show');
+        }
+
+        hideDeleteConfirmationModal()
+        {
+                this.props.updateTargetGroup(null);
+                $('#dcmodal').modal('hide');
         }
 
         activateCreateGroupForm()
@@ -77,27 +119,8 @@ class CommunityPane extends React.Component{
 
         activateGroupInfoButton(groupname)
         {
-                console.log("activating group delete buttons");
-                let identifier = '#'+groupname+'delete';
-                console.log(identifier);
-                console.log($(identifier));
-                $(identifier)
-                .api({
-                    url: window.location.origin+"/groupdestroy",
-                    method: 'POST',
-                    on: 'click',
-                    beforeSend: function(settings) { settings.data.groupname = groupname; console.log(settings.data); return settings; },
-                    successTest: function(response)
-                    {
-                      if(response && response.success)
-                      {
-                        return response.success;
-                      }
-                      else
-                        return false;
-                    },
-                    onSuccess: (response) => { console.log(response); }
-                     });
+
+
         }
 
         showCreateGroupPane()
@@ -142,15 +165,18 @@ class CommunityPane extends React.Component{
                         viewgrouplist = this.props.userGroups.map(
                                                         (group,i) =>
                                                         {
+                                                                let groupname = {group}.group;
                                                                 let infoID = {group}.group+"info";
                                                                 let addID = {group}.group+"add";
                                                                 let removeID = {group}.group+"remove";
                                                                 let deleteID = {group}.group+"delete";
-                                                                let infobutton = <button className="ui icon tiny basic button" id={infoID}><i className="info icon"/></button>
-                                                                let addbutton = <button className="ui icon tiny basic button" id={addID}><i className="add user icon"/></button>
-                                                                let removebutton = <button className="ui icon tiny basic button" id={removeID}><i className="remove user icon"/></button>
-                                                                let deletebutton = <button className="ui icon tiny basic button" id={deleteID}><i className="trash icon"/></button>
-                                                                return(<a className="item" key={i} data-groupname={group}>{group} {infobutton} {addbutton} {removebutton} {deletebutton}</a>)
+                                                                let managebuttons =     <div className="ui icon buttons">
+                                                                                        <button className="ui icon tiny basic button" id={infoID}><i className="info icon"/></button>
+                                                                                        <button className="ui icon tiny basic button" id={addID}><i className="add user icon"/></button>
+                                                                                        <button className="ui icon tiny basic button" id={removeID}><i className="remove user icon"/></button>
+                                                                                        <button className="ui icon tiny basic button" id={deleteID} onClick={()=>{this.showDeleteConfirmationModal(groupname)}}><i className="trash icon"/></button>
+                                                                                        </div>
+                                                                return(<a className="item" key={i} data-groupname={group}>{group.substring(group.lastIndexOf('/')+1)} {managebuttons}</a>)
                                                         }
                                                 );
                         this.activateViewGroupList();
@@ -161,6 +187,18 @@ class CommunityPane extends React.Component{
                                         }
                                         );
                 }
+                let deleteconfirmation = <div className="ui modal" id='dcmodal'>
+                                                <i className="close icon"/>
+                                                <div className="header"> Confirm Group Deletion </div>
+                                                <div className="description">
+                                                        <div className="ui header">Are you sure you want to delete this group?</div>
+                                                        <p>This action cannot be undone.</p>
+                                                </div>
+                                                <div className="actions">
+                                                        <div className="ui black deny button">Nope</div>
+                                                        <div className="ui positive right labeled icon button" id="dcbutton">Yep<i className="checkmark icon"/></div>
+                                                </div>
+                                          </div>
                 let creategroupform = null;
                 if(this.props.currentUser==null)
                 {
@@ -197,6 +235,7 @@ class CommunityPane extends React.Component{
                         </div>
                         <div className="viewgrouppane">
                                 {viewgrouplist}
+                                {deleteconfirmation}
                         </div>
                         <div className="friendspane">
                                 friends and stuff
@@ -208,11 +247,11 @@ class CommunityPane extends React.Component{
 }
 
 const mapStateToProps = function (state) {
-        return{ breadcrumbValues: state.breadcrumbValues, currentUser: state.currentUser, userGroups: state.userGroups };
+        return{ breadcrumbValues: state.breadcrumbValues, currentUser: state.currentUser, userGroups: state.userGroups, targetGroup: state.targetGroup };
 }
 
 const mapDispatchToProps = function (dispatch) {
-  return bindActionCreators({ addBreadcrumb: addBreadcrumb, removeBreadcrumb: removeBreadcrumb, updateUserGroups: updateUserGroups }, dispatch)
+  return bindActionCreators({ addBreadcrumb: addBreadcrumb, removeBreadcrumb: removeBreadcrumb, updateUserGroups: updateUserGroups, updateTargetGroup:updateTargetGroup }, dispatch)
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(CommunityPane);
