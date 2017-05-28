@@ -1,12 +1,14 @@
 import React from 'react';
 import GUIClass from './GibberTabs.jsx';
-import CommunityPane from './CommunityPane.jsx';
+//import CommunityPane from './CommunityPane.jsx';
+import GroupPane from './GroupPane.jsx';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {updateCurrentGiblets} from './actions/actions.js';
 import {openGiblet} from './actions/actions.js';
 import {addBreadcrumb} from './actions/actions.js';
 import {removeBreadcrumb} from './actions/actions.js';
+import {updateUserGroups} from './actions/actions.js'
 
 
 var request = require('request');
@@ -37,7 +39,7 @@ class GibberSidebar extends React.Component{
         $('.communitypane').transition('hide');
         $('.helppane').transition('hide');
         $('.backbutton').transition('hide');
-        $('#refreshfiles')
+        $('#browsebutton')
                 .api({
                     url: window.location.origin+"/userreadaccessall",
                     method: 'POST',
@@ -52,6 +54,23 @@ class GibberSidebar extends React.Component{
                         return false;
                     },
                     onSuccess: (response) => { this.props.updateCurrentGiblets(response.results); this.InitializeGibletLoaders();}
+                     });
+        $('#groupbutton')
+                .api({
+                    url: window.location.origin+"/usercheckinfo",
+                    method: 'POST',
+                    on: 'click',
+                    beforeSend: function(settings) { console.log(settings.data); return settings; },
+                    successTest: function(response)
+                    {
+                      if(response && response.success)
+                      {
+                        return response.success;
+                      }
+                      else
+                        return false;
+                    },
+                    onSuccess: (response) => { console.log("onsuccess"); this.props.updateUserGroups(response.response.grouplist);}
                      });
     }
 
@@ -146,7 +165,6 @@ class GibberSidebar extends React.Component{
 
     showCommunityMenuPane()
     {
-        console.log("communitymenu");
         $('.creategrouppane').transition('hide');
         $('.viewgrouppane').transition('hide');
         $('.friendspane').transition('hide');
@@ -170,7 +188,7 @@ class GibberSidebar extends React.Component{
                 }
                 else if(this.props.breadcrumbValues[1]=="Community")
                 {
-                        bc2 =  <span><div className="divider"> / </div><a className="active section" onClick={this.showCommunityMenuPane}>Community</a></span>
+                        bc2 =  <span><div className="divider"> / </div><a className="active section" onClick={this.showCommunityMenuPane}>Groups</a></span>
                 }
                 else if(this.props.breadcrumbValues[1]=="Help")
                 {
@@ -201,13 +219,12 @@ class GibberSidebar extends React.Component{
 
                                 <div className="menupane">
                                         <div className="massive fluid ui vertical menu">
-                                                <a className="item" onClick={this.showBrowsepane}>Browse</a>
-                                                <a className="item" onClick={this.showCommunitypane}>Community</a>
+                                                <a className="item" id="browsebutton" onClick={this.showBrowsepane}>Browse</a>
+                                                <a className="item" id="groupbutton" onClick={this.showCommunitypane}>Groups</a>
                                                 <a className="item" onClick={this.showHelppane}>Help</a>
                                         </div>
                                 </div>
                                 <div className="browsepane">
-                                        <a className="item" key={9999} id="refreshfiles">Click here to show/refresh files</a>
                                         {
                                                 this.props.currentGiblets.map(
                                                         (giblet,i) =>
@@ -218,7 +235,7 @@ class GibberSidebar extends React.Component{
                                         }
                                 </div>
                                 <div className="communitypane">
-                                        <CommunityPane store={store} />
+                                        <GroupPane store={store} />
                                 </div>
                                 <div className="helppane">
                                         help pane goes here
@@ -238,7 +255,7 @@ const mapStateToProps = function (state) {
 }
 
 const mapDispatchToProps = function (dispatch) {
-  return bindActionCreators({ updateCurrentGiblets: updateCurrentGiblets, openGiblet: openGiblet, addBreadcrumb: addBreadcrumb, removeBreadcrumb: removeBreadcrumb }, dispatch)
+  return bindActionCreators({ updateCurrentGiblets: updateCurrentGiblets, openGiblet: openGiblet, addBreadcrumb: addBreadcrumb, removeBreadcrumb: removeBreadcrumb, updateUserGroups: updateUserGroups }, dispatch)
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(GibberSidebar);
