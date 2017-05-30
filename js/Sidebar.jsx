@@ -25,7 +25,7 @@ class GibberSidebar extends React.Component{
         this.showMenupane = this.showMenupane.bind(this);
         this.showHelppane = this.showHelppane.bind(this);
         this.showCommunitypane = this.showCommunitypane.bind(this);
-        this.showCommunityMenuPane = this.showCommunityMenuPane.bind(this);
+        this.showGroupMenuPane = this.showGroupMenuPane.bind(this);
 
   }
 
@@ -35,6 +35,7 @@ class GibberSidebar extends React.Component{
             dimPage: false,
             closable: false
         });
+        //$('.pane').each( function() { $(this).transition('hide'); } );
         $('.browsepane').transition('hide');
         $('.communitypane').transition('hide');
         $('.helppane').transition('hide');
@@ -163,7 +164,7 @@ class GibberSidebar extends React.Component{
         this.forceUpdate();
     }
 
-    showCommunityMenuPane()
+    showGroupMenuPane()
     {
         $('.creategrouppane').transition('hide');
         $('.viewgrouppane').transition('hide');
@@ -238,7 +239,6 @@ class GibberSidebar extends React.Component{
                                         <GroupPane store={store} />
                                 </div>
                                 <div className="helppane">
-                                        help pane goes here
                                 </div>
 			</div>
             	<div className="pusher">
