@@ -55,10 +55,10 @@ export function publishGiblet(tabId, newName) {
   return { type: PUBLISH_GIBLET, tabId, newName }
 }
 
-export function addBreadcrumb(position, value) {
-  return { type: ADD_BREADCRUMB, position, value }
+export function addBreadcrumb(value) {
+  return { type: ADD_BREADCRUMB, value }
 }
 
-export function removeBreadcrumb(position) {
-  return { type: REMOVE_BREADCRUMB, position }
+export function removeBreadcrumb(number) {
+  return { type: REMOVE_BREADCRUMB, number }
 }

@@ -109,7 +109,7 @@ class GibberSidebar extends React.Component{
         }
         $('.browsepane').transition('slide left');
         $('.backbutton').transition('slide left');
-        this.props.addBreadcrumb(1, "Browse");
+        this.props.addBreadcrumb("Browse");
         this.forceUpdate();
     }
 
@@ -121,7 +121,7 @@ class GibberSidebar extends React.Component{
         }
         $('.communitypane').transition('slide left');
         $('.backbutton').transition('slide left');
-        this.props.addBreadcrumb(1, "Community");
+        this.props.addBreadcrumb("Groups");
         this.forceUpdate();
     }
 
@@ -133,7 +133,7 @@ class GibberSidebar extends React.Component{
         }
         $('.helppane').transition('slide left');
         $('.backbutton').transition('slide left');
-        this.props.addBreadcrumb(1, "Help");
+        this.props.addBreadcrumb("Help");
         this.forceUpdate();
     }
 
@@ -159,8 +159,8 @@ class GibberSidebar extends React.Component{
         $('.browsepane').transition('hide');
         $('.communitypane').transition('hide');
         $('.helppane').transition('hide');
-        this.props.removeBreadcrumb(1);
-        this.props.removeBreadcrumb(2);
+        //this.props.removeBreadcrumb(1);
+        //this.props.removeBreadcrumb(2);
         this.forceUpdate();
     }
 
@@ -185,15 +185,15 @@ class GibberSidebar extends React.Component{
 
                 if(this.props.breadcrumbValues[1]=="Browse")
                 {
-                        bc2 =  <span><div className="divider"> / </div><a className="active section" onClick={this.showBrowsepane}>Browse</a></span>
+                        bc2 =  <span><div className="divider"> / </div><a className="section" onClick={this.showBrowsepane}>Browse</a></span>
                 }
-                else if(this.props.breadcrumbValues[1]=="Community")
+                else if(this.props.breadcrumbValues[1]=="Groups")
                 {
-                        bc2 =  <span><div className="divider"> / </div><a className="active section" onClick={this.showCommunityMenuPane}>Groups</a></span>
+                        bc2 =  <span><div className="divider"> / </div><a className="section" onClick={this.showCommunityMenuPane}>Groups</a></span>
                 }
                 else if(this.props.breadcrumbValues[1]=="Help")
                 {
-                        bc2 =  <span><div className="divider"> / </div><a className="active section" onClick={this.showHelppane}>Help</a></span>
+                        bc2 =  <span><div className="divider"> / </div><a className="section" onClick={this.showHelppane}>Help</a></span>
                 }
                 else
                 {
@@ -202,13 +202,15 @@ class GibberSidebar extends React.Component{
 
                 switch(this.props.breadcrumbValues[2])
                 {
-                        case "Create Group":    bc3 = <span><div className="divider"> / </div><a className="active section">Create Group</a></span>
+                        case "Create Group":    bc3 = <span><div className="divider"> / </div><a className="section">Create Group</a></span>
                                                 break;
-                        case "View Group":    bc3 = <span><div className="divider"> / </div><a className="active section">View Group</a></span>
+                        case "View Group":      bc3 = <span><div className="divider"> / </div><a className="section">View Group</a></span>
                                                 break;
-                        case "Friends":    bc3 = <span><div className="divider"> / </div><a className="active section">Friends</a></span>
+                        case "Friends":         bc3 = <span><div className="divider"> / </div><a className="section">Friends</a></span>
                                                 break;
-                        default:                bc3 = null;
+                        case null :             bc3 = null;
+                                                break;
+                        default:                bc3 = <span><div className="divider"> / </div><a className="section">{this.props.breadcrumbValues[2]}</a></span>
                                                 break;
                 }
 		return (
