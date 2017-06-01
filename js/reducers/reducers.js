@@ -5,6 +5,8 @@ const initialState = {
                         currentGiblets: [],
                         userGroups: [],
                         targetGroup: null,
+                        targetGroupMembers:[],
+                        targetGroupPendingMembers:[],
                         breadcrumbValues: ["Home"],
                         tabs:  [{_id: "Tab 1", text: "content1", published: false},
                                 {_id: "Tab 2", text: "content2", published: false},
@@ -35,6 +37,12 @@ function gibberReducer(state = initialState, action)
                                 break;
                 case "UPDATE_TARGET_GROUP":
                                 return(Object.assign({}, state, {targetGroup: action.groupname}));
+                                break;
+                case "UPDATE_TARGET_GROUP_MEMBERS":
+                                return(Object.assign({}, state, {targetGroupMembers: action.memberarray}));
+                                break;
+                case "UPDATE_TARGET_GROUP_PENDING_MEMBERS":
+                                return(Object.assign({}, state, {targetGroupPendingMembers: action.pendingmemberarray}));
                                 break;
                 case "OPEN_GIBLET":
                                 {let tabs_temp = state.tabs.slice();

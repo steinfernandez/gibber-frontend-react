@@ -5,6 +5,8 @@ import {addBreadcrumb} from './actions/actions.js';
 import {removeBreadcrumb} from './actions/actions.js';
 import {updateUserGroups} from './actions/actions.js';
 import {updateTargetGroup} from './actions/actions.js';
+import {updateTargetGroupMembers} from './actions/actions.js';
+import {updateTargetGroupPendingMembers} from './actions/actions.js';
 
 class GroupPane extends React.Component{
 
@@ -18,9 +20,8 @@ class GroupPane extends React.Component{
                 this.showGroupIDPane = this.showGroupIDPane.bind(this);
                 this.showAddMemberForm = this.showAddMemberForm.bind(this);
                 this.activateDeleteGroupButton = this.activateDeleteGroupButton.bind(this);
-                /*this.showFriendsPane = this.showFriendsPane.bind(this);
-                this.activateViewGroupList = this.activateViewGroupList.bind(this);
-                this.activateGroupInfoButton = this.activateGroupInfoButton.bind(this);*/
+                this.activateViewMemberButtons = this.activateViewMemberButtons.bind(this);
+                this.showViewMemberPane = this.showViewMemberPane.bind(this);
                 this.showDeleteConfirmationModal = this.showDeleteConfirmationModal.bind(this);
                 this.hideDeleteConfirmationModal = this.hideDeleteConfirmationModal.bind(this);
         }
@@ -65,7 +66,6 @@ class GroupPane extends React.Component{
                 $('#groupbutton').trigger('click');
                 //hide all other panes, at least under the group menu
                 //$('.pane').each(() => { if($(this).transition('is visible')) { $(this).transition('hide'); console.log($this);} })
-                console.log("showviewgrouppane");
                 //show view group pane
                 $('.viewgrouppane').transition('show');
         }
@@ -179,6 +179,42 @@ class GroupPane extends React.Component{
                      });
         }
 
+        activateViewMemberButtons()
+        {
+                console.log("attempting to activate view member buttons");
+                this.props.userGroups.map( (group,i) =>
+                                {
+                                        let groupid={group}.group+"id";
+                                        groupid=groupid.slice(groupid.lastIndexOf("/")+1);
+                                        console.log("#"+groupid+" .viewbutton");
+                                        $("#"+groupid+" .viewbutton")
+                                        .api({
+                                            url: window.location.origin+"/groupviewusers",
+                                            method: 'POST',
+                                            on: 'click',
+                                            beforeSend: (settings) => { settings.data.groupname = {group}.group; console.log(settings.data); return settings; },
+                                            successTest: function(response)
+                                            {
+                                              if(response && response.success)
+                                              {
+                                                return response.success;
+                                              }
+                                              else
+                                                return false;
+                                            },
+                                            onSuccess: (response) => {
+                                                                        console.log(response.response);
+                                                                        //update redux
+                                                                        this.props.updateTargetGroupMembers(response.response.members);
+                                                                        this.props.updateTargetGroupPendingMembers(response.response.pendingmembers);
+                                                                        console.log(groupid);
+                                                                        $("#"+groupid).transition('hide');
+                                                                        this.showViewMemberPane();
+                                                                     }
+                                             });
+                                })
+        }
+
         showGroupIDPane(id)
         {
                 console.log("showGroupIDPane");
@@ -199,6 +235,12 @@ class GroupPane extends React.Component{
                 $('.addmemberpane').transition('show');
         }
 
+        showViewMemberPane()
+        {
+                console.log("showviewmemberpane");
+                $('.viewmemberpane').transition('show');
+        }
+
         render()
         {
                 let grouppanes=null;
@@ -211,14 +253,14 @@ class GroupPane extends React.Component{
                                                                 console.log(groupid);
                                                                 return (        <div key={i} className="massive fluid ui vertical menu groupidpane transition hidden" id={groupid}>
                                                                                         <a className="item">{group}</a>
-                                                                                        <a className="item">View members</a>
+                                                                                        <a className="viewbutton item">View members</a>
                                                                                         <a className="item" onClick={()=>{this.showAddMemberForm({group}.group)}}>Add members</a>
                                                                                         <a className="item">Remove members</a>
                                                                                         <a className="item" onClick={()=>{this.showDeleteConfirmationModal({group}.group)}}>Delete group</a>
                                                                                 </div>
                                                                         );
-                                                        }
-                                        )
+                                                        })
+                        setTimeout(()=>{this.activateViewMemberButtons();},1000);
                 }
                 let groupbuttons = null;
                 if(this.props.currentUser == null)
@@ -232,11 +274,20 @@ class GroupPane extends React.Component{
                                                         {
                                                                 let groupid={group}.group+"id";
                                                                 groupid=groupid.slice(groupid.lastIndexOf("/")+1);
-                                                                return (<a className="item" key={i} onClick={()=>{this.showGroupIDPane(groupid)}}>{group}</a>
-                                                                        );
+                                                                return (<a className="item" key={i} onClick={()=>{this.showGroupIDPane(groupid)}}>{group}</a>);
                                                         }
                                                                 );
                 }
+                let viewmemberspane = this.props.targetGroupMembers.map( (member,i) =>
+                                                        {
+                                                                return (<a className="item" key={i}>{member}</a>);
+                                                        }
+                                                                );
+                let viewpendingmemberspane = this.props.targetGroupPendingMembers.map( (pendingmember,i) =>
+                                                        {
+                                                                return (<a className="item" key={i}>{pendingmember}</a>);
+                                                        }
+                                                                );
                 let creategroupform = null;
                 if(this.props.currentUser==null)
                 {
@@ -300,6 +351,14 @@ class GroupPane extends React.Component{
                                 {addmemberform}
                         </div>
                         {deleteconfirmation}
+                        <div className="viewmemberpane transition hidden">
+                                <div className="massive fluid ui vertical menu">
+                                        <a className="item">Members</a>
+                                        {viewmemberspane}
+                                        <a className="item">Pending Members</a>
+                                        {viewpendingmemberspane}
+                                </div>
+                        </div>
                 </div>
                 );
         }
@@ -307,11 +366,11 @@ class GroupPane extends React.Component{
 }
 
 const mapStateToProps = function (state) {
-        return{ breadcrumbValues: state.breadcrumbValues, currentUser: state.currentUser, userGroups: state.userGroups, targetGroup: state.targetGroup };
+        return{ breadcrumbValues: state.breadcrumbValues, currentUser: state.currentUser, userGroups: state.userGroups, targetGroup: state.targetGroup, targetGroupMembers: state.targetGroupMembers, targetGroupPendingMembers: state.targetGroupPendingMembers };
 }
 
 const mapDispatchToProps = function (dispatch) {
-  return bindActionCreators({ addBreadcrumb: addBreadcrumb, removeBreadcrumb: removeBreadcrumb, updateUserGroups: updateUserGroups, updateTargetGroup:updateTargetGroup }, dispatch)
+  return bindActionCreators({ addBreadcrumb: addBreadcrumb, removeBreadcrumb: removeBreadcrumb, updateUserGroups: updateUserGroups, updateTargetGroup:updateTargetGroup, updateTargetGroupMembers: updateTargetGroupMembers, updateTargetGroupPendingMembers: updateTargetGroupPendingMembers }, dispatch)
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(GroupPane);
