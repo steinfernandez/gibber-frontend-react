@@ -26,7 +26,7 @@ class GibberSidebar extends React.Component{
         this.showHelppane = this.showHelppane.bind(this);
         this.showCommunitypane = this.showCommunitypane.bind(this);
         this.showGroupMenuPane = this.showGroupMenuPane.bind(this);
-
+        this.showGroupIDPane = this.showGroupIDPane.bind(this);
   }
 
     componentDidMount() {
@@ -110,18 +110,26 @@ class GibberSidebar extends React.Component{
         $('.browsepane').transition('slide left');
         $('.backbutton').transition('slide left');
         this.props.addBreadcrumb("Browse");
+        this.props.removeBreadcrumb(2);
         this.forceUpdate();
     }
 
     showCommunitypane()
     {
+        console.log("showgrouppane");
         if($('.menupane').transition('is visible'))
         {
                 $('.menupane').transition('slide right');
         }
-        $('.communitypane').transition('slide left');
-        $('.backbutton').transition('slide left');
+        $('.groupidpane').transition('hide');
+        $('.addmemberpane').transition('hide');
+        $('.viewmemberpane').transition('hide');
+        $('.creategrouppane').transition('hide');
+        $('.communitypane').transition('show');
+        $('.viewgrouppane').transition('show');
+        //$('.backbutton').transition('slide left');
         this.props.addBreadcrumb("Groups");
+        this.props.removeBreadcrumb(2);
         this.forceUpdate();
     }
 
@@ -134,6 +142,7 @@ class GibberSidebar extends React.Component{
         $('.helppane').transition('slide left');
         $('.backbutton').transition('slide left');
         this.props.addBreadcrumb("Help");
+        this.props.removeBreadcrumb(2);
         this.forceUpdate();
     }
 
@@ -159,8 +168,7 @@ class GibberSidebar extends React.Component{
         $('.browsepane').transition('hide');
         $('.communitypane').transition('hide');
         $('.helppane').transition('hide');
-        //this.props.removeBreadcrumb(1);
-        //this.props.removeBreadcrumb(2);
+        this.props.removeBreadcrumb(1);
         this.forceUpdate();
     }
 
@@ -176,12 +184,24 @@ class GibberSidebar extends React.Component{
         this.props.removeBreadcrumb(2);
     }
 
+        showGroupIDPane(id)
+        {
+                console.log("showGroupIDPane");
+                $('.viewgrouppane').transition('hide');
+                $('.viewmemberpane').transition('hide');
+                $('.addmemberpane').transition('hide');
+                $('.creategrouppane').transition('hide');
+                $('#'+id).transition('show');
+                this.props.addBreadcrumb(id.slice(0,id.length-2));
+                this.props.removeBreadcrumb(3);
+        }
+
     render() {
                 let store = this.props.store;
                 let bc1 = <a className="section" onClick={this.showMenupane}>Home</a>;
                 let bc2 = null;
                 let bc3 = null;
-                console.log(this.props.breadcrumbValues);
+                let bc4 = null;
 
                 if(this.props.breadcrumbValues[1]=="Browse")
                 {
@@ -189,7 +209,7 @@ class GibberSidebar extends React.Component{
                 }
                 else if(this.props.breadcrumbValues[1]=="Groups")
                 {
-                        bc2 =  <span><div className="divider"> / </div><a className="section" onClick={this.showCommunityMenuPane}>Groups</a></span>
+                        bc2 =  <span><div className="divider"> / </div><a className="section" onClick={()=>{this.showCommunitypane();}}>Groups</a></span>
                 }
                 else if(this.props.breadcrumbValues[1]=="Help")
                 {
@@ -208,16 +228,24 @@ class GibberSidebar extends React.Component{
                                                 break;
                         case "Friends":         bc3 = <span><div className="divider"> / </div><a className="section">Friends</a></span>
                                                 break;
-                        case null :             bc3 = null;
+                        case undefined :        bc3 = null;
                                                 break;
-                        default:                bc3 = <span><div className="divider"> / </div><a className="section">{this.props.breadcrumbValues[2]}</a></span>
+                        default:                bc3 = <span><div className="divider"> / </div><a className="section" onClick={()=>{this.showGroupIDPane(this.props.breadcrumbValues[2]+"id");}}>{this.props.breadcrumbValues[2]}</a></span>
+                                                break;
+                }
+
+                switch(this.props.breadcrumbValues[3])
+                {
+                        case undefined :             bc4 = null;
+                                                break;
+                        default:                bc4 = <span><div className="divider"> / </div><a className="section">{this.props.breadcrumbValues[3]}</a></span>
                                                 break;
                 }
 		return (
         	<div id="layout">
         		<div className="ui left vertical menu sidebar">
                                 <div className="ui breadcrumb">
-                                        {bc1}{bc2}{bc3}
+                                        {bc1}{bc2}{bc3}{bc4}
                                 </div>
 
                                 <div className="menupane">

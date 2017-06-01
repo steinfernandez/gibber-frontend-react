@@ -68,6 +68,7 @@ class GroupPane extends React.Component{
                 //$('.pane').each(() => { if($(this).transition('is visible')) { $(this).transition('hide'); console.log($this);} })
                 //show view group pane
                 $('.viewgrouppane').transition('show');
+                this.props.removeBreadcrumb(2);
         }
 
         showDeleteConfirmationModal(groupname)
@@ -220,6 +221,8 @@ class GroupPane extends React.Component{
                 console.log("showGroupIDPane");
                 $('.viewgrouppane').transition('hide');
                 $('#'+id).transition('show');
+                this.props.addBreadcrumb(id.slice(0,id.length-2));
+                this.props.removeBreadcrumb(3);
         }
 
         showAddMemberForm(targetGroup)
@@ -233,12 +236,15 @@ class GroupPane extends React.Component{
                 $('#'+paneID).transition('hide');
                 //show add member form pane
                 $('.addmemberpane').transition('show');
+                this.props.addBreadcrumb("Invite Members");
+                setTimeout(()=>{console.log(this.props.breadcrumbValues);},3000);
         }
 
         showViewMemberPane()
         {
                 console.log("showviewmemberpane");
                 $('.viewmemberpane').transition('show');
+                this.props.addBreadcrumb("View Members");
         }
 
         render()
@@ -260,7 +266,7 @@ class GroupPane extends React.Component{
                                                                                 </div>
                                                                         );
                                                         })
-                        setTimeout(()=>{this.activateViewMemberButtons();},1000);
+                        setTimeout(()=>{this.activateViewMemberButtons();},300);
                 }
                 let groupbuttons = null;
                 if(this.props.currentUser == null)
@@ -274,7 +280,7 @@ class GroupPane extends React.Component{
                                                         {
                                                                 let groupid={group}.group+"id";
                                                                 groupid=groupid.slice(groupid.lastIndexOf("/")+1);
-                                                                return (<a className="item" key={i} onClick={()=>{this.showGroupIDPane(groupid)}}>{group}</a>);
+                                                                return (<a className="item" key={i} onClick={()=>{this.showGroupIDPane(groupid)}}>{groupid.slice(0,groupid.length-2)}</a>);
                                                         }
                                                                 );
                 }

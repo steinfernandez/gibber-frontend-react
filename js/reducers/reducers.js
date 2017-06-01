@@ -69,10 +69,13 @@ function gibberReducer(state = initialState, action)
                                 break;}
                 case "REMOVE_BREADCRUMB":
                                 {let breadcrumbValues_temp = state.breadcrumbValues.slice();
-                                for(i=0;i<action.number;i++)
+                                let k = breadcrumbValues_temp.length;
+                                console.log(breadcrumbValues_temp);
+                                for(let i=action.number;i<k;i++)
                                 {
                                         breadcrumbValues_temp.pop();
                                 }
+                                console.log(breadcrumbValues_temp);
                                 return(Object.assign({}, state, {breadcrumbValues: breadcrumbValues_temp}));
                                 break;}
                 default:        return state;
