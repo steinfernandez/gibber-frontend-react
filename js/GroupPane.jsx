@@ -8,8 +8,8 @@ import {updateTargetGroup} from './actions/actions.js';
 import {updateTargetGroupMembers} from './actions/actions.js';
 import {updateTargetGroupPendingMembers} from './actions/actions.js';
 
-class GroupPane extends React.Component{
-
+class GroupPane extends React.Component
+{
         constructor(props)
         {
                 super(props);
@@ -343,13 +343,13 @@ class GroupPane extends React.Component{
                                           </div>
                 return(
                 <div>
-                        <div className="communitymenu">
+                        <div style={{display:"inline-block !important", overflow:"hidden"}} className="communitymenu">
                                 <div className="massive fluid ui vertical menu viewgrouppane">
                                         <a className="item" onClick={this.showCreateGroupPane}>Create a new group</a>
                                         {groupbuttons}
                                 </div>
                         </div>
-                        <div className="creategrouppane">
+                        <div style={{display:"inline-block !important", overflow:"hidden"}} className="creategrouppane">
                                 {creategroupform}
                         </div>
                         {grouppanes}
@@ -371,12 +371,14 @@ class GroupPane extends React.Component{
 
 }
 
-const mapStateToProps = function (state) {
+const mapStateToProps = function(state)
+{
         return{ breadcrumbValues: state.breadcrumbValues, currentUser: state.currentUser, userGroups: state.userGroups, targetGroup: state.targetGroup, targetGroupMembers: state.targetGroupMembers, targetGroupPendingMembers: state.targetGroupPendingMembers };
 }
 
-const mapDispatchToProps = function (dispatch) {
-  return bindActionCreators({ addBreadcrumb: addBreadcrumb, removeBreadcrumb: removeBreadcrumb, updateUserGroups: updateUserGroups, updateTargetGroup:updateTargetGroup, updateTargetGroupMembers: updateTargetGroupMembers, updateTargetGroupPendingMembers: updateTargetGroupPendingMembers }, dispatch)
+const mapDispatchToProps = function(dispatch)
+{
+        return bindActionCreators({ addBreadcrumb: addBreadcrumb, removeBreadcrumb: removeBreadcrumb, updateUserGroups: updateUserGroups, updateTargetGroup:updateTargetGroup, updateTargetGroupMembers: updateTargetGroupMembers, updateTargetGroupPendingMembers: updateTargetGroupPendingMembers }, dispatch)
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(GroupPane);

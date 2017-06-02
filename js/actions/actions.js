@@ -25,50 +25,62 @@ export const REMOVE_BREADCRUMB = 'REMOVE_BREADCRUMB';
  * action creators
  */
 
-export function addTab() {
-  return { type: ADD_TAB }
+export function addTab()
+{
+        return { type: ADD_TAB }
 }
 
-export function login(text) {
-  return { type: LOGIN, text }
+export function login(text)
+{
+        return { type: LOGIN, text }
 }
 
-export function logout() {
-  return { type: LOGOUT }
+export function logout()
+{
+        return { type: LOGOUT }
 }
 
-export function updateCurrentGiblets(newGiblets) {
-  return { type: UPDATE_CURRENT_GIBLETS, newGiblets}
+export function updateCurrentGiblets(newGiblets)
+{
+        return { type: UPDATE_CURRENT_GIBLETS, newGiblets}
 }
 
-export function updateUserGroups(grouplist) {
-  return { type: UPDATE_USER_GROUPS, grouplist}
+export function updateUserGroups(grouplist)
+{
+        return { type: UPDATE_USER_GROUPS, grouplist}
 }
 
-export function updateTargetGroup(groupname) {
-  return { type: UPDATE_TARGET_GROUP, groupname }
+export function updateTargetGroup(groupname)
+{
+        return { type: UPDATE_TARGET_GROUP, groupname }
 }
 
-export function updateTargetGroupMembers(memberarray) {
-  return { type: UPDATE_TARGET_GROUP_MEMBERS, memberarray }
+export function updateTargetGroupMembers(memberarray)
+{
+        return { type: UPDATE_TARGET_GROUP_MEMBERS, memberarray }
 }
 
-export function updateTargetGroupPendingMembers(pendingmemberarray) {
-  return { type: UPDATE_TARGET_GROUP_PENDING_MEMBERS, pendingmemberarray }
+export function updateTargetGroupPendingMembers(pendingmemberarray)
+{
+        return { type: UPDATE_TARGET_GROUP_PENDING_MEMBERS, pendingmemberarray }
 }
 
-export function openGiblet(gibletData) {
-  return { type: OPEN_GIBLET, gibletData }
+export function openGiblet(gibletData)
+{
+        return { type: OPEN_GIBLET, gibletData }
 }
 
-export function publishGiblet(tabId, newName) {
-  return { type: PUBLISH_GIBLET, tabId, newName }
+export function publishGiblet(tabId, newName)
+{
+        return { type: PUBLISH_GIBLET, tabId, newName }
 }
 
-export function addBreadcrumb(value) {
-  return { type: ADD_BREADCRUMB, value }
+export function addBreadcrumb(value)
+{
+        return { type: ADD_BREADCRUMB, value }
 }
 
-export function removeBreadcrumb(number) {
-  return { type: REMOVE_BREADCRUMB, number }
+export function removeBreadcrumb(number)
+{
+        return { type: REMOVE_BREADCRUMB, number }
 }
