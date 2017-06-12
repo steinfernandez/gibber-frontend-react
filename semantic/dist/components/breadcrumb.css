@@ -1,5 +1,5 @@
 /*!
- * # Semantic UI 2.2.6 - Breadcrumb
+ * # Semantic UI 2.2.10 - Breadcrumb
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -38,16 +38,16 @@
   opacity: 0.7;
   margin: 0em 0.21428571rem 0em;
   font-size: 0.92857143em;
-  color: rgba(0, 0, 0, 0.4);
+  color: rgba(255, 255, 255, 0.7);
   vertical-align: baseline;
 }
 
 /* Link */
 .ui.breadcrumb a {
-  color: #4183C4;
+  color: #fff;
 }
 .ui.breadcrumb a:hover {
-  color: #1e70bf;
+  color: #fff;
 }
 
 /* Icon Divider */
@@ -110,12 +110,31 @@
 .ui.massive.breadcrumb {
   font-size: 1.71428571rem;
 }
-
-
-/*******************************
-         Theme Overrides
-*******************************/
-
+.ui.breadcrumb {
+  background-image: -webkit-linear-gradient(#484e55, #3A3F44 60%, #313539);
+  background-image: linear-gradient(#484e55, #3A3F44 60%, #313539);
+  background-repeat: no-repeat;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff484e55', endColorstr='#ff313539', GradientType=0);
+  -webkit-filter: none;
+          filter: none;
+  color: #7A8288;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+  padding: 0.6em;
+  border-radius: 4px;
+}
+.ui.breadcrumb a {
+  color: #7A8288;
+}
+.ui.breadcrumb .divider {
+  color: #7A8288;
+}
+.ui.breadcrumb .active.section {
+  color: #e6e6e6;
+}
+.ui.breadcrumb .active.section:hover {
+  color: #cccccc;
+}
 
 
 /*******************************

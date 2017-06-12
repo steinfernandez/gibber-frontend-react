@@ -1,5 +1,5 @@
 /*!
- * # Semantic UI 2.2.6 - Modal
+ * # Semantic UI 2.2.10 - Modal
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -20,7 +20,7 @@
   top: 50%;
   left: 50%;
   text-align: left;
-  background: #FFFFFF;
+  background: #3A3F44;
   border: none;
   box-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.2), 1px 3px 15px 2px rgba(0, 0, 0, 0.2);
   -webkit-transform-origin: 50% 25%;
@@ -76,16 +76,16 @@
 .ui.modal > .header {
   display: block;
   font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
-  background: #FFFFFF;
+  background: #3A3F44;
   margin: 0em;
   padding: 1.25rem 1.5rem;
   box-shadow: none;
-  color: rgba(0, 0, 0, 0.85);
-  border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+  color: rgba(255, 255, 255, 0.85);
+  border-bottom: #e5e5e5;
 }
 .ui.modal > .header:not(.ui) {
   font-size: 1.42857143rem;
-  line-height: 1.2857em;
+  line-height: 1.28571429em;
   font-weight: bold;
 }
 
@@ -99,7 +99,7 @@
   font-size: 1em;
   line-height: 1.4;
   padding: 1.5rem;
-  background: #FFFFFF;
+  background: #272B30;
 }
 .ui.modal > .image.content {
   display: -webkit-box;
@@ -172,9 +172,9 @@
 ---------------*/
 
 .ui.modal > .actions {
-  background: #F9FAFB;
+  background: #3A3F44;
   padding: 1rem 1rem;
-  border-top: 1px solid rgba(34, 36, 38, 0.15);
+  border-top: 1px solid #52575C;
   text-align: right;
 }
 .ui.modal .actions > .button {
@@ -226,7 +226,7 @@
   .ui.modal > .close {
     top: 1.0535rem;
     right: 1rem;
-    color: rgba(0, 0, 0, 0.87);
+    color: rgba(255, 255, 255, 0.9);
   }
 }
 
@@ -314,10 +314,10 @@
   right: 1.5rem;
 }
 .ui.inverted.dimmer > .basic.modal {
-  color: rgba(0, 0, 0, 0.87);
+  color: rgba(255, 255, 255, 0.9);
 }
 .ui.inverted.dimmer > .ui.basic.modal > .header {
-  color: rgba(0, 0, 0, 0.85);
+  color: rgba(255, 255, 255, 0.85);
 }
 
 /* Tablet and Mobile */
@@ -406,7 +406,7 @@
 .ui.fullscreen.modal > .close {
   top: 1.0535rem;
   right: 1rem;
-  color: rgba(0, 0, 0, 0.87);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /*--------------
@@ -488,12 +488,6 @@
     margin: 0em 0em 0em -570px;
   }
 }
-
-
-/*******************************
-         Theme Overrides
-*******************************/
-
 
 
 /*******************************

@@ -1,5 +1,5 @@
 /*!
- * # Semantic UI 2.2.6 - Table
+ * # Semantic UI 2.2.10 - Table
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -17,13 +17,13 @@
 /* Prototype */
 .ui.table {
   width: 100%;
-  background: #FFFFFF;
+  background: #2e3338;
   margin: 1em 0em;
-  border: 1px solid rgba(34, 36, 38, 0.15);
+  border: #1c1e22;
   box-shadow: none;
   border-radius: 0.28571429rem;
   text-align: left;
-  color: rgba(0, 0, 0, 0.87);
+  color: rgba(255, 255, 255, 0.9);
   border-collapse: separate;
   border-spacing: 0px;
 }
@@ -53,9 +53,9 @@
 }
 .ui.table thead th {
   cursor: auto;
-  background: #F9FAFB;
+  background: #1c1e22;
   text-align: inherit;
-  color: rgba(0, 0, 0, 0.87);
+  color: rgba(255, 255, 255, 0.9);
   padding: 0.92857143em 0.78571429em;
   vertical-align: inherit;
   font-style: none;
@@ -83,10 +83,10 @@
 }
 .ui.table tfoot th {
   cursor: auto;
-  border-top: 1px solid rgba(34, 36, 38, 0.15);
-  background: #F9FAFB;
+  border-top: 1px solid #52575C;
+  background: #1c1e22;
   text-align: inherit;
-  color: rgba(0, 0, 0, 0.87);
+  color: rgba(255, 255, 255, 0.9);
   padding: 0.78571429em 0.78571429em;
   vertical-align: middle;
   font-style: normal;
@@ -215,8 +215,8 @@
   border-right: none;
 }
 .ui.structured.sortable.table thead th {
-  border-left: 1px solid rgba(34, 36, 38, 0.15);
-  border-right: 1px solid rgba(34, 36, 38, 0.15);
+  border-left: 1px solid #52575C;
+  border-right: 1px solid #52575C;
 }
 .ui.structured.basic.table th {
   border-left: none;
@@ -236,23 +236,23 @@
   pointer-events: none;
   background: transparent;
   font-weight: normal;
-  color: rgba(0, 0, 0, 0.4);
-  box-shadow: -1px -1px 0px 1px #FFFFFF;
+  color: rgba(255, 255, 255, 0.5);
+  box-shadow: -1px -1px 0px 1px transparent;
 }
 .ui.definition.table tfoot:not(.full-width) th:first-child {
   pointer-events: none;
   background: transparent;
-  font-weight: rgba(0, 0, 0, 0.4);
+  font-weight: rgba(255, 255, 255, 0.5);
   color: normal;
-  box-shadow: 1px 1px 0px 1px #FFFFFF;
+  box-shadow: 1px 1px 0px 1px transparent;
 }
 
 /* Remove Border */
 .ui.celled.definition.table thead:not(.full-width) th:first-child {
-  box-shadow: 0px -1px 0px 1px #FFFFFF;
+  box-shadow: 0px -1px 0px 1px transparent;
 }
 .ui.celled.definition.table tfoot:not(.full-width) th:first-child {
-  box-shadow: 0px 1px 0px 1px #FFFFFF;
+  box-shadow: 0px 1px 0px 1px transparent;
 }
 
 /* Highlight Defining Column */
@@ -260,7 +260,7 @@
 .ui.definition.table tr td.definition {
   background: rgba(0, 0, 0, 0.03);
   font-weight: bold;
-  color: rgba(0, 0, 0, 0.95);
+  color: #ffffff;
   text-transform: '';
   box-shadow: '';
   text-align: '';
@@ -271,13 +271,13 @@
 
 /* Fix 2nd Column */
 .ui.definition.table thead:not(.full-width) th:nth-child(2) {
-  border-left: 1px solid rgba(34, 36, 38, 0.15);
+  border-left: 1px solid #52575C;
 }
 .ui.definition.table tfoot:not(.full-width) th:nth-child(2) {
-  border-left: 1px solid rgba(34, 36, 38, 0.15);
+  border-left: 1px solid #52575C;
 }
 .ui.definition.table td:nth-child(2) {
-  border-left: 1px solid rgba(34, 36, 38, 0.15);
+  border-left: 1px solid #52575C;
 }
 
 
@@ -296,8 +296,8 @@
 }
 .ui.table tr.positive,
 .ui.table td.positive {
-  background: #FCFFF5 !important;
-  color: #2C662D !important;
+  background: #62c462 !important;
+  color: #fff !important;
 }
 
 /*--------------
@@ -306,12 +306,12 @@
 
 .ui.table tr.negative,
 .ui.table td.negative {
-  box-shadow: 0px 0px 0px #E0B4B4 inset;
+  box-shadow: 0px 0px 0px #ed4d63 inset;
 }
 .ui.table tr.negative,
 .ui.table td.negative {
-  background: #FFF6F6 !important;
-  color: #9F3A38 !important;
+  background: #ee5f5b !important;
+  color: #fff !important;
 }
 
 /*--------------
@@ -320,12 +320,12 @@
 
 .ui.table tr.error,
 .ui.table td.error {
-  box-shadow: 0px 0px 0px #E0B4B4 inset;
+  box-shadow: 0px 0px 0px #ed4d63 inset;
 }
 .ui.table tr.error,
 .ui.table td.error {
-  background: #FFF6F6 !important;
-  color: #9F3A38 !important;
+  background: #ee5f5b !important;
+  color: #fff !important;
 }
 
 /*--------------
@@ -334,12 +334,12 @@
 
 .ui.table tr.warning,
 .ui.table td.warning {
-  box-shadow: 0px 0px 0px #C9BA9B inset;
+  box-shadow: 0px 0px 0px #e96506 inset;
 }
 .ui.table tr.warning,
 .ui.table td.warning {
-  background: #FFFAF3 !important;
-  color: #573A08 !important;
+  background: #f89406 !important;
+  color: #fff !important;
 }
 
 /*--------------
@@ -348,12 +348,12 @@
 
 .ui.table tr.active,
 .ui.table td.active {
-  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.87) inset;
+  box-shadow: 0px 0px 0px rgba(255, 255, 255, 0.9) inset;
 }
 .ui.table tr.active,
 .ui.table td.active {
-  background: #E0E0E0 !important;
-  color: rgba(0, 0, 0, 0.87) !important;
+  background: #52575C !important;
+  color: rgba(255, 255, 255, 0.9) !important;
 }
 
 /*--------------
@@ -365,7 +365,7 @@
 .ui.table tr.disabled:hover,
 .ui.table tr:hover td.disabled {
   pointer-events: none;
-  color: rgba(40, 40, 40, 0.3);
+  color: rgba(255, 255, 255, 0.2);
 }
 
 
@@ -479,12 +479,12 @@
 .ui.selectable.table tbody tr:hover,
 .ui.table tbody tr td.selectable:hover {
   background: rgba(0, 0, 0, 0.05) !important;
-  color: rgba(0, 0, 0, 0.95) !important;
+  color: #ffffff !important;
 }
 .ui.selectable.inverted.table tbody tr:hover,
 .ui.inverted.table tbody tr td.selectable:hover {
   background: rgba(255, 255, 255, 0.08) !important;
-  color: #ffffff !important;
+  color: rgba(0, 0, 0, 0.95) !important;
 }
 
 /* Selectable Cell Link */
@@ -501,32 +501,32 @@
 .ui.selectable.table tr.error:hover,
 .ui.table tr td.selectable.error:hover,
 .ui.selectable.table tr:hover td.error {
-  background: #ffe7e7 !important;
-  color: #943634 !important;
+  background: #ed514d !important;
+  color: #f7f7f7 !important;
 }
 .ui.selectable.table tr.warning:hover,
 .ui.table tr td.selectable.warning:hover,
 .ui.selectable.table tr:hover td.warning {
-  background: #fff4e4 !important;
-  color: #493107 !important;
+  background: #e98b06 !important;
+  color: #f7f7f7 !important;
 }
 .ui.selectable.table tr.active:hover,
 .ui.table tr td.selectable.active:hover,
 .ui.selectable.table tr:hover td.active {
-  background: #E0E0E0 !important;
-  color: rgba(0, 0, 0, 0.87) !important;
+  background: #52575C !important;
+  color: rgba(255, 255, 255, 0.9) !important;
 }
 .ui.selectable.table tr.positive:hover,
 .ui.table tr td.selectable.positive:hover,
 .ui.selectable.table tr:hover td.positive {
-  background: #f7ffe6 !important;
-  color: #275b28 !important;
+  background: #57c057 !important;
+  color: #f7f7f7 !important;
 }
 .ui.selectable.table tr.negative:hover,
 .ui.table tr td.selectable.negative:hover,
 .ui.selectable.table tr:hover td.negative {
-  background: #ffe7e7 !important;
-  color: #943634 !important;
+  background: #ed514d !important;
+  color: #f7f7f7 !important;
 }
 
 /*-------------------
@@ -582,7 +582,7 @@
 /* Table Striping */
 .ui.striped.table > tr:nth-child(2n),
 .ui.striped.table tbody tr:nth-child(2n) {
-  background-color: rgba(0, 0, 50, 0.02);
+  background-color: #353a41;
 }
 
 /* Stripes */
@@ -593,8 +593,8 @@
 
 /* Allow striped active hover */
 .ui.striped.selectable.selectable.selectable.table tbody tr.active:hover {
-  background: #EFEFEF !important;
-  color: rgba(0, 0, 0, 0.95) !important;
+  background: #49515a !important;
+  color: #ffffff !important;
 }
 
 /*--------------
@@ -860,8 +860,8 @@
 .ui.sortable.table thead th {
   cursor: pointer;
   white-space: nowrap;
-  border-left: 1px solid rgba(34, 36, 38, 0.15);
-  color: rgba(0, 0, 0, 0.87);
+  border-left: 1px solid #52575C;
+  color: rgba(255, 255, 255, 0.9);
 }
 .ui.sortable.table thead th:first-child {
   border-left: none;
@@ -895,17 +895,17 @@
 /* Hover */
 .ui.sortable.table th.disabled:hover {
   cursor: auto;
-  color: rgba(40, 40, 40, 0.3);
+  color: rgba(255, 255, 255, 0.2);
 }
 .ui.sortable.table thead th:hover {
   background: rgba(0, 0, 0, 0.05);
-  color: rgba(0, 0, 0, 0.8);
+  color: #ffffff;
 }
 
 /* Sorted */
 .ui.sortable.table thead th.sorted {
   background: rgba(0, 0, 0, 0.05);
-  color: rgba(0, 0, 0, 0.95);
+  color: #ffffff;
 }
 .ui.sortable.table thead th.sorted:after {
   display: inline-block;
@@ -914,19 +914,19 @@
 /* Sorted Hover */
 .ui.sortable.table thead th.sorted:hover {
   background: rgba(0, 0, 0, 0.05);
-  color: rgba(0, 0, 0, 0.95);
+  color: #ffffff;
 }
 
 /* Inverted */
 .ui.inverted.sortable.table thead th.sorted {
   background: rgba(255, 255, 255, 0.15) -webkit-linear-gradient(transparent, rgba(0, 0, 0, 0.05));
   background: rgba(255, 255, 255, 0.15) linear-gradient(transparent, rgba(0, 0, 0, 0.05));
-  color: #ffffff;
+  color: rgba(0, 0, 0, 0.95);
 }
 .ui.inverted.sortable.table thead th:hover {
   background: rgba(255, 255, 255, 0.08) -webkit-linear-gradient(transparent, rgba(0, 0, 0, 0.05));
   background: rgba(255, 255, 255, 0.08) linear-gradient(transparent, rgba(0, 0, 0, 0.05));
-  color: #ffffff;
+  color: rgba(0, 0, 0, 0.8);
 }
 .ui.inverted.sortable.table thead th {
   border-left-color: transparent;
@@ -957,17 +957,17 @@
 .ui.inverted.table tr.disabled:hover td,
 .ui.inverted.table tr:hover td.disabled {
   pointer-events: none;
-  color: rgba(225, 225, 225, 0.3);
+  color: rgba(0, 0, 0, 0.2);
 }
 
 /* Definition */
 .ui.inverted.definition.table tfoot:not(.full-width) th:first-child,
 .ui.inverted.definition.table thead:not(.full-width) th:first-child {
-  background: #FFFFFF;
+  background: transparent;
 }
 .ui.inverted.definition.table tr td:first-child {
   background: rgba(255, 255, 255, 0.02);
-  color: #ffffff;
+  color: rgba(0, 0, 0, 0.95);
 }
 
 /*--------------
@@ -984,7 +984,7 @@
 
 .ui.basic.table {
   background: transparent;
-  border: 1px solid rgba(34, 36, 38, 0.15);
+  border: 1px solid #52575C;
   box-shadow: none;
 }
 .ui.basic.table thead,

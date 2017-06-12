@@ -1,5 +1,5 @@
 /*!
- * # Semantic UI 2.2.6 - Form
+ * # Semantic UI 2.2.10 - Form
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -55,7 +55,7 @@
 .ui.form .field > label {
   display: block;
   margin: 0em 0em 0.28571429rem 0em;
-  color: rgba(0, 0, 0, 0.87);
+  color: rgba(255, 255, 255, 0.9);
   font-size: 0.92857143em;
   font-weight: bold;
   text-transform: none;
@@ -85,7 +85,7 @@
 /* Set max height on unusual input */
 .ui.form ::-webkit-datetime-edit,
 .ui.form ::-webkit-inner-spin-button {
-  height: 1.2142em;
+  height: 1.21428571em;
 }
 .ui.form input:not([type]),
 .ui.form input[type="date"],
@@ -104,12 +104,12 @@
   outline: none;
   -webkit-appearance: none;
   tap-highlight-color: rgba(255, 255, 255, 0);
-  line-height: 1.2142em;
-  padding: 0.67861429em 1em;
+  line-height: 1.21428571em;
+  padding: 0.67857143em 1em;
   font-size: 1em;
   background: #FFFFFF;
-  border: 1px solid rgba(34, 36, 38, 0.15);
-  color: rgba(0, 0, 0, 0.87);
+  border: 1px solid #52575C;
+  color: #272B30;
   border-radius: 0.28571429rem;
   box-shadow: 0em 0em 0em 0em transparent inset;
   -webkit-transition: color 0.1s ease, border-color 0.1s ease;
@@ -123,9 +123,9 @@
   tap-highlight-color: rgba(255, 255, 255, 0);
   padding: 0.78571429em 1em;
   background: #FFFFFF;
-  border: 1px solid rgba(34, 36, 38, 0.15);
+  border: 1px solid #52575C;
   outline: none;
-  color: rgba(0, 0, 0, 0.87);
+  color: #272B30;
   border-radius: 0.28571429rem;
   box-shadow: 0em 0em 0em 0em transparent inset;
   -webkit-transition: color 0.1s ease, border-color 0.1s ease;
@@ -161,11 +161,11 @@
   height: auto;
   width: 100%;
   background: #FFFFFF;
-  border: 1px solid rgba(34, 36, 38, 0.15);
+  border: 1px solid #52575C;
   border-radius: 0.28571429rem;
   box-shadow: 0em 0em 0em 0em transparent inset;
   padding: 0.62em 1em;
-  color: rgba(0, 0, 0, 0.87);
+  color: #999;
   -webkit-transition: color 0.1s ease, border-color 0.1s ease;
   transition: color 0.1s ease, border-color 0.1s ease;
 }
@@ -257,8 +257,8 @@
 .ui.form .field .prompt.label {
   white-space: normal;
   background: #FFFFFF !important;
-  border: 1px solid #E0B4B4 !important;
-  color: #9F3A38 !important;
+  border: 1px solid #ed4d63 !important;
+  color: #fff !important;
 }
 .ui.form .inline.fields .field .prompt,
 .ui.form .inline.field .prompt {
@@ -308,42 +308,42 @@
 
 /* browsers require these rules separate */
 .ui.form ::-webkit-input-placeholder {
-  color: rgba(191, 191, 191, 0.87);
+  color: #999;
 }
 .ui.form :-ms-input-placeholder {
-  color: rgba(191, 191, 191, 0.87);
+  color: #999;
 }
 .ui.form ::-moz-placeholder {
-  color: rgba(191, 191, 191, 0.87);
+  color: #999;
 }
 .ui.form :focus::-webkit-input-placeholder {
-  color: rgba(115, 115, 115, 0.87);
+  color: #949da8;
 }
 .ui.form :focus:-ms-input-placeholder {
-  color: rgba(115, 115, 115, 0.87);
+  color: #949da8;
 }
 .ui.form :focus::-moz-placeholder {
-  color: rgba(115, 115, 115, 0.87);
+  color: #949da8;
 }
 
 /* Error Placeholder */
 .ui.form .error ::-webkit-input-placeholder {
-  color: #e7bdbc;
+  color: #ffffff;
 }
 .ui.form .error :-ms-input-placeholder {
-  color: #e7bdbc !important;
+  color: #ffffff !important;
 }
 .ui.form .error ::-moz-placeholder {
-  color: #e7bdbc;
+  color: #ffffff;
 }
 .ui.form .error :focus::-webkit-input-placeholder {
-  color: #da9796;
+  color: #ffffff;
 }
 .ui.form .error :focus:-ms-input-placeholder {
-  color: #da9796 !important;
+  color: #ffffff !important;
 }
 .ui.form .error :focus::-moz-placeholder {
-  color: #da9796;
+  color: #ffffff;
 }
 
 /*--------------------
@@ -362,14 +362,14 @@
 .ui.form input[type="text"]:focus,
 .ui.form input[type="file"]:focus,
 .ui.form input[type="url"]:focus {
-  color: rgba(0, 0, 0, 0.95);
+  color: #272B30;
   border-color: #85B7D9;
   border-radius: 0.28571429rem;
   background: #FFFFFF;
   box-shadow: 0px 0em 0em 0em rgba(34, 36, 38, 0.35) inset;
 }
 .ui.form textarea:focus {
-  color: rgba(0, 0, 0, 0.95);
+  color: #272B30;
   border-color: #85B7D9;
   border-radius: 0.28571429rem;
   background: #FFFFFF;
@@ -436,11 +436,11 @@
 .ui.form .field.error label,
 .ui.form .fields.error .field .input,
 .ui.form .field.error .input {
-  color: #9F3A38;
+  color: #fff;
 }
 .ui.form .fields.error .field .corner.label,
 .ui.form .field.error .corner.label {
-  border-color: #9F3A38;
+  border-color: #fff;
   color: #FFFFFF;
 }
 .ui.form .fields.error .field textarea,
@@ -471,9 +471,9 @@
 .ui.form .field.error input[type="text"],
 .ui.form .field.error input[type="file"],
 .ui.form .field.error input[type="url"] {
-  background: #FFF6F6;
-  border-color: #E0B4B4;
-  color: #9F3A38;
+  background: #ee5f5b;
+  border-color: #ed4d63;
+  color: #fff;
   border-radius: '';
   box-shadow: none;
 }
@@ -491,9 +491,9 @@
 .ui.form .field.error input[type="text"]:focus,
 .ui.form .field.error input[type="file"]:focus,
 .ui.form .field.error input[type="url"]:focus {
-  background: #FFF6F6;
-  border-color: #E0B4B4;
-  color: #9F3A38;
+  background: #ee5f5b;
+  border-color: #ed4d63;
+  color: #fff;
   -webkit-appearance: none;
   box-shadow: none;
 }
@@ -512,25 +512,25 @@
 .ui.form .field.error .ui.dropdown,
 .ui.form .field.error .ui.dropdown .text,
 .ui.form .field.error .ui.dropdown .item {
-  background: #FFF6F6;
-  color: #9F3A38;
+  background: #ee5f5b;
+  color: #fff;
 }
 .ui.form .fields.error .field .ui.dropdown,
 .ui.form .field.error .ui.dropdown {
-  border-color: #E0B4B4 !important;
+  border-color: #ed4d63 !important;
 }
 .ui.form .fields.error .field .ui.dropdown:hover,
 .ui.form .field.error .ui.dropdown:hover {
-  border-color: #E0B4B4 !important;
+  border-color: #ed4d63 !important;
 }
 .ui.form .fields.error .field .ui.dropdown:hover .menu,
 .ui.form .field.error .ui.dropdown:hover .menu {
-  border-color: #E0B4B4;
+  border-color: #ed4d63;
 }
 .ui.form .fields.error .field .ui.multiple.selection.dropdown > .label,
 .ui.form .field.error .ui.multiple.selection.dropdown > .label {
   background-color: #EACBCB;
-  color: #9F3A38;
+  color: #fff;
 }
 
 /* Hover */
@@ -559,20 +559,20 @@
 .ui.form .field.error .checkbox:not(.toggle):not(.slider) label,
 .ui.form .fields.error .field .checkbox:not(.toggle):not(.slider) .box,
 .ui.form .field.error .checkbox:not(.toggle):not(.slider) .box {
-  color: #9F3A38;
+  color: #fff;
 }
 .ui.form .fields.error .field .checkbox:not(.toggle):not(.slider) label:before,
 .ui.form .field.error .checkbox:not(.toggle):not(.slider) label:before,
 .ui.form .fields.error .field .checkbox:not(.toggle):not(.slider) .box:before,
 .ui.form .field.error .checkbox:not(.toggle):not(.slider) .box:before {
-  background: #FFF6F6;
-  border-color: #E0B4B4;
+  background: #ee5f5b;
+  border-color: #ed4d63;
 }
 .ui.form .fields.error .field .checkbox label:after,
 .ui.form .field.error .checkbox label:after,
 .ui.form .fields.error .field .checkbox .box:after,
 .ui.form .field.error .checkbox .box:after {
-  color: #9F3A38;
+  color: #fff;
 }
 
 /*--------------------
@@ -670,7 +670,7 @@
 .ui.form .required.field > .checkbox:after {
   margin: -0.2em 0em 0em 0.2em;
   content: '*';
-  color: #DB2828;
+  color: #ee5f5b;
 }
 .ui.form .required.fields:not(.grouped) > .field > label:after,
 .ui.form .required.fields.grouped > label:after,
@@ -724,7 +724,7 @@
 .ui.inverted.form input[type="url"] {
   background: #FFFFFF;
   border-color: rgba(255, 255, 255, 0.1);
-  color: rgba(0, 0, 0, 0.87);
+  color: #272B30;
   box-shadow: none;
 }
 
@@ -743,7 +743,7 @@
 }
 .ui.form .grouped.fields > label {
   margin: 0em 0em 0.28571429rem 0em;
-  color: rgba(0, 0, 0, 0.87);
+  color: rgba(255, 255, 255, 0.9);
   font-size: 0.92857143em;
   font-weight: bold;
   text-transform: none;
@@ -979,7 +979,7 @@
   vertical-align: baseline;
   font-size: 0.92857143em;
   font-weight: bold;
-  color: rgba(0, 0, 0, 0.87);
+  color: rgba(255, 255, 255, 0.9);
   text-transform: none;
 }
 
@@ -1053,12 +1053,6 @@
 .ui.massive.form {
   font-size: 1.71428571rem;
 }
-
-
-/*******************************
-         Theme Overrides
-*******************************/
-
 
 
 /*******************************

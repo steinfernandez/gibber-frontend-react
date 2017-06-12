@@ -1,5 +1,5 @@
 /*!
- * # Semantic UI 2.2.6 - Item
+ * # Semantic UI 2.2.10 - Item
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -140,7 +140,7 @@
   margin: -0.21425em 0em 0em;
   font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
   font-weight: bold;
-  color: rgba(0, 0, 0, 0.85);
+  color: rgba(255, 255, 255, 0.85);
 }
 
 /* Default Header Size */
@@ -185,7 +185,7 @@
   max-width: auto;
   font-size: 1em;
   line-height: 1.4285em;
-  color: rgba(0, 0, 0, 0.87);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /*--------------
@@ -237,18 +237,18 @@
 
 /* Header */
 .ui.items > .item > .content > a.header {
-  color: rgba(0, 0, 0, 0.85);
+  color: rgba(255, 255, 255, 0.85);
 }
 .ui.items > .item > .content > a.header:hover {
-  color: #1e70bf;
+  color: #fff;
 }
 
 /* Meta */
 .ui.items > .item .meta > a:not(.ui) {
-  color: rgba(0, 0, 0, 0.4);
+  color: rgba(255, 255, 255, 0.7);
 }
 .ui.items > .item .meta > a:not(.ui):hover {
-  color: rgba(0, 0, 0, 0.87);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /*--------------
@@ -305,7 +305,7 @@
   padding: 0em 0em 0em;
   top: 0em;
   left: 0em;
-  color: rgba(0, 0, 0, 0.4);
+  color: rgba(255, 255, 255, 0.7);
   box-shadow: none;
   -webkit-transition: color 0.1s ease;
   transition: color 0.1s ease;
@@ -353,25 +353,25 @@
 
 /* Mobile Only */
 @media only screen and (max-width: 767px) {
-  .ui.items > .item {
+  .ui.items:not(.unstackable) > .item {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
     margin: 2em 0em;
   }
-  .ui.items > .item > .image {
+  .ui.items:not(.unstackable) > .item > .image {
     display: block;
     margin-left: auto;
     margin-right: auto;
   }
-  .ui.items > .item > .image,
-  .ui.items > .item > .image > img {
+  .ui.items:not(.unstackable) > .item > .image,
+  .ui.items:not(.unstackable) > .item > .image > img {
     max-width: 100% !important;
     width: auto !important;
     max-height: 250px !important;
   }
-  .ui.items > .item > .image + .content {
+  .ui.items:not(.unstackable) > .item > .image + .content {
     display: block;
     padding: 1.5em 0em 0em;
   }
@@ -417,7 +417,7 @@
 --------------------*/
 
 .ui.divided.items > .item {
-  border-top: 1px solid rgba(34, 36, 38, 0.15);
+  border-top: 1px solid #52575C;
   margin: 0em;
   padding: 1em 0em;
 }
@@ -451,7 +451,7 @@
 }
 .ui.items a.item:hover .content .header,
 .ui.link.items > .item:hover .content .header {
-  color: #1e70bf;
+  color: #fff;
 }
 
 /*--------------
@@ -462,11 +462,16 @@
   font-size: 1em;
 }
 
+/*---------------
+   Unstackable
+----------------*/
 
-/*******************************
-         Theme Overrides
-*******************************/
-
+@media only screen and (max-width: 767px) {
+  .ui.unstackable.items > .item > .image,
+  .ui.unstackable.items > .item > .image > img {
+    width: 125px !important;
+  }
+}
 
 
 /*******************************

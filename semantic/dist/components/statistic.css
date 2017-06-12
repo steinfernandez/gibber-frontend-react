@@ -1,5 +1,5 @@
 /*!
- * # Semantic UI 2.2.6 - Statistic
+ * # Semantic UI 2.2.10 - Statistic
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -106,7 +106,7 @@
   font-size: 4rem;
   font-weight: normal;
   line-height: 1em;
-  color: #1B1C1D;
+  color: #FFFFFF;
   text-transform: uppercase;
   text-align: center;
 }
@@ -120,7 +120,7 @@
   font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
   font-size: 1em;
   font-weight: bold;
-  color: rgba(0, 0, 0, 0.87);
+  color: rgba(255, 255, 255, 0.9);
   text-transform: uppercase;
   text-align: center;
 }
@@ -555,12 +555,6 @@
 .ui.huge.statistic > .text.value {
   font-size: 2.5rem !important;
 }
-
-
-/*******************************
-         Theme Overrides
-*******************************/
-
 
 
 /*******************************
