@@ -8,10 +8,10 @@ const initialState = {
                         targetGroupMembers:[],
                         targetGroupPendingMembers:[],
                         breadcrumbValues: ["Home"],
-                        tabs:  [{_id: "Tab 1", text: "content1", published: false},
-                                {_id: "Tab 2", text: "content2", published: false},
-                                {_id: "Tab 3", text: "content3", published: false},
-                                {_id: "+", text: "", published: false}]
+                        tabs:  [{_id: "Tab 1", text: "content1", published: false, filedata:{}},
+                                {_id: "Tab 2", text: "content2", published: false, filedata:{}},
+                                {_id: "Tab 3", text: "content3", published: false, filedata:{}},
+                                {_id: "+", text: "", published: false, filedata:{}}]
                      };
 
 function gibberReducer(state = initialState, action)
@@ -61,21 +61,25 @@ function gibberReducer(state = initialState, action)
                                 tabs_temp[action.tabId].published = true;
                                 return(Object.assign({}, state, {tabs: tabs_temp}));
                                 break;}
+                case "UPDATE_GIBLET_FILE_DATA":
+                                {let tabs_temp = state.tabs.slice();
+                                tabs_temp[action.tabId] = Object.assign({},action.filedata,{published:true});
+                                console.log("updated giblet data");
+                                console.log(tabs_temp[action.tabId].filedata);
+                                return(Object.assign({}, state, {tabs: tabs_temp}));
+                                break;}
                 case "ADD_BREADCRUMB":
                                 {let breadcrumbValues_temp = state.breadcrumbValues.slice();
                                 breadcrumbValues_temp.push(action.value);
-                                console.log(breadcrumbValues_temp);
                                 return(Object.assign({}, state, {breadcrumbValues: breadcrumbValues_temp}));
                                 break;}
                 case "REMOVE_BREADCRUMB":
                                 {let breadcrumbValues_temp = state.breadcrumbValues.slice();
                                 let k = breadcrumbValues_temp.length;
-                                console.log(breadcrumbValues_temp);
                                 for(let i=action.number;i<k;i++)
                                 {
                                         breadcrumbValues_temp.pop();
                                 }
-                                console.log(breadcrumbValues_temp);
                                 return(Object.assign({}, state, {breadcrumbValues: breadcrumbValues_temp}));
                                 break;}
                 default:        return state;

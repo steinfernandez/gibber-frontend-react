@@ -7,6 +7,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {updateCurrentGiblets} from './actions/actions.js';
 import {openGiblet} from './actions/actions.js';
+import {updateGibletFileData} from './actions/actions.js';
 import {addBreadcrumb} from './actions/actions.js';
 import {removeBreadcrumb} from './actions/actions.js';
 import {updateUserGroups} from './actions/actions.js'
@@ -94,7 +95,11 @@ class GibberSidebar extends React.Component
                               else
                                 return false;
                             },
-                            onSuccess: (response) => { this.props.openGiblet(response.results[0]); }
+                            onSuccess: (response) =>
+                            {
+                                console.log(response.filedata);
+                                this.props.openGiblet(response.filedata);
+                            }
                              });
         }
 
@@ -294,7 +299,7 @@ const mapStateToProps = function(state)
 
 const mapDispatchToProps = function(dispatch)
 {
-        return bindActionCreators({ updateCurrentGiblets: updateCurrentGiblets, openGiblet: openGiblet, addBreadcrumb: addBreadcrumb, removeBreadcrumb: removeBreadcrumb, updateUserGroups: updateUserGroups }, dispatch)
+        return bindActionCreators({ updateCurrentGiblets: updateCurrentGiblets, openGiblet: openGiblet, updateGibletFileData: updateGibletFileData , addBreadcrumb: addBreadcrumb, removeBreadcrumb: removeBreadcrumb, updateUserGroups: updateUserGroups }, dispatch)
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(GibberSidebar);

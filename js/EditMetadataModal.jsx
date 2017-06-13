@@ -15,13 +15,13 @@ class EditMetadataModal extends React.Component
 
         closeModal()
         {
-                console.log("closing modal with id "+this.props.modalId+" and code: "+this.props.code);
+                console.log("closing modal with id "+this.props.modalId);
                 $('#'+this.props.modalId.toString()).modal('hide');
         }
 
         activateModal()
         {
-                console.log("opening modal with id "+this.props.modalId+" and code: "+this.props.code);
+                console.log("opening modal with id "+this.props.modalId);
                 $('#'+this.props.modalId.toString()).modal('show');
         }
 
@@ -98,7 +98,7 @@ class EditMetadataModal extends React.Component
                       }
                       return false;
                     },
-                    onSuccess: (response) => {  /*this.props.publishGiblet(parseInt(this.props.modalId[2]),response.filename);*/ this.closeModal(); }
+                    onSuccess: (response) => {  /*updategibletdatahere*/ this.closeModal(); }
                      });
         }
 

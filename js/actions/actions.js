@@ -13,6 +13,7 @@ export const UPDATE_TARGET_GROUP_MEMBERS = 'UPDATE_TARGET_GROUP_MEMBERS';
 export const UPDATE_TARGET_GROUP_PENDING_MEMBERS = 'UPDATE_TARGET_GROUP_PENDING_MEMBERS';
 export const OPEN_GIBLET = 'OPEN_GIBLET';
 export const PUBLISH_GIBLET = 'PUBLISH_GIBLET';
+export const UPDATE_GIBLET_FILE_DATA = 'UPDATE_GIBLET_FILE_DATA';
 export const SAVE_GIBLET = 'SAVE_GIBLET';
 export const ADD_BREADCRUMB = 'ADD_BREADCRUMB';
 export const REMOVE_BREADCRUMB = 'REMOVE_BREADCRUMB';
@@ -73,6 +74,11 @@ export function openGiblet(gibletData)
 export function publishGiblet(tabId, newName)
 {
         return { type: PUBLISH_GIBLET, tabId, newName }
+}
+
+export function updateGibletFileData(tabId, filedata)
+{
+        return { type: UPDATE_GIBLET_FILE_DATA, tabId, filedata }
 }
 
 export function addBreadcrumb(value)

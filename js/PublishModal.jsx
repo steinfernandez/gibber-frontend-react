@@ -2,6 +2,7 @@ import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {publishGiblet} from './actions/actions.js';
+import {updateGibletFileData} from './actions/actions.js';
 
 
 class PublishModal extends React.Component
@@ -87,7 +88,14 @@ class PublishModal extends React.Component
                       }
                       return false;
                     },
-                    onSuccess: (response) => {  this.props.publishGiblet(parseInt(this.props.modalId[2]),response.filename); this.closeModal(); }
+                    onSuccess: (response) =>
+                    {
+                        console.log("onsuccess");
+                        console.log(response.filedata);
+                        this.props.updateGibletFileData(parseInt(this.props.modalId[2]),response.filedata);
+                        this.props.publishGiblet(parseInt(this.props.modalId[2]),response.filename);
+                        this.closeModal();
+                    }
                      });
         }
 
@@ -161,7 +169,7 @@ const mapStateToProps = function(state)
 
 const mapDispatchToProps = function(dispatch)
 {
-        return bindActionCreators({publishGiblet: publishGiblet}, dispatch);
+        return bindActionCreators({publishGiblet: publishGiblet, updateGibletFileData: updateGibletFileData}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PublishModal);

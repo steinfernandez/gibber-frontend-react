@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import {addBreadcrumb} from './actions/actions.js';
 import {removeBreadcrumb} from './actions/actions.js';
 
+var subscribed = false;
+
 class FeedPane extends React.Component
 {
         constructor(props)
@@ -14,12 +16,39 @@ class FeedPane extends React.Component
 
         componentDidMount()
         {
-                /*this.props.updateUserGroups(["group1","group2","group3"]);*/
-                /*$('.viewgrouppane').transition('hide');*/
+                /*
+                var evtSource = new EventSource('sse.php');
+                console.log(evtSource.withCredentials);
+                console.log(evtSource.readyState);
+                console.log(evtSource.url);
+                evtSource.onopen = function()
+                {
+                        console.log("Connection to server opened.");
+                };
+                evtSource.onmessage = function(e)
+                {
+                        console.log(e);
+                }
+                evtSource.onerror = function()
+                {
+                        console.log("EventSource failed.");
+                };*/
         }
 
         render()
         {
+                if(this.props.currentUser!=null && subscribed==false)
+                {
+                        console.log("requesting notifications!");
+                        function demo(e)
+                        {
+                                console.log(e);
+                        }
+                        console.log("/notifications?username="+this.props.currentUser);
+                        var quelle = new EventSource("/notifications?username="+this.props.currentUser);
+                        quelle.onmessage = demo;
+                        subscribed = true;
+                }
 
                 return(
                         <div className="ui feed">
@@ -41,7 +70,7 @@ class FeedPane extends React.Component
 
 const mapStateToProps = function(state)
 {
-        return{ breadcrumbValues: state.breadcrumbValues };
+        return{ currentUser: state.currentUser, breadcrumbValues: state.breadcrumbValues };
 }
 
 const mapDispatchToProps = function(dispatch)
