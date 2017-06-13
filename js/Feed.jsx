@@ -40,13 +40,11 @@ class FeedPane extends React.Component
                 if(this.props.currentUser!=null && subscribed==false)
                 {
                         console.log("requesting notifications!");
-                        function demo(e)
-                        {
-                                console.log(e);
-                        }
                         console.log("/notifications?username="+this.props.currentUser);
-                        var quelle = new EventSource("/notifications?username="+this.props.currentUser);
-                        quelle.onmessage = demo;
+                        var es = new EventSource("/notifications?username="+this.props.currentUser);
+                        es.onopen = function(e){ console.log("onopen"); console.log(e) };
+                        es.onmessage = function(e){ console.log("onmessage"); console.log(e) };
+                        es.onerror = function(e){ console.log("onerror"); console.log(e) };
                         subscribed = true;
                 }
 
@@ -65,7 +63,6 @@ class FeedPane extends React.Component
                         </div>
                 );
         }
-
 }
 
 const mapStateToProps = function(state)
