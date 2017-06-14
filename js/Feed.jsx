@@ -3,6 +3,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {addBreadcrumb} from './actions/actions.js';
 import {removeBreadcrumb} from './actions/actions.js';
+import {updateCurrentNotifications} from './actions/actions.js';
 
 var subscribed = false;
 
@@ -37,29 +38,38 @@ class FeedPane extends React.Component
 
         render()
         {
+                console.log("feed render");
                 if(this.props.currentUser!=null && subscribed==false)
                 {
                         console.log("requesting notifications!");
-                        console.log("/notifications?username="+this.props.currentUser);
+                        console.log("http://127.0.0.1/notifications?username="+this.props.currentUser);
                         var es = new EventSource("/notifications?username="+this.props.currentUser);
                         es.onopen = function(e){ console.log("onopen"); console.log(e) };
-                        es.onmessage = function(e){ console.log("onmessage"); console.log(e) };
+                        es.onmessage = (e) => { console.log("onmessage"); console.log(e.data); this.props.updateCurrentNotifications(e.data);};
                         es.onerror = function(e){ console.log("onerror"); console.log(e) };
                         subscribed = true;
                 }
 
+                let notifications = [];
+                notifications = this.props.currentNotifications.forEach(function(notification,i)
+                                {
+                                        console.log(notification);
+                                        switch(String(notification.type))
+                                        {
+                                                case "GROUP_INVITE":    notifications.push(
+                                                                                <div className="event">
+                                                                                        <div className="content">
+                                                                                                <a className="user">{notification.source}</a> has invited you to join {notification.groupname}
+                                                                                        </div>
+                                                                                </div>
+                                                                        );
+                                                                        break;
+                                        }
+                                });
+                console.log(notifications);
                 return(
                         <div className="ui feed">
-                                <div className="event">
-                                        <div className="label"><img src="/images/avatar/small/elliot.jpg"/></div>
-                                        <div className="content">
-                                                <div className="summary">
-                                                        <a className="user">Elliot Fu</a> added you as a friend
-                                                        <div className="date">1 Hour Ago</div>
-                                                </div>
-                                                <div className="meta"><a className="like"><i className="like icon"></i> 4 Likes</a></div>
-                                        </div>
-                                </div>
+                               {notifications}
                         </div>
                 );
         }
@@ -67,12 +77,12 @@ class FeedPane extends React.Component
 
 const mapStateToProps = function(state)
 {
-        return{ currentUser: state.currentUser, breadcrumbValues: state.breadcrumbValues };
+        return{ currentUser: state.currentUser, breadcrumbValues: state.breadcrumbValues, currentNotifications: state.currentNotifications };
 }
 
 const mapDispatchToProps = function(dispatch)
 {
-        return bindActionCreators({ addBreadcrumb: addBreadcrumb, removeBreadcrumb: removeBreadcrumb }, dispatch);
+        return bindActionCreators({ addBreadcrumb: addBreadcrumb, removeBreadcrumb: removeBreadcrumb, updateCurrentNotifications: updateCurrentNotifications }, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(FeedPane);

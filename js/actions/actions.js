@@ -6,6 +6,7 @@ export const ADD_TAB = 'ADD_TAB'
 export const REMOVE_TAB = 'REMOVE_TAB'
 export const LOGIN = 'LOGIN'
 export const LOGOUT = 'LOGOUT'
+export const UPDATE_CURRENT_NOTIFICATIONS = 'UPDATE_CURRENT_NOTIFICATIONS';
 export const UPDATE_CURRENT_GIBLETS = 'UPDATE_CURRENT_GIBLETS';
 export const UPDATE_USER_GROUPS = 'UPDATE_USER_GROUPS';
 export const UPDATE_TARGET_GROUP = 'UPDATE_TARGET_GROUP';
@@ -41,9 +42,14 @@ export function logout()
         return { type: LOGOUT }
 }
 
+export function updateCurrentNotifications(newNotifications)
+{
+        return { type: UPDATE_CURRENT_NOTIFICATIONS, newNotifications }
+}
+
 export function updateCurrentGiblets(newGiblets)
 {
-        return { type: UPDATE_CURRENT_GIBLETS, newGiblets}
+        return { type: UPDATE_CURRENT_GIBLETS, newGiblets }
 }
 
 export function updateUserGroups(grouplist)

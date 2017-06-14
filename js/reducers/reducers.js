@@ -2,6 +2,7 @@ var clone = require('clone');
 
 const initialState = {
                         currentUser: null,
+                        currentNotifications: [],
                         currentGiblets: [],
                         userGroups: [],
                         targetGroup: null,
@@ -29,6 +30,14 @@ function gibberReducer(state = initialState, action)
                                 break;
                 case "LOGOUT":  return(Object.assign({}, state, {currentUser: null}));
                                 break;
+                case "UPDATE_CURRENT_NOTIFICATIONS":
+                                {let notif_temp = state.currentNotifications.slice();
+                                console.log("updating current notif");
+                                console.log(action.newNotifications);
+                                notif_temp = notif_temp.concat(JSON.parse(action.newNotifications));
+                                console.log(notif_temp);
+                                return(Object.assign({}, state, {currentNotifications:notif_temp}));
+                                break;}
                 case "UPDATE_CURRENT_GIBLETS":
                                 return(Object.assign({}, state, {currentGiblets: action.newGiblets}));
                                 break;
