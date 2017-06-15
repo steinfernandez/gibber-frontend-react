@@ -56,20 +56,38 @@ class FeedPane extends React.Component
                                         console.log(notification);
                                         switch(String(notification.type))
                                         {
-                                                case "GROUP_INVITE":    notifications.push(
+                                                case "GROUP_INVITE":    {
+                                                                        console.log("case groupinvite triggered");
+                                                                        notifications.push(
                                                                                 <div className="event">
                                                                                         <div className="content">
                                                                                                 <a className="user">{notification.source}</a> has invited you to join {notification.groupname}
                                                                                         </div>
+                                                                                        <div className="ui tiny button">Accept</div>
                                                                                 </div>
                                                                         );
-                                                                        break;
+                                                                        break;}
                                         }
                                 });
                 console.log(notifications);
                 return(
                         <div className="ui feed">
-                               {notifications}
+                                {
+                                        this.props.currentNotifications.map(
+                                                (notification,i) =>
+                                                {
+                                                        switch(String(notification.type))
+                                                        {
+                                                                case "GROUP_INVITE":    return(<div className="event" key={i}>
+                                                                                                        <div className="content">
+                                                                                                                <a className="user">{notification.source}</a> has invited you to join {notification.groupname}
+                                                                                                        </div>
+                                                                                                </div>);
+                                                                                        break;
+                                                        }
+                                                }
+                                        )
+                                }
                         </div>
                 );
         }
