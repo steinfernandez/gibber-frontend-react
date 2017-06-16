@@ -36,9 +36,45 @@ class FeedPane extends React.Component
                 };*/
         }
 
+        componentDidUpdate()
+        {
+                setTimeout(()=>{
+                this.props.currentNotifications.map(
+                                                (notification,i) =>
+                                                {
+                                                        switch(String(notification.type))
+                                                        {
+                                                                case "GROUP_INVITE":    var acceptid = "accept"+notification.groupname.slice(notification.groupname.lastIndexOf('/'+1));
+                                                                                        $('#'+acceptid)
+                                                                                        .api({
+                                                                                            url: window.location.origin+"/groupconfirmuser",
+                                                                                            method: 'POST',
+                                                                                            on: 'click',
+                                                                                            beforeSend: (settings) => { settings.data.groupname = notification.groupname; console.log(settings.data); return settings; },
+                                                                                            successTest: function(response)
+                                                                                            {
+                                                                                              if(response && response.success)
+                                                                                              {
+                                                                                                return response.success;
+                                                                                              }
+                                                                                              else
+                                                                                                return false;
+                                                                                            },
+                                                                                            onSuccess: (response) => {
+                                                                                                                        console.log(response.response);
+                                                                                                                        console.log("group membership confirmed");
+                                                                                                                        //update redux
+                                                                                                                     }
+                                                                                        });
+                                                                                        break;
+                                                        }
+                                                }
+                )},100)
+        }
+
         render()
         {
-                console.log("feed render");
+                console.log("what is happening");
                 if(this.props.currentUser!=null && subscribed==false)
                 {
                         console.log("requesting notifications!");
@@ -50,7 +86,7 @@ class FeedPane extends React.Component
                         subscribed = true;
                 }
 
-                let notifications = [];
+                /*let notifications = [];
                 notifications = this.props.currentNotifications.forEach(function(notification,i)
                                 {
                                         console.log(notification);
@@ -59,28 +95,28 @@ class FeedPane extends React.Component
                                                 case "GROUP_INVITE":    {
                                                                         console.log("case groupinvite triggered");
                                                                         notifications.push(
-                                                                                <div className="event">
-                                                                                        <div className="content">
-                                                                                                <a className="user">{notification.source}</a> has invited you to join {notification.groupname}
-                                                                                        </div>
-                                                                                        <div className="ui tiny button">Accept</div>
+                                                                                <div className="item">
+                                                                                        <a className="user">{notification.source}</a> is a weirdo and wants you to join {notification.groupname}
+                                                                                <div className="ui button">Accept</div>
                                                                                 </div>
                                                                         );
                                                                         break;}
                                         }
                                 });
-                console.log(notifications);
+                console.log(notifications);*/
                 return(
-                        <div className="ui feed">
+                        <div className="massive fluid ui vertical menu">
                                 {
                                         this.props.currentNotifications.map(
                                                 (notification,i) =>
                                                 {
                                                         switch(String(notification.type))
                                                         {
-                                                                case "GROUP_INVITE":    return(<div className="event" key={i}>
+                                                                case "GROUP_INVITE":    var acceptid = "accept"+notification.groupname.slice(notification.groupname.lastIndexOf('/'+1));
+                                                                                        return(<div className="event" key={i}>
                                                                                                         <div className="content">
                                                                                                                 <a className="user">{notification.source}</a> has invited you to join {notification.groupname}
+                                                                                                                <div className="ui tiny button" id={acceptid}>Accept</div><div className="ui tiny button">Reject</div>
                                                                                                         </div>
                                                                                                 </div>);
                                                                                         break;
