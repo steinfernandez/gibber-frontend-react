@@ -3,6 +3,7 @@ import GUIClass from './GibberTabs.jsx';
 //import CommunityPane from './CommunityPane.jsx';
 import GroupPane from './GroupPane.jsx';
 import FeedPane from './Feed.jsx';
+import NotificationPopup from './NotificationPopup.jsx';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {updateCurrentGiblets} from './actions/actions.js';
@@ -10,7 +11,8 @@ import {openGiblet} from './actions/actions.js';
 import {updateGibletFileData} from './actions/actions.js';
 import {addBreadcrumb} from './actions/actions.js';
 import {removeBreadcrumb} from './actions/actions.js';
-import {updateUserGroups} from './actions/actions.js'
+import {updateUserGroups} from './actions/actions.js';
+
 
 
 var request = require('request');
@@ -285,7 +287,9 @@ class GibberSidebar extends React.Component
 			</div>
             	<div className="pusher">
                 	<div className="ui segment">
-                        <GUIClass sidebarToggler={this.toggleSidebar} store={store}/></div>
+                        <GUIClass sidebarToggler={this.toggleSidebar} store={store}/>
+                        <NotificationPopup store={store}/>
+                        </div>
             	</div>
         	</div>
 		);

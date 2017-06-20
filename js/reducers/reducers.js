@@ -3,6 +3,7 @@ var clone = require('clone');
 const initialState = {
                         currentUser: null,
                         currentNotifications: [],
+                        popupQueue: [{header:"Test Header",body:"this is the text in the notification body"},{header:"Test Header 2",body:"this is the text in the notification body"},{header:"Test Header 3",body:"this is the text in the notification body"}],
                         currentGiblets: [],
                         userGroups: [],
                         targetGroup: null,
@@ -32,11 +33,20 @@ function gibberReducer(state = initialState, action)
                                 break;
                 case "UPDATE_CURRENT_NOTIFICATIONS":
                                 {let notif_temp = state.currentNotifications.slice();
-                                console.log("updating current notif");
-                                console.log(action.newNotifications);
                                 notif_temp = JSON.parse(action.newNotifications).slice();
-                                console.log(notif_temp);
                                 return(Object.assign({}, state, {currentNotifications:notif_temp}));
+                                break;}
+                case "QUEUE_POPUP":
+                                {let popup_temp = state.popupQueue.slice();
+                                popup_temp.push(notification);
+                                return(Object.assign({}, state, {popupQueue:popup_temp}));
+                                break;}
+                case "DEQUEUE_POPUP":
+                                {let popup_temp = state.popupQueue.slice();
+                                popup_temp.shift();
+                                console.log("dequeued popup");
+                                console.log(popup_temp);
+                                return(Object.assign({}, state, {popupQueue:popup_temp}));
                                 break;}
                 case "UPDATE_CURRENT_GIBLETS":
                                 return(Object.assign({}, state, {currentGiblets: action.newGiblets}));
