@@ -45,6 +45,7 @@ class FeedPane extends React.Component
                                                         switch(String(notification.type))
                                                         {
                                                                 case "GROUP_INVITE":    var acceptid = "accept"+notification.groupname.slice(notification.groupname.lastIndexOf('/'+1));
+                                                                                        var rejectid = "reject"+notification.groupname.slice(notification.groupname.lastIndexOf('/'+1));
                                                                                         $('#'+acceptid)
                                                                                         .api({
                                                                                             url: window.location.origin+"/groupconfirmuser",
@@ -61,9 +62,30 @@ class FeedPane extends React.Component
                                                                                                 return false;
                                                                                             },
                                                                                             onSuccess: (response) => {
-                                                                                                                        console.log(response.response);
+                                                                                                                        //console.log(response.response);
                                                                                                                         console.log("group membership confirmed");
-                                                                                                                        //update redux
+                                                                                                                        //update redux and delete from database
+                                                                                                                     }
+                                                                                        });
+                                                                                        $('#'+rejectid)
+                                                                                        .api({
+                                                                                            url: window.location.origin+"/grouprejectuser",
+                                                                                            method: 'POST',
+                                                                                            on: 'click',
+                                                                                            beforeSend: (settings) => { settings.data.groupname = notification.groupname; console.log(settings.data); return settings; },
+                                                                                            successTest: function(response)
+                                                                                            {
+                                                                                              if(response && response.success)
+                                                                                              {
+                                                                                                return response.success;
+                                                                                              }
+                                                                                              else
+                                                                                                return false;
+                                                                                            },
+                                                                                            onSuccess: (response) => {
+                                                                                                                        //console.log(response.response);
+                                                                                                                        console.log("notification successfully deleted");
+                                                                                                                        //update redux and delete from database
                                                                                                                      }
                                                                                         });
                                                                                         break;
@@ -113,10 +135,11 @@ class FeedPane extends React.Component
                                                         switch(String(notification.type))
                                                         {
                                                                 case "GROUP_INVITE":    var acceptid = "accept"+notification.groupname.slice(notification.groupname.lastIndexOf('/'+1));
+                                                                                        var rejectid = "reject"+notification.groupname.slice(notification.groupname.lastIndexOf('/'+1));
                                                                                         return(<div className="event" key={i}>
                                                                                                         <div className="content">
                                                                                                                 <a className="user">{notification.source}</a> has invited you to join {notification.groupname}
-                                                                                                                <div className="ui tiny button" id={acceptid}>Accept</div><div className="ui tiny button">Reject</div>
+                                                                                                                <div className="ui tiny button" id={acceptid}>Accept</div><div className="ui tiny button" id={rejectid}>Reject</div>
                                                                                                         </div>
                                                                                                 </div>);
                                                                                         break;

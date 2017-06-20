@@ -34,7 +34,7 @@ function gibberReducer(state = initialState, action)
                                 {let notif_temp = state.currentNotifications.slice();
                                 console.log("updating current notif");
                                 console.log(action.newNotifications);
-                                notif_temp = notif_temp.concat(JSON.parse(action.newNotifications));
+                                notif_temp = JSON.parse(action.newNotifications).slice();
                                 console.log(notif_temp);
                                 return(Object.assign({}, state, {currentNotifications:notif_temp}));
                                 break;}
