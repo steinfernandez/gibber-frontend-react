@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {addBreadcrumb} from './actions/actions.js';
 import {removeBreadcrumb} from './actions/actions.js';
 import {updateCurrentNotifications} from './actions/actions.js';
+import {queuePopup} from './actions/actions.js';
 
 var subscribed = false;
 
@@ -64,6 +65,7 @@ class FeedPane extends React.Component
                                                                                             onSuccess: (response) => {
                                                                                                                         //console.log(response.response);
                                                                                                                         console.log("group membership confirmed");
+                                                                                                                        this.props.queuePopup({header:"Group membership confirmed.",body:"You have been added to "+notification.groupname+"."})
                                                                                                                         //update redux and delete from database
                                                                                                                      }
                                                                                         });
@@ -159,7 +161,7 @@ const mapStateToProps = function(state)
 
 const mapDispatchToProps = function(dispatch)
 {
-        return bindActionCreators({ addBreadcrumb: addBreadcrumb, removeBreadcrumb: removeBreadcrumb, updateCurrentNotifications: updateCurrentNotifications }, dispatch);
+        return bindActionCreators({ addBreadcrumb: addBreadcrumb, removeBreadcrumb: removeBreadcrumb, updateCurrentNotifications: updateCurrentNotifications, queuePopup: queuePopup }, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(FeedPane);

@@ -38,7 +38,7 @@ function gibberReducer(state = initialState, action)
                                 break;}
                 case "QUEUE_POPUP":
                                 {let popup_temp = state.popupQueue.slice();
-                                popup_temp.push(notification);
+                                popup_temp.push(action.notification);
                                 return(Object.assign({}, state, {popupQueue:popup_temp}));
                                 break;}
                 case "DEQUEUE_POPUP":
