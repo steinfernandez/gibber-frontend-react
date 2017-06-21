@@ -48,6 +48,11 @@ function gibberReducer(state = initialState, action)
                                 console.log(popup_temp);
                                 return(Object.assign({}, state, {popupQueue:popup_temp}));
                                 break;}
+                case "DISMISS_POPUP":
+                                {let popup_temp = state.popupQueue.slice();
+                                popup_temp.splice(action.index,1);
+                                return(Object.assign({}, state, {popupQueue:popup_temp}));
+                                break;}
                 case "UPDATE_CURRENT_GIBLETS":
                                 return(Object.assign({}, state, {currentGiblets: action.newGiblets}));
                                 break;
