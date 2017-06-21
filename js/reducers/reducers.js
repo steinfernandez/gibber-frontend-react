@@ -2,14 +2,18 @@ var clone = require('clone');
 
 const initialState = {
                         currentUser: null,
+                        currentNotifications: [],
+                        popupQueue: [{header:"Test Header",body:"this is the text in the notification body"},{header:"Test Header 2",body:"this is the text in the notification body"},{header:"Test Header 3",body:"this is the text in the notification body"}],
                         currentGiblets: [],
                         userGroups: [],
                         targetGroup: null,
+                        targetGroupMembers:[],
+                        targetGroupPendingMembers:[],
                         breadcrumbValues: ["Home"],
-                        tabs:  [{_id: "Tab 1", text: "content1", published: false},
-                                {_id: "Tab 2", text: "content2", published: false},
-                                {_id: "Tab 3", text: "content3", published: false},
-                                {_id: "+", text: "", published: false}]
+                        tabs:  [{_id: "Tab 1", text: "content1", published: false, filedata:{}},
+                                {_id: "Tab 2", text: "content2", published: false, filedata:{}},
+                                {_id: "Tab 3", text: "content3", published: false, filedata:{}},
+                                {_id: "+", text: "", published: false, filedata:{}}]
                      };
 
 function gibberReducer(state = initialState, action)
@@ -27,6 +31,28 @@ function gibberReducer(state = initialState, action)
                                 break;
                 case "LOGOUT":  return(Object.assign({}, state, {currentUser: null}));
                                 break;
+                case "UPDATE_CURRENT_NOTIFICATIONS":
+                                {let notif_temp = state.currentNotifications.slice();
+                                notif_temp = JSON.parse(action.newNotifications).slice();
+                                return(Object.assign({}, state, {currentNotifications:notif_temp}));
+                                break;}
+                case "QUEUE_POPUP":
+                                {let popup_temp = state.popupQueue.slice();
+                                popup_temp.push(action.notification);
+                                return(Object.assign({}, state, {popupQueue:popup_temp}));
+                                break;}
+                case "DEQUEUE_POPUP":
+                                {let popup_temp = state.popupQueue.slice();
+                                popup_temp.shift();
+                                console.log("dequeued popup");
+                                console.log(popup_temp);
+                                return(Object.assign({}, state, {popupQueue:popup_temp}));
+                                break;}
+                case "DISMISS_POPUP":
+                                {let popup_temp = state.popupQueue.slice();
+                                popup_temp.splice(action.index,1);
+                                return(Object.assign({}, state, {popupQueue:popup_temp}));
+                                break;}
                 case "UPDATE_CURRENT_GIBLETS":
                                 return(Object.assign({}, state, {currentGiblets: action.newGiblets}));
                                 break;
@@ -35,6 +61,12 @@ function gibberReducer(state = initialState, action)
                                 break;
                 case "UPDATE_TARGET_GROUP":
                                 return(Object.assign({}, state, {targetGroup: action.groupname}));
+                                break;
+                case "UPDATE_TARGET_GROUP_MEMBERS":
+                                return(Object.assign({}, state, {targetGroupMembers: action.memberarray}));
+                                break;
+                case "UPDATE_TARGET_GROUP_PENDING_MEMBERS":
+                                return(Object.assign({}, state, {targetGroupPendingMembers: action.pendingmemberarray}));
                                 break;
                 case "OPEN_GIBLET":
                                 {let tabs_temp = state.tabs.slice();
@@ -53,15 +85,22 @@ function gibberReducer(state = initialState, action)
                                 tabs_temp[action.tabId].published = true;
                                 return(Object.assign({}, state, {tabs: tabs_temp}));
                                 break;}
+                case "UPDATE_GIBLET_FILE_DATA":
+                                {let tabs_temp = state.tabs.slice();
+                                tabs_temp[action.tabId] = Object.assign({},action.filedata,{published:true});
+                                console.log("updated giblet data");
+                                console.log(tabs_temp[action.tabId].filedata);
+                                return(Object.assign({}, state, {tabs: tabs_temp}));
+                                break;}
                 case "ADD_BREADCRUMB":
                                 {let breadcrumbValues_temp = state.breadcrumbValues.slice();
                                 breadcrumbValues_temp.push(action.value);
-                                console.log(breadcrumbValues_temp);
                                 return(Object.assign({}, state, {breadcrumbValues: breadcrumbValues_temp}));
                                 break;}
                 case "REMOVE_BREADCRUMB":
                                 {let breadcrumbValues_temp = state.breadcrumbValues.slice();
-                                for(i=0;i<action.number;i++)
+                                let k = breadcrumbValues_temp.length;
+                                for(let i=action.number;i<k;i++)
                                 {
                                         breadcrumbValues_temp.pop();
                                 }
