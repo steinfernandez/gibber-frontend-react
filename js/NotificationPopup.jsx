@@ -22,7 +22,6 @@ class NotificationPopup extends React.Component
         componentDidUpdate()
         {
                 setTimeout(()=>{this.activateMessages();},500);
-                //setTimeout(()=>{this.props.dequeuePopup();},3000);
         }
 
         activateMessages()
@@ -38,6 +37,10 @@ class NotificationPopup extends React.Component
                         delnot($(this).closest('.message').attr('data'));
                         })
                 }
+                if(this.props.popupQueue.length>0)
+                {
+                        setTimeout(()=>{this.props.dequeuePopup()},2500);
+                }
         }
 
         render()
@@ -48,7 +51,6 @@ class NotificationPopup extends React.Component
                 })
                 console.log(popups);
                 return(<div>{popups}</div>);
-
         }
 }
 
