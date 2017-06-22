@@ -256,43 +256,45 @@ class GibberSidebar extends React.Component
                                                 break;
                 }
 		return (
-        	<div id="layout">
-        		<div className="ui left vertical menu sidebar">
-                                <div className="ui breadcrumb">
-                                        {bc1}{bc2}{bc3}{bc4}
-                                </div>
-
-                                <div className="menupane">
-                                        <div className="massive fluid ui vertical menu">
-                                                <a className="item" id="browsebutton" onClick={this.showBrowsepane}>Browse</a>
-                                                <a className="item" id="groupbutton" onClick={this.showCommunitypane}>Groups</a>
-                                                <a className="item" onClick={this.showFeedpane}>Feed</a>
+        	<body>
+                        <TitleBar store={store}/>
+                        <div id="container">
+                		<div className="ui left vertical menu sidebar">
+                                        <div className="ui breadcrumb">
+                                                {bc1}{bc2}{bc3}{bc4}
                                         </div>
-                                </div>
-                                <div className="browsepane">
-                                        {
-                                                this.props.currentGiblets.map(
-                                                        (giblet,i) =>
-                                                        {
-                                                                return(<a className="item loadgiblet" key={i} data-filename={giblet._id}>{giblet._id}</a>)
-                                                        }
-                                                )
-                                        }
-                                </div>
-                                <div className="communitypane">
-                                        <GroupPane store={store} />
-                                </div>
-                                <div className="feedpane">
-                                        <FeedPane store={store} />
-                                </div>
-			</div>
-                    	<div className="pusher">
-                        	<div className="ui segment">
-                                <GUIClass sidebarToggler={this.toggleSidebar} store={store}/>
-                                <NotificationPopup store={store}/>
-                                </div>
-                    	</div>
-        	</div>
+                                        <div className="menupane">
+                                                <div className="massive fluid ui vertical menu">
+                                                        <a className="item" id="browsebutton" onClick={this.showBrowsepane}>Browse</a>
+                                                        <a className="item" id="groupbutton" onClick={this.showCommunitypane}>Groups</a>
+                                                        <a className="item" onClick={this.showFeedpane}>Feed</a>
+                                                </div>
+                                        </div>
+                                        <div className="browsepane">
+                                                {
+                                                        this.props.currentGiblets.map(
+                                                                (giblet,i) =>
+                                                                {
+                                                                        return(<a className="item loadgiblet" key={i} data-filename={giblet._id}>{giblet._id}</a>)
+                                                                }
+                                                        )
+                                                }
+                                        </div>
+                                        <div className="communitypane">
+                                                <GroupPane store={store} />
+                                        </div>
+                                        <div className="feedpane">
+                                                <FeedPane store={store} />
+                                        </div>
+			        </div>
+                            	<div className="pusher">
+                                	<div className="ui segment">
+                                        <GUIClass sidebarToggler={this.toggleSidebar} store={store}/>
+                                        <NotificationPopup store={store}/>
+                                        </div>
+                            	</div>
+                        </div>
+        	</body>
 		);
     }
 }

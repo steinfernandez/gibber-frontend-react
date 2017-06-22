@@ -22,11 +22,8 @@ class App extends React.Component
         {
                 return (
                         <Provider store={store}>
-                                <div>
-                                        <TitleBar store={store}/>
                                         <GibberSidebar store={store}>
                                         </GibberSidebar>
-                                </div>
                         </Provider>
                 );
         }
