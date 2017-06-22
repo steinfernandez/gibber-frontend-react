@@ -3,6 +3,7 @@ import GUIClass from './GibberTabs.jsx';
 //import CommunityPane from './CommunityPane.jsx';
 import GroupPane from './GroupPane.jsx';
 import FeedPane from './Feed.jsx';
+import TitleBar from './TitleBar.jsx';
 import NotificationPopup from './NotificationPopup.jsx';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
@@ -36,8 +37,8 @@ class GibberSidebar extends React.Component
         {
                 $('.ui.sidebar').sidebar({
                     transition: 'overlay',
-                    dimPage: true,
-                    closable: true
+                    dimPage: false,
+                    closable: false
                 });
                 //$('.pane').each( function() { $(this).transition('hide'); } );
                 $('.browsepane').transition('hide');
@@ -285,12 +286,12 @@ class GibberSidebar extends React.Component
                                         <FeedPane store={store} />
                                 </div>
 			</div>
-            	<div className="pusher">
-                	<div className="ui segment">
-                        <GUIClass sidebarToggler={this.toggleSidebar} store={store}/>
-                        <NotificationPopup store={store}/>
-                        </div>
-            	</div>
+                    	<div className="pusher">
+                        	<div className="ui segment">
+                                <GUIClass sidebarToggler={this.toggleSidebar} store={store}/>
+                                <NotificationPopup store={store}/>
+                                </div>
+                    	</div>
         	</div>
 		);
     }
