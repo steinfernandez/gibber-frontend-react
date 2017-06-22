@@ -34,7 +34,7 @@ class TitleBar extends React.Component
                 let titlestyle={position:"fixed",top:"0px"};
                 return(
                         <div className="ui top attached main menu">
-                                <div><a className="item"><i className="sidebar icon" onClick={this.toggleSidebar}></i></a></div>
+                                <div><a className="item" onClick={this.toggleSidebar}><i className="sidebar icon"></i></a></div>
                         </div>
                 );
         }
