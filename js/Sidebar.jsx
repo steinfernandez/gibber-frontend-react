@@ -256,8 +256,7 @@ class GibberSidebar extends React.Component
                                                 break;
                 }
 		return (
-        	<body>
-                        <TitleBar store={store}/>
+        	<div>
                         <div id="container">
                 		<div className="ui left vertical menu sidebar">
                                         <div className="ui breadcrumb">
@@ -294,7 +293,7 @@ class GibberSidebar extends React.Component
                                         </div>
                             	</div>
                         </div>
-        	</body>
+        	</div>
 		);
     }
 }

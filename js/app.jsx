@@ -22,8 +22,10 @@ class App extends React.Component
         {
                 return (
                         <Provider store={store}>
-                                        <GibberSidebar store={store}>
-                                        </GibberSidebar>
+                                <div>
+                                        <TitleBar store={store}/>
+                                        <GibberSidebar store={store}/>
+                                </div>
                         </Provider>
                 );
         }
