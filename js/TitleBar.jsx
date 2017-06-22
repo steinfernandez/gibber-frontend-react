@@ -9,6 +9,7 @@ class TitleBar extends React.Component
         {
                 super(props);
                 this.state = { active:1 };
+                this.toggleSidebar = this.toggleSidebar.bind(this);
         }
 
         componentDidMount()
@@ -21,10 +22,21 @@ class TitleBar extends React.Component
 
         }
 
+        toggleSidebar()
+        {
+                console.log("toggling sidebar");
+                $('.ui.sidebar').sidebar('toggle');
+        }
+
+
         render()
         {
                 let titlestyle={position:"fixed",top:"0px"};
-                return(<div className="ui top attached main menu"><div className="ui text container">Gibber</div></div>);
+                return(
+                        <div className="ui top attached main menu">
+                                <div><a className="item"><i className="sidebar icon" onClick={this.toggleSidebar}></i></a></div>
+                        </div>
+                );
         }
 }
 

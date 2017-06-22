@@ -21,12 +21,14 @@ class App extends React.Component
         render()
         {
                 return (
+                        <div>
                         <Provider store={store}>
                                 <div>
                                         <TitleBar store={store}/>
                                         <GibberSidebar store={store}/>
                                 </div>
                         </Provider>
+                        </div>
                 );
         }
 }

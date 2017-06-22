@@ -42,7 +42,6 @@ class GUIClass extends React.Component
                 return (
                 <div>
                         <div id="tabmenu" className="ui top attached tabular menu">
-                                <div><a className="item" onClick={this.props.sidebarToggler}><i className="sidebar icon"></i></a></div>
                                 {this.props.tabs.map((tab,i)=>{
                                         if(i==0)
                                         {
