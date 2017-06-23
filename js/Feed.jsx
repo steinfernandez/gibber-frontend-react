@@ -18,23 +18,7 @@ class FeedPane extends React.Component
 
         componentDidMount()
         {
-                /*
-                var evtSource = new EventSource('sse.php');
-                console.log(evtSource.withCredentials);
-                console.log(evtSource.readyState);
-                console.log(evtSource.url);
-                evtSource.onopen = function()
-                {
-                        console.log("Connection to server opened.");
-                };
-                evtSource.onmessage = function(e)
-                {
-                        console.log(e);
-                }
-                evtSource.onerror = function()
-                {
-                        console.log("EventSource failed.");
-                };*/
+
         }
 
         componentDidUpdate()
@@ -52,7 +36,7 @@ class FeedPane extends React.Component
                                                                                             url: window.location.origin+"/groupconfirmuser",
                                                                                             method: 'POST',
                                                                                             on: 'click',
-                                                                                            beforeSend: (settings) => { settings.data.groupname = notification.groupname; console.log(settings.data); return settings; },
+                                                                                            beforeSend: (settings) => { settings.data.groupname = notification.groupname; return settings; },
                                                                                             successTest: function(response)
                                                                                             {
                                                                                               if(response && response.success)
@@ -98,11 +82,10 @@ class FeedPane extends React.Component
 
         render()
         {
-                console.log("what is happening");
                 if(this.props.currentUser!=null && subscribed==false)
                 {
-                        console.log("requesting notifications!");
-                        console.log("http://127.0.0.1/notifications?username="+this.props.currentUser);
+                        //console.log("requesting notifications!");
+                        //console.log("http://127.0.0.1/notifications?username="+this.props.currentUser);
                         var es = new EventSource("/notifications?username="+this.props.currentUser);
                         es.onopen = function(e){ console.log("onopen"); console.log(e) };
                         es.onmessage = (e) => { console.log("onmessage"); console.log(e.data); this.props.updateCurrentNotifications(e.data);};

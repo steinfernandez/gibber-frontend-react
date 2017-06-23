@@ -24,7 +24,7 @@ class TabContent extends React.Component
                 this.cmRef.getCodeMirror().refresh();
                 let temp_props = this.props;
                 let newText = this.state.code;
-                $('.save.button')
+                $('.savebutton')
                         .api({
                             url: window.location.origin+"/update",
                             method: 'POST',
@@ -49,7 +49,7 @@ class TabContent extends React.Component
                 this.cmRef.getCodeMirror().refresh();
                 let temp_props = this.props;
                 let newText = this.state.code;
-                $('.save.button')
+                $('.savebutton')
                         .api({
                             url: window.location.origin+"/update",
                             method: 'POST',
@@ -79,7 +79,7 @@ class TabContent extends React.Component
                 let editmetadatabutton = null;
                 if(this.props.tabs[this.props.tabContentID].published && this.props.currentUser!=null)
                 {
-                        savebutton = <div className="ui vertical animated save button" tabIndex="0">
+                        savebutton = <div className="ui vertical animated savebutton button" tabIndex="0">
                                         <div className="hidden content">Save</div>
                                         <div className="visible content"><i className="save icon"/></div>
                                 </div>;
@@ -95,7 +95,8 @@ class TabContent extends React.Component
                         savebutton = <div className="ui compact message">Please log in to save or share your giblets.</div>;
                         editmetadatabutton = null;
                 }
-                return( <div>
+
+                return( <div id={"tabcontent"+this.props.tabContentID}>
                                 <div className="ui top attached menu">
                                         {savebutton}
                                         {editmetadatabutton}

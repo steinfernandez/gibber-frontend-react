@@ -27,7 +27,6 @@ class NotificationPopup extends React.Component
         activateMessages()
         {
                 var delnot = (index)=>{this.props.dismissPopup(index)};
-                console.log("activateMessages2");
                 for(var i=0;i<this.props.popupQueue.length;i++)
                 {
                         $('#popup'+i+' .close').off()
@@ -49,7 +48,6 @@ class NotificationPopup extends React.Component
                         let floatstyle = { position: "absolute", bottom: i*100+"px", right: "10px" };
                         return(<div className="ui floating message" id={"popup"+i} style={floatstyle} key={i} data={i}><i className="close icon"/><div className="header">{popup.header}</div><p>{popup.body}</p></div>);
                 })
-                console.log(popups);
                 return(<div>{popups}</div>);
         }
 }

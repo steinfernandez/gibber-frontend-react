@@ -11,13 +11,59 @@ class SureModal extends React.Component
                 super(props);
                 this.state = { active: false };
                 this.activateModal = this.activateModal.bind(this);
-                this.closeModal = this.activateModal.bind(this);
+                this.closeModal = this.closeModal.bind(this);
                 this.closeWithoutSaving = this.closeWithoutSaving.bind(this);
+                this.activateSaveAndCloseButton = this.activateSaveAndCloseButton.bind(this);
         }
 
         componentDidMount()
         {
+                this.activateSaveAndCloseButton();
+        }
 
+        componentDidUpdate()
+        {
+                this.activateSaveAndCloseButton();
+        }
+
+        activateSaveAndCloseButton()
+        {
+                var modalid = this.props.modalId;
+                var triggersave = function()
+                {
+                        $('#tabcontent'+modalid[2]).find('.savebutton').first().trigger('click');
+                        console.log(modalid);
+                        console.log($('#tabcontent'+modalid[2]).find('.savebutton').first());
+                }
+                if(this.props.currentUser==null)
+                {
+                        $('#'+this.props.modalId.toString()+' .saveandclose').off()
+                        .on('click', (e)=>{
+                                this.closeModal();
+                                this.props.queuePopup({header:"Unable to save",body:"Please log in to publish and save."});
+                        })
+                }
+                else
+                {
+                        if(this.props.tabs[parseInt(this.props.modalId[2])].published)
+                        {
+                                $('#'+this.props.modalId.toString()+' .saveandclose').off()
+                                .on('click', (e)=>{
+                                        //save
+                                        triggersave();
+                                        this.closeModal();
+                                        this.props.queuePopup({header:"Giblet closed.",body:"Your giblet was saved."});
+                                })
+                        }
+                        else
+                        {
+                                $('#'+this.props.modalId.toString()+' .saveandclose').off()
+                                .on('click', (e)=>{
+                                        this.closeModal();
+                                        this.props.queuePopup({header:"Unable to save",body:"Please publish your giblet first."});
+                                })
+                        }
+                }
         }
 
         closeModal()
@@ -34,13 +80,12 @@ class SureModal extends React.Component
         closeWithoutSaving()
         {
                 this.props.closeTab(this.props.modalId);
-                $('#'+this.props.modalId.toString()).modal('hide');
+                this.closeModal();
                 this.props.queuePopup({header:"Giblet closed",body:"Your giblet was not saved."})
         }
 
         render()
         {
-                console.log("RENDERING SUREMODAL");
                 return (
                         <div>
                                 <i className="close icon" onClick={this.activateModal}></i>
@@ -59,7 +104,7 @@ class SureModal extends React.Component
                                         </div>
                                         <div className="actions">
                                                 <div className="ui closewithoutsaving button" onClick={()=>{this.closeWithoutSaving()}}>Close without saving</div>
-                                                <div className="ui button">Save</div>
+                                                <div className="ui saveandclose button">Save and Close</div>
                                         </div>
                                 </div>
                         </div>
