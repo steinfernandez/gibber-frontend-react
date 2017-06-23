@@ -3,7 +3,7 @@
  */
 
 export const ADD_TAB = 'ADD_TAB'
-export const REMOVE_TAB = 'REMOVE_TAB'
+export const CLOSE_TAB = 'CLOSE_TAB'
 export const LOGIN = 'LOGIN'
 export const LOGOUT = 'LOGOUT'
 export const UPDATE_CURRENT_NOTIFICATIONS = 'UPDATE_CURRENT_NOTIFICATIONS';
@@ -33,6 +33,11 @@ export const REMOVE_BREADCRUMB = 'REMOVE_BREADCRUMB';
 export function addTab()
 {
         return { type: ADD_TAB }
+}
+
+export function closeTab(tabIndex)
+{
+        return { type: CLOSE_TAB, tabIndex }
 }
 
 export function login(text)

@@ -1,4 +1,8 @@
 import React from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {closeTab} from './actions/actions.js';
+import {queuePopup} from './actions/actions.js';
 
 class SureModal extends React.Component
 {
@@ -8,10 +12,17 @@ class SureModal extends React.Component
                 this.state = { active: false };
                 this.activateModal = this.activateModal.bind(this);
                 this.closeModal = this.activateModal.bind(this);
+                this.closeWithoutSaving = this.closeWithoutSaving.bind(this);
+        }
+
+        componentDidMount()
+        {
+
         }
 
         closeModal()
         {
+                console.log("hello?");
                 $('#'+this.props.modalId.toString()).modal('hide');
         }
 
@@ -20,8 +31,16 @@ class SureModal extends React.Component
                 $('#'+this.props.modalId.toString()).modal('show');
         }
 
+        closeWithoutSaving()
+        {
+                this.props.closeTab(this.props.modalId);
+                $('#'+this.props.modalId.toString()).modal('hide');
+                this.props.queuePopup({header:"Giblet closed",body:"Your giblet was not saved."})
+        }
+
         render()
         {
+                console.log("RENDERING SUREMODAL");
                 return (
                         <div>
                                 <i className="close icon" onClick={this.activateModal}></i>
@@ -39,7 +58,7 @@ class SureModal extends React.Component
                                                 </div>
                                         </div>
                                         <div className="actions">
-                                                <div className="ui button" onClick={this.closeModal}>Close without saving</div>
+                                                <div className="ui closewithoutsaving button" onClick={()=>{this.closeWithoutSaving()}}>Close without saving</div>
                                                 <div className="ui button">Save</div>
                                         </div>
                                 </div>
@@ -48,4 +67,14 @@ class SureModal extends React.Component
         }
 }
 
-export default SureModal;
+const mapStateToProps = function (state)
+{
+        return{ tabs: state.tabs, currentUser: state.currentUser };
+}
+
+const mapDispatchToProps = function (dispatch)
+{
+        return bindActionCreators({ closeTab: closeTab, queuePopup: queuePopup }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SureModal);
