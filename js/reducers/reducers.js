@@ -30,6 +30,7 @@ function gibberReducer(state = initialState, action)
                 case "CLOSE_TAB":
                                 {let tabs_temp = state.tabs.slice();
                                 tabs_temp.splice(action.tabIndex,1);
+                                console.log(tabs_temp);
                                 return(Object.assign({}, state, {tabs: tabs_temp}));
                                 break;}
                 case "LOGIN":   return(Object.assign({}, state, {currentUser: action.text}));
@@ -80,6 +81,12 @@ function gibberReducer(state = initialState, action)
                                 console.log(action.gibletData);
                                 tabs_temp.push({_id:"+", text:""});
                                 console.log(tabs_temp);
+                                return(Object.assign({}, state, {tabs: tabs_temp}));
+                                break;}
+                case "UPDATE_GIBLET_TEXT":
+                                {let tabs_temp = state.tabs.slice();
+                                console.log(action);
+                                tabs_temp[action.index].text = action.text;
                                 return(Object.assign({}, state, {tabs: tabs_temp}));
                                 break;}
                 case "PUBLISH_GIBLET":

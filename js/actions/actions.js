@@ -16,6 +16,7 @@ export const UPDATE_TARGET_GROUP = 'UPDATE_TARGET_GROUP';
 export const UPDATE_TARGET_GROUP_MEMBERS = 'UPDATE_TARGET_GROUP_MEMBERS';
 export const UPDATE_TARGET_GROUP_PENDING_MEMBERS = 'UPDATE_TARGET_GROUP_PENDING_MEMBERS';
 export const OPEN_GIBLET = 'OPEN_GIBLET';
+export const UPDATE_GIBLET_TEXT = 'UPDATE_GIBLET_TEXT';
 export const PUBLISH_GIBLET = 'PUBLISH_GIBLET';
 export const UPDATE_GIBLET_FILE_DATA = 'UPDATE_GIBLET_FILE_DATA';
 export const SAVE_GIBLET = 'SAVE_GIBLET';
@@ -98,6 +99,11 @@ export function updateTargetGroupPendingMembers(pendingmemberarray)
 export function openGiblet(gibletData)
 {
         return { type: OPEN_GIBLET, gibletData }
+}
+
+export function updateGibletText(index,text)
+{
+        return { type: UPDATE_GIBLET_TEXT, index, text }
 }
 
 export function publishGiblet(tabId, newName)

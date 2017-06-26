@@ -4,26 +4,30 @@ import PublishModal from './PublishModal.jsx';
 import EditMetadataModal from './EditMetadataModal.jsx';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import {updateGibletText} from './actions/actions.js';
 
 class TabContent extends React.Component
 {
         constructor(props)
         {
                 super(props);
-                this.state = { code: this.props.tabs[this.props.tabContentID].text };
+                //this.state = { code: this.props.tabs[this.props.tabContentID].text };
                 this.updateCode = this.updateCode.bind(this);
         }
 
         updateCode(newCode)
         {
-                this.setState({code: newCode});
+                this.props.updateGibletText(this.props.tabContentID,newCode);
+                //this.forceUpdate();
+                //this.setState({});
+                //this.cmRef.getCodeMirror().refresh();
         }
 
         componentDidMount()
         {
                 this.cmRef.getCodeMirror().refresh();
                 let temp_props = this.props;
-                let newText = this.state.code;
+                let newText = this.props.tabs[this.props.tabContentID].text;
                 $('.savebutton')
                         .api({
                             url: window.location.origin+"/update",
@@ -44,11 +48,15 @@ class TabContent extends React.Component
                              });
         }
 
+        componentWillMount()
+        {
+                this.updateCode(this.props.tabs[this.props.tabContentID].text);
+        }
+
         componentDidUpdate()
         {
-                this.cmRef.getCodeMirror().refresh();
                 let temp_props = this.props;
-                let newText = this.state.code;
+                let newText = this.props.tabs[this.props.tabContentID].text;
                 $('.savebutton')
                         .api({
                             url: window.location.origin+"/update",
@@ -69,6 +77,8 @@ class TabContent extends React.Component
 
         render()
         {
+                console.log("rendering tabcontent");
+                console.log(this.props.tabs);
                 var options = {
                     lineNumbers: true,
                     mode: "text/javascript",
@@ -87,7 +97,7 @@ class TabContent extends React.Component
                 }
                 else if(this.props.currentUser!=null)
                 {
-                        savebutton = <PublishModal modalId={"pm"+this.props.tabContentID} code={this.state.code}/>;
+                        savebutton = <PublishModal modalId={"pm"+this.props.tabContentID} code={this.props.tabs[this.props.tabContentID].text}/>;
                         editmetadatabutton = null;
                 }
                 else
@@ -95,13 +105,13 @@ class TabContent extends React.Component
                         savebutton = <div className="ui compact message">Please log in to save or share your giblets.</div>;
                         editmetadatabutton = null;
                 }
-
+                console.log("codemirror"+this.props.tabContentID);
                 return( <div id={"tabcontent"+this.props.tabContentID}>
                                 <div className="ui top attached menu">
                                         {savebutton}
                                         {editmetadatabutton}
                                 </div>
-                                <Codemirror value={this.state.code} onChange={this.updateCode} options={options} ref={(Codemirror) => { this.cmRef = Codemirror; }}/>
+                                <Codemirror id={"codemirror"+this.props.tabContentID} value={this.props.tabs[this.props.tabContentID].text} onChange={this.updateCode} options={options} ref={(Codemirror) => { this.cmRef = Codemirror; }}/>
                         </div>
                       );
         }
@@ -112,5 +122,10 @@ const mapStateToProps = function(state)
         return{ tabs: state.tabs, currentUser: state.currentUser };
 }
 
+const mapDispatchToProps = function(dispatch)
+{
+        return bindActionCreators({ updateGibletText:updateGibletText }, dispatch);
+}
 
-export default connect(mapStateToProps)(TabContent);
+
+export default connect(mapStateToProps,mapDispatchToProps)(TabContent);
