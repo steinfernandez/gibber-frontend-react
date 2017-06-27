@@ -21,6 +21,8 @@ class TabContent extends React.Component
                 //this.forceUpdate();
                 //this.setState({});
                 //this.cmRef.getCodeMirror().refresh();
+                console.log("refreshing codemirror");
+                try{this.cmRef.getCodeMirror().refresh();} catch(err){ console.log("couldn't get codemirror"); }
         }
 
         componentDidMount()
@@ -77,8 +79,6 @@ class TabContent extends React.Component
 
         render()
         {
-                console.log("rendering tabcontent");
-                console.log(this.props.tabs);
                 var options = {
                     lineNumbers: true,
                     mode: "text/javascript",
@@ -105,7 +105,6 @@ class TabContent extends React.Component
                         savebutton = <div className="ui compact message">Please log in to save or share your giblets.</div>;
                         editmetadatabutton = null;
                 }
-                console.log("codemirror"+this.props.tabContentID);
                 return( <div id={"tabcontent"+this.props.tabContentID}>
                                 <div className="ui top attached menu">
                                         {savebutton}

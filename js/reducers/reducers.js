@@ -32,6 +32,10 @@ function gibberReducer(state = initialState, action)
                                 tabs_temp.splice(action.tabIndex,1);
                                 console.log(tabs_temp);
                                 return(Object.assign({}, state, {tabs: tabs_temp}));
+                                // Refresh CodeMirror
+                                $('.CodeMirror').each(function(i, el){
+                                    el.CodeMirror.refresh();
+                                });
                                 break;}
                 case "LOGIN":   return(Object.assign({}, state, {currentUser: action.text}));
                                 break;
