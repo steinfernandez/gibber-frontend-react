@@ -63,7 +63,7 @@ class TabContent extends React.Component
                         .api({
                             url: window.location.origin+"/update",
                             method: 'POST',
-                            beforeSend: function(settings) { settings.data = { filename: temp_props.tabs[temp_props.tabContentID].tabName, newtext: newText }; return settings; },
+                            beforeSend: function(settings) { settings.data = { filename: temp_props.tabs[temp_props.tabContentID]._id, newtext: newText }; console.log(settings.data); return settings; },
                             successTest: function(response)
                             {
                               if(response && response.success)

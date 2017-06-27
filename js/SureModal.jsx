@@ -31,7 +31,7 @@ class SureModal extends React.Component
                 var modalid = this.props.modalId;
                 var triggersave = function()
                 {
-                        $('#tabcontent'+modalid[2]).find('.savebutton').first().trigger('click');
+                        $('#tabcontent'+modalid[2]).find('.savebutton').first().click();
                         console.log(modalid);
                         console.log($('#tabcontent'+modalid[2]).find('.savebutton').first());
                 }

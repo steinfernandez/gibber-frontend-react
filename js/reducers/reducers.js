@@ -31,6 +31,10 @@ function gibberReducer(state = initialState, action)
                                 {let tabs_temp = state.tabs.slice();
                                 console.log("tabindex "+action.tabIndex);
                                 tabs_temp.splice(action.tabIndex[2],1);
+                                /*setTimeout(function(){
+                                        $('#tabmenu .item')[action.tabIndex-1].click();
+                                        $.tab('change tab',action.tabIndex-1);
+                                },500);*/
                                 console.log(tabs_temp);
                                 return(Object.assign({}, state, {tabs: tabs_temp}));
                                 break;}
