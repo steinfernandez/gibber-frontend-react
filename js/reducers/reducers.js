@@ -29,13 +29,10 @@ function gibberReducer(state = initialState, action)
                                 break;}
                 case "CLOSE_TAB":
                                 {let tabs_temp = state.tabs.slice();
-                                tabs_temp.splice(action.tabIndex,1);
+                                console.log("tabindex "+action.tabIndex);
+                                tabs_temp.splice(action.tabIndex[2],1);
                                 console.log(tabs_temp);
                                 return(Object.assign({}, state, {tabs: tabs_temp}));
-                                // Refresh CodeMirror
-                                $('.CodeMirror').each(function(i, el){
-                                    el.CodeMirror.refresh();
-                                });
                                 break;}
                 case "LOGIN":   return(Object.assign({}, state, {currentUser: action.text}));
                                 break;

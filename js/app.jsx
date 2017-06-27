@@ -20,6 +20,11 @@ class App extends React.Component
 
         render()
         {
+
+                // Refresh CodeMirror
+                $('.CodeMirror').each(function(i, el){
+                    el.CodeMirror.refresh();
+                });
                 return (
                         <div>
                         <Provider store={store}>
