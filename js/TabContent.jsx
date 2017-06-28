@@ -11,23 +11,17 @@ class TabContent extends React.Component
         constructor(props)
         {
                 super(props);
-                //this.state = { code: this.props.tabs[this.props.tabContentID].text };
                 this.updateCode = this.updateCode.bind(this);
         }
 
         updateCode(newCode)
         {
                 this.props.updateGibletText(this.props.tabContentID,newCode);
-                //this.forceUpdate();
-                //this.setState({code:newCode});
-                //this.cmRef.getCodeMirror().refresh();
-                //console.log("refreshing codemirror");
-                //try{this.cmRef.getCodeMirror().refresh();} catch(err){ console.log("couldn't get codemirror"); }
         }
 
         componentDidMount()
         {
-                this.cmRef.getCodeMirror().refresh();
+
                 let temp_props = this.props;
                 let newText = this.props.tabs[this.props.tabContentID].text;
                 $('.savebutton')
@@ -105,7 +99,7 @@ class TabContent extends React.Component
                         savebutton = <div className="ui compact message">Please log in to save or share your giblets.</div>;
                         editmetadatabutton = null;
                 }
-                return( <div id={"tabcontent"+this.props.tabContentID}>
+                return( <div id={"tabcontent"+this.props.tabContentID} className="cmdiv">
                                 <div className="ui top attached menu">
                                         {savebutton}
                                         {editmetadatabutton}

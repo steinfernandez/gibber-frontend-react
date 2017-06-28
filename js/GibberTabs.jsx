@@ -13,6 +13,7 @@ class GUIClass extends React.Component
         {
                 super(props);
                 this.state = { active:1};
+                this.refreshCMInstances = this.refreshCMInstances.bind(this);
         }
 
         componentDidMount()
@@ -25,6 +26,10 @@ class GUIClass extends React.Component
                 $('.tabular .item').tab();
         }
 
+        refreshCMInstances()
+        {
+                $('.CodeMirror').each((i,e)=>{e.CodeMirror.refresh();})
+        }
 
         render()
         {
@@ -44,15 +49,15 @@ class GUIClass extends React.Component
                                 {this.props.tabs.map((tab,i)=>{
                                         if(i==0)
                                         {
-                                                return(<a className="active item" key={i.toString()} data-tab={i.toString()}>{this.props.tabs[i]._id}<SureModal modalId={"sm"+i.toString()}/></a>);
+                                                return(<a className="active item" key={i.toString()} onClick={this.refreshCMInstances} data-tab={i.toString()}>{this.props.tabs[i]._id}<SureModal modalId={"sm"+i.toString()}/></a>);
                                         }
                                         else if(i<(this.props.tabs.length - 1))
                                         {
-                                                return(<a className="item" key={i.toString()} data-tab={i.toString()}>{this.props.tabs[i]._id}<SureModal modalId={"sm"+i.toString()}/></a>);
+                                                return(<a className="item" key={i.toString()} onClick={this.refreshCMInstances} data-tab={i.toString()}>{this.props.tabs[i]._id}<SureModal modalId={"sm"+i.toString()}/></a>);
                                         }
                                         else
                                         {
-                                                return(<a className="item" key={i.toString()} onClick={()=>{this.props.addTab(); $('.tabular .item').tab();}}>{this.props.tabs[i]._id}</a>);
+                                                return(<a className="item" key={i.toString()} onClick={()=>{this.props.addTab(); $('.tabular .item').tab(); this.refreshCMInstances();}}>{this.props.tabs[i]._id}</a>);
                                         }
                                 })}
                         {greeting}
