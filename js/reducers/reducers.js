@@ -93,7 +93,6 @@ function gibberReducer(state = initialState, action)
                                 break;}
                 case "UPDATE_GIBLET_TEXT":
                                 {let tabs_temp = state.tabs.slice();
-                                console.log(action);
                                 tabs_temp[action.index].text = action.text;
                                 return(Object.assign({}, state, {tabs: tabs_temp}));
                                 break;}

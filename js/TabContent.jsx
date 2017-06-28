@@ -19,10 +19,10 @@ class TabContent extends React.Component
         {
                 this.props.updateGibletText(this.props.tabContentID,newCode);
                 //this.forceUpdate();
-                //this.setState({});
+                //this.setState({code:newCode});
                 //this.cmRef.getCodeMirror().refresh();
-                console.log("refreshing codemirror");
-                try{this.cmRef.getCodeMirror().refresh();} catch(err){ console.log("couldn't get codemirror"); }
+                //console.log("refreshing codemirror");
+                //try{this.cmRef.getCodeMirror().refresh();} catch(err){ console.log("couldn't get codemirror"); }
         }
 
         componentDidMount()

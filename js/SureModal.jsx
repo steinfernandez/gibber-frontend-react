@@ -91,17 +91,18 @@ class SureModal extends React.Component
 
         closeModal()
         {
-                console.log("hello?");
-                console.log($('#'+this.props.modalId.toString()));
-                console.log($('#'+this.props.modalId.toString()).modal('is active'));
-                $('#'+this.props.modalId.toString()).modal('hide');
+                //console.log("hello?");
+                //console.log($('#'+this.props.modalId.toString()));
+                //console.log($('#'+this.props.modalId.toString()).modal('is active'));
+                $('#'+this.props.modalId.toString()).modal('toggle');
         }
 
         activateModal()
         {
-                $('#'+this.props.modalId.toString()).modal('show');
-                //$('#'+this.props.modalId.toString()).modal('set active');
-                //$('#'+this.props.modalId.toString()).transition('show');
+                if(!$('#'+this.props.modalId.toString()).modal('is active'))
+                {
+                        $('#'+this.props.modalId.toString()).modal('toggle');
+                }
         }
 
         closeWithoutSaving()

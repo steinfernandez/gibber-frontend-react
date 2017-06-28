@@ -16,12 +16,16 @@ class LoginModal extends React.Component
 
         closeModal()
         {
-                $('#'+this.props.modalId.toString()).modal('hide');
+                $('#'+this.props.modalId.toString()).modal('toggle');
         }
 
         activateModal()
         {
-                $('#'+this.props.modalId.toString()).modal('show');
+                //$('#'+this.props.modalId.toString()).modal('toggle');
+                if(!$('#'+this.props.modalId.toString()).modal('is active'))
+                {
+                        $('#'+this.props.modalId.toString()).modal('toggle');
+                }
         }
 
         componentDidMount()
