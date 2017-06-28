@@ -69,7 +69,8 @@ class GUIClass extends React.Component
                                         }
                                         else
                                         {
-                                                return(/*<div className="ui bottom attached tab segment" key={i.toString()}><TabContent tabContentID={i} store={store}/>*/<div key={i.toString()}></div>);
+                                                //return(/*<div className="ui bottom attached tab segment" key={i.toString()}><TabContent tabContentID={i} store={store}/>*/<div key={i.toString()}></div>);
+                                                return null;
                                         }
                                 })
                         }
