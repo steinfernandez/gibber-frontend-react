@@ -60,7 +60,6 @@ class GUIClass extends React.Component
                                                 return(<a className="item" key={i.toString()} onClick={()=>{this.props.addTab(); $('.tabular .item').tab(); this.refreshCMInstances();}}>{this.props.tabs[i]._id}</a>);
                                         }
                                 })}
-                        {greeting}
                         </div>
                         {
                                 this.props.tabs.map((tab,i)=>{

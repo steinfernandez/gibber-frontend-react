@@ -1,4 +1,6 @@
 import React from 'react';
+import LoginModal from './LoginModal.jsx';
+import LogoutButton from './LogoutButton.jsx';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {queuePopup} from './actions/actions.js';
@@ -31,10 +33,20 @@ class TitleBar extends React.Component
 
         render()
         {
+                let greeting = null;
+                let store = this.props.store;
+                if(this.props.currentUser==null)
+                {
+                greeting = <div style={{"marginLeft":"auto","marginRight":"1%"}}>Not currently logged in.   <LoginModal store={store} modalId={"modal999"}/></div>;
+                }
+                else
+                {
+                greeting = <div style={{"marginLeft":"auto","marginRight":"1%"}}>Currently logged in as {this.props.currentUser}.<LogoutButton store={store}/></div>;
+                }
                 let titlestyle={position:"fixed",top:"0px"};
                 return(
                         <div className="ui top attached main menu">
-                                <div><a className="item" onClick={this.toggleSidebar}><i className="sidebar icon"></i></a></div>
+                                <div><a className="item" onClick={this.toggleSidebar}><i className="sidebar icon"></i></a></div>{greeting}
                         </div>
                 );
         }

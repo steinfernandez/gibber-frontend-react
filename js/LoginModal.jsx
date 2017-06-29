@@ -94,7 +94,7 @@ class LoginModal extends React.Component
                         };
 
                 return (
-                        <div>
+                        <div style={{"display":"inline-block","paddingLeft":"0.5em","paddingTop":"0.15em"}}>
                                 <button className="ui basic button"  onClick={this.activateModal}><i className="sign in icon"></i>Login</button>
                                 <div className="ui modal" id={this.props.modalId}>
                                         <i className="close icon"></i>
