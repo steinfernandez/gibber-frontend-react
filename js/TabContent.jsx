@@ -12,6 +12,7 @@ class TabContent extends React.Component
         {
                 super(props);
                 this.updateCode = this.updateCode.bind(this);
+                this.sizeCM = this.sizeCM.bind(this);
         }
 
         updateCode(newCode)
@@ -19,9 +20,23 @@ class TabContent extends React.Component
                 this.props.updateGibletText(this.props.tabContentID,newCode);
         }
 
+        sizeCM()
+        {
+                try
+                {
+                        $('.ReactCodeMirror').css({"height":"74vh"});
+                        $('.CodeMirror').each((i,e)=>{e.CodeMirror.setSize("100%","100%")});
+                        //setTimeout(()=>{$('.CodeMirror').each((i,e)=>{e.CodeMirror.setSize("100%","100%")});},100);
+                }
+                catch(err)
+                {
+                        console.log(err);
+                }
+        }
+
         componentDidMount()
         {
-
+                this.sizeCM();
                 let temp_props = this.props;
                 let newText = this.props.tabs[this.props.tabContentID].text;
                 $('.savebutton')
