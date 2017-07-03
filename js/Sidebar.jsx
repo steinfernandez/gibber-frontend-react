@@ -36,10 +36,12 @@ class GibberSidebar extends React.Component
         componentDidMount()
         {
                 $('.ui.sidebar').sidebar({
-                    transition: 'overlay',
+                    transition: 'push',
                     dimPage: false,
                     closable: false,
-                    context: '#container'
+                    context: '#container',
+                    onVisible: function() {$('.pusher').css({width:"83vw"})},
+                    onHide: function() {$('.pusher').css({width:"99vw"})}
                 });
                 //$('.pane').each( function() { $(this).transition('hide'); } );
                 $('.browsepane').transition('hide');
