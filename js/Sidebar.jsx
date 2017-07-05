@@ -1,6 +1,7 @@
 import React from 'react';
 import GUIClass from './GibberTabs.jsx';
 //import CommunityPane from './CommunityPane.jsx';
+import BrowsePane from './BrowsePane.jsx';
 import GroupPane from './GroupPane.jsx';
 import FeedPane from './Feed.jsx';
 import TitleBar from './TitleBar.jsx';
@@ -120,8 +121,10 @@ class GibberSidebar extends React.Component
                 {
                         $('.menupane').transition('slide right');
                 }
-                $('.browsepane').transition('slide left');
-                $('.backbutton').transition('slide left');
+                $('.userbrowsepane').transition('hide');
+                $('.browsepane').transition('show');
+                $('.browsemenu').transition('show');
+                //$('.backbutton').transition('slide left');
                 this.props.addBreadcrumb("Browse");
                 this.props.removeBreadcrumb(2);
                 this.forceUpdate();
@@ -269,18 +272,12 @@ class GibberSidebar extends React.Component
                                                 <div className="massive fluid ui vertical menu">
                                                         <a className="item" id="browsebutton" onClick={this.showBrowsepane}>Browse</a>
                                                         <a className="item" id="groupbutton" onClick={this.showCommunitypane}>Groups</a>
+                                                        <a className="item" id="userbutton">Users</a>
                                                         <a className="item" onClick={this.showFeedpane}>Feed</a>
                                                 </div>
                                         </div>
                                         <div className="browsepane">
-                                                {
-                                                        this.props.currentGiblets.map(
-                                                                (giblet,i) =>
-                                                                {
-                                                                        return(<a className="item loadgiblet" key={i} data-filename={giblet._id}>{giblet._id}</a>)
-                                                                }
-                                                        )
-                                                }
+                                                <BrowsePane store={store} />
                                         </div>
                                         <div className="communitypane">
                                                 <GroupPane store={store} />
