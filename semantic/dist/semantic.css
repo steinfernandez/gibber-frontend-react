@@ -756,6 +756,14 @@ span.cm-string {
 .CodeMirror-gutters {
   background-color: transparent !important;
 }
+
+/* gibber */
+
+h1 {
+  font-size: 1.2em;
+  margin: 0;
+  margin-top: 0.6em;
+}
 /*!
  * # Semantic UI 2.2.10 - Button
  * http://github.com/semantic-org/semantic-ui/
@@ -34560,6 +34568,19 @@ html.ios {
 /*******************************
          Site Overrides
 *******************************/
+
+.ui.vertical.sidebar.menu {
+  background-image: none !important;
+  background-color: transparent !important;
+}
+
+.sidebar .ui.menu {
+  background-image: none;
+}
+
+.sidebar .ui.vertical.menu {
+  background-color: transparent;
+}
 /*!
  * # Semantic UI 2.2.10 - Sticky
  * http://github.com/semantic-org/semantic-ui/

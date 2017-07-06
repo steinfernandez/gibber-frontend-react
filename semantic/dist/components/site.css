@@ -234,3 +234,10 @@ span.cm-string {
 .CodeMirror-gutters {
   background-color: transparent !important;
 }
+
+/* gibber */
+h1 {
+  font-size: 1.2em;
+  margin: 0;
+  margin-top: 0.6em;
+}

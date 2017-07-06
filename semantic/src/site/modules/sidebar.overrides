@@ -1,3 +1,16 @@
 /*******************************
          Site Overrides
 *******************************/
+
+.ui.vertical.sidebar.menu {
+  background-image:none !important;
+  background-color:transparent !important;
+}
+
+.sidebar .ui.menu {
+  background-image:none;
+}
+
+.sidebar .ui.vertical.menu {
+  background-color:transparent;
+}
