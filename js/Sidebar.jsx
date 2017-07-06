@@ -119,7 +119,7 @@ class GibberSidebar extends React.Component
         {
                 if($('.menupane').transition('is visible'))
                 {
-                        $('.menupane').transition('slide right');
+                        $('.menupane').transition('hide');
                 }
                 $('.userbrowsepane').transition('hide');
                 $('.browsepane').transition('show');
@@ -135,7 +135,7 @@ class GibberSidebar extends React.Component
                 console.log("showgrouppane");
                 if($('.menupane').transition('is visible'))
                 {
-                        $('.menupane').transition('slide right');
+                        $('.menupane').transition('hide');
                 }
                 $('.groupidpane').transition('hide');
                 $('.addmemberpane').transition('hide');
@@ -153,10 +153,10 @@ class GibberSidebar extends React.Component
         {
                 if($('.menupane').transition('is visible'))
                 {
-                        $('.menupane').transition('slide right');
+                        $('.menupane').transition('hide');
                 }
-                $('.feedpane').transition('slide left');
-                $('.backbutton').transition('slide left');
+                $('.feedpane').transition('show');
+                $('.backbutton').transition('show');
                 this.props.addBreadcrumb("Help");
                 this.props.removeBreadcrumb(2);
                 this.forceUpdate();
@@ -166,20 +166,20 @@ class GibberSidebar extends React.Component
         {
                 if($('.browsepane').transition('is visible'))
                 {
-                        $('.browsepane').transition('slide left');
+                        $('.browsepane').transition('hide');
                 }
                 if($('.communitypane').transition('is visible'))
                 {
-                        $('.communitypane').transition('slide left');
+                        $('.communitypane').transition('hide');
                 }
                 if($('.feedpane').transition('is visible'))
                 {
-                        $('.feedpane').transition('slide left');
+                        $('.feedpane').transition('hide');
                 }
                 //$('.backbutton').transition('slide left');
-                if($('.menupane').transition('is visible') == false)
+                if($('.menupane').transition('is visible') === false)
                 {
-                        $('.menupane').transition('slide right');
+                        $('.menupane').transition('show');
                 }
                 $('.browsepane').transition('hide');
                 $('.communitypane').transition('hide');
@@ -195,7 +195,7 @@ class GibberSidebar extends React.Component
                 $('.friendspane').transition('hide');
                 if($('.communitymenu').transition('is visible') == false)
                 {
-                        $('.communitymenu').transition('slide right');
+                        $('.communitymenu').transition('show');
                 }
                 this.props.removeBreadcrumb(2);
         }
