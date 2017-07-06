@@ -114,10 +114,13 @@ class EditMetadataModal extends React.Component
 
                 return (
                         <div>
-                                <div className="ui animated fade editmetadata button" onClick={this.activateModal} tabIndex="0">
-                                        <div className="hidden content">Metadata</div>
-                                        <div className="visible content"><i className="unordered list icon"/></div>
-                                </div>
+
+                          <button className="ui basic button mini" style={{height:'100%'}} onClick={this.activateModal} tabIndex="0">
+                                  <i className="list icon" /> Edit Metagiblet
+                                </button>
+act/node_modules/babylon/lib/p
+
+
                                 <div className="ui modal" id={this.props.modalId}>
                                         <i className="close icon"></i>
                                         <div className="header">

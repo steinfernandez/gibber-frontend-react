@@ -4815,6 +4815,10 @@ span.cm-string {
 /*******************************
          Site Overrides
 *******************************/
+
+.ui.basic.button {
+  box-shadow: none !important;
+}
 /*!
  * # Semantic UI 2.2.10 - Container
  * http://github.com/semantic-org/semantic-ui/
@@ -23795,6 +23799,10 @@ Floated Menu / Item
 /*******************************
         Site Overrides
 *******************************/
+
+.ui.compact.mini.message {
+  margin-bottom: 0 !important;
+}
 /*!
  * # Semantic UI 2.2.10 - Table
  * http://github.com/semantic-org/semantic-ui/
@@ -34713,6 +34721,11 @@ html.ios {
 /*******************************
         User Overrides
 *******************************/
+
+.ui.tabular.menu .item {
+  font-weight: normal;
+  font-size: .85em;
+}
 /*!
  * # Semantic UI 2.2.10 - Transition
  * http://github.com/semantic-org/semantic-ui/

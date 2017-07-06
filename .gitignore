@@ -44,3 +44,7 @@ node_modules
 
 docs/assets
 *~
+
+# vim
+*.swp
+*.swo

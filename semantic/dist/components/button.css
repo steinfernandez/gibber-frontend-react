@@ -3541,3 +3541,6 @@
          Site Overrides
 *******************************/
 
+.ui.basic.button {
+  box-shadow: none !important;
+}

@@ -129,11 +129,32 @@ class TabContent extends React.Component
                 }
                 else
                 {
-                        savebutton = <div className="ui compact message">Please log in to save or share your giblets.</div>;
+                        savebutton = <div className="ui compact mini message">Please log in to save your giblets.</div>;
                         editmetadatabutton = null;
                 }
                 var likes = this.props.tabs[this.props.tabContentID];
-                heartbutton = <div className='ui vertical heartbutton button'><i className="empty heart icon"/></div>
+                heartbutton = <button className="ui basic button mini">
+                    <i className="icon heart" /> Like
+                    </button>
+
+//<div className="ui labeled mini button" tabindex="0">
+//  <div className="ui button">
+//    <i className="red heart icon"></i> Like
+//  </div>
+//  <a className="ui basic left pointing label">
+//    1,048
+//  </a>
+//</div>
+
+
+//<div className="ui labeled mini button" tabIndex="0">
+//  <div className="ui button">
+//    <i className="heart icon"></i> Like
+//  </div>
+//  <a className="ui basic black label">
+//    2,048
+//  </a>
+//</div>
 
                 return( <div id={"tabcontent"+this.props.tabContentID} className="cmdiv">
                                 <div className="ui top attached menu">

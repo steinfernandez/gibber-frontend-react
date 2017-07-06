@@ -475,3 +475,6 @@
         Site Overrides
 *******************************/
 
+.ui.compact.mini.message {
+  margin-bottom: 0 !important;
+}

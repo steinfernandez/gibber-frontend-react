@@ -108,13 +108,16 @@ class PublishModal extends React.Component
                                 padding: 10,
                                 margin: 50,
                         };
-
+                //<div className="ui vertical animated publish button" onClick={this.activateModal} tabIndex="0">
+                                //        <div className="hidden content">Publish</div>
+                                //        <div className="visible content"><i className="save icon"/></div>
+                                //</div>
                 return (
                         <div>
-                                <div className="ui vertical animated publish button" onClick={this.activateModal} tabIndex="0">
-                                        <div className="hidden content">Publish</div>
-                                        <div className="visible content"><i className="save icon"/></div>
-                                </div>
+
+                                <button className="ui basic button mini" style={{height:'100%'}} onClick={this.activateModal} tabIndex="0">
+                                  <i className="save icon" /> Publish
+                                </button>
                                 <div className="ui modal" id={this.props.modalId}>
                                         <i className="close icon"></i>
                                         <div className="header">

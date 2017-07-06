@@ -1,3 +1,9 @@
 /*******************************
         User Overrides
 *******************************/
+
+
+.ui.tabular.menu .item {
+  font-weight:normal;
+  font-size:.85em;
+}
