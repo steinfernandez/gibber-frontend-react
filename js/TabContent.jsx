@@ -39,24 +39,40 @@ class TabContent extends React.Component
                 this.sizeCM();
                 let temp_props = this.props;
                 let newText = this.props.tabs[this.props.tabContentID].text;
-                $('.savebutton')
-                        .api({
-                            url: window.location.origin+"/update",
-                            method: 'POST',
-                            beforeSend: function(settings) { console.log(newText);settings.data = { filename: temp_props.tabs[temp_props.tabContentID]._id, newtext: newText }; return settings; },
-                            successTest: function(response)
-                            {
-                              console.log(response);
-                              if(response && response.success)
-                              {
-                                console.log("server responded with successful update!");
-                                return response.success;
-                              }
-                              else
-                                return false;
-                            },
-                            onSuccess: (response) => { console.log("successfully updated file!"); }
-                             });
+                $('#tabcontent'+this.props.tabContentID+' .savebutton')
+                .api({
+                    url: window.location.origin+"/update",
+                    method: 'POST',
+                    beforeSend: function(settings) { settings.data = { filename: temp_props.tabs[temp_props.tabContentID]._id, newtext: newText }; console.log(settings.data); return settings; },
+                    successTest: function(response)
+                    {
+                      if(response && response.success)
+                      {
+                        return response.success;
+                      }
+                      else
+                        return false;
+                    },
+                    onSuccess: (response) => { console.log("successfully updated file!"); }
+                     });
+                //heartbutton
+                $('#tabcontent'+this.props.tabContentID+' .heart')
+                .api({
+                    on: 'click',
+                    url: window.location.origin+"/likefile",
+                    method: 'POST',
+                    beforeSend: function(settings) { settings.data = { filename: temp_props.tabs[temp_props.tabContentID]._id }; console.log(settings.data); return settings; },
+                    successTest: function(response)
+                    {
+                      if(response && response.success)
+                      {
+                        return response.success;
+                      }
+                      else
+                        return false;
+                    },
+                    onSuccess: (response) => { console.log("successfully liked file!"); }
+                     });
         }
 
         componentWillMount()
@@ -68,22 +84,22 @@ class TabContent extends React.Component
         {
                 let temp_props = this.props;
                 let newText = this.props.tabs[this.props.tabContentID].text;
-                $('.savebutton')
-                        .api({
-                            url: window.location.origin+"/update",
-                            method: 'POST',
-                            beforeSend: function(settings) { settings.data = { filename: temp_props.tabs[temp_props.tabContentID]._id, newtext: newText }; console.log(settings.data); return settings; },
-                            successTest: function(response)
-                            {
-                              if(response && response.success)
-                              {
-                                return response.success;
-                              }
-                              else
-                                return false;
-                            },
-                            onSuccess: (response) => { console.log("successfully updated file!"); }
-                             });
+                $('#tabcontent'+this.props.tabContentID+' .savebutton')
+                .api({
+                    url: window.location.origin+"/update",
+                    method: 'POST',
+                    beforeSend: function(settings) { settings.data = { filename: temp_props.tabs[temp_props.tabContentID]._id, newtext: newText }; console.log(settings.data); return settings; },
+                    successTest: function(response)
+                    {
+                      if(response && response.success)
+                      {
+                        return response.success;
+                      }
+                      else
+                        return false;
+                    },
+                    onSuccess: (response) => { console.log("successfully updated file!"); }
+                     });
         }
 
         render()
@@ -96,6 +112,7 @@ class TabContent extends React.Component
                 };
                 let savebutton = null;
                 let editmetadatabutton = null;
+                let heartbutton = null;
                 if(this.props.tabs[this.props.tabContentID].published && this.props.currentUser!=null)
                 {
                         savebutton = <div className="ui vertical animated savebutton button" tabIndex="0">
@@ -114,10 +131,14 @@ class TabContent extends React.Component
                         savebutton = <div className="ui compact message">Please log in to save or share your giblets.</div>;
                         editmetadatabutton = null;
                 }
+                var likes = this.props.tabs[this.props.tabContentID];
+                heartbutton = <i className="big empty heart icon"/>
+
                 return( <div id={"tabcontent"+this.props.tabContentID} className="cmdiv">
                                 <div className="ui top attached menu">
                                         {savebutton}
                                         {editmetadatabutton}
+                                        {heartbutton}
                                 </div>
                                 <Codemirror id={"codemirror"+this.props.tabContentID} value={this.props.tabs[this.props.tabContentID].text} onChange={this.updateCode} options={options} ref={(Codemirror) => { this.cmRef = Codemirror; }}/>
                         </div>
