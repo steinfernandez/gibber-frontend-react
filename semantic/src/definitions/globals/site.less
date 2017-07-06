@@ -164,3 +164,47 @@ input::selection {
 
 
 .loadUIOverrides();
+
+/****************************
+CodeMirror
+****************************/
+
+.CodeMirror {
+  font-family:Menlo, monospace;
+  font-size:.8em;
+  background:rgba(46,50,53,1);
+  color:rgb( 153,153,153 ) !important
+ }
+
+span.cm-comment { color:rgb(121,121,121) !important }
+
+span.cm-property, 
+span.cm-attribute,
+span.cm-variable,
+span.cm-variable-2,
+.cm-def,
+.cm-s-default { color: rgba(173,173,173,1) !important }
+
+span.cm-keyword,
+span.cm-number, span.cm-atom { color:rgba(89, 151, 198, 1) !important }
+
+span.cm-string {color: rgb(225, 225, 225) !important }
+
+.CodeMirror-cursor {
+  background: rgba(255,255,255,.5);
+  border: none !important;
+  width: .5em !important;
+  display: block;
+}
+
+.CodeMirror-selected {
+  background:rgba(84,84,84,.5) !important;
+}
+
+.CodeMirror-highlight {
+  background:rgba(255,255,255,.5)
+}
+
+.CodeMirror-gutters {
+  background-color:transparent !important;
+}

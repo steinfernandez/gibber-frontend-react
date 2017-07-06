@@ -5,6 +5,7 @@ import EditMetadataModal from './EditMetadataModal.jsx';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {updateGibletText} from './actions/actions.js';
+import 'codemirror/mode/javascript/javascript.js'
 
 class TabContent extends React.Component
 {
@@ -106,7 +107,7 @@ class TabContent extends React.Component
         {
                 var options = {
                     lineNumbers: true,
-                    mode: "text/javascript",
+                    mode: "javascript",
                     inputStyle: "contenteditable",
                     fixedGutter: false
                 };

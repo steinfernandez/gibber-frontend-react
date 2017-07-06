@@ -703,6 +703,59 @@ pre .code {
 /*******************************
          Site Overrides
 *******************************/
+
+/****************************
+CodeMirror
+****************************/
+
+.CodeMirror {
+  font-family: Menlo, monospace;
+  font-size: .8em;
+  background: #2e3235;
+  color: #999999 !important;
+}
+
+span.cm-comment {
+  color: #797979 !important;
+}
+
+span.cm-property,
+span.cm-attribute,
+span.cm-variable,
+span.cm-variable-2,
+.cm-def,
+.cm-s-default {
+  color: #adadad !important;
+}
+
+span.cm-keyword,
+span.cm-number,
+span.cm-atom {
+  color: #5997c6 !important;
+}
+
+span.cm-string {
+  color: #e1e1e1 !important;
+}
+
+.CodeMirror-cursor {
+  background: rgba(255, 255, 255, 0.5);
+  border: none !important;
+  width: .5em !important;
+  display: block;
+}
+
+.CodeMirror-selected {
+  background: rgba(84, 84, 84, 0.5) !important;
+}
+
+.CodeMirror-highlight {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.CodeMirror-gutters {
+  background-color: transparent !important;
+}
 /*!
  * # Semantic UI 2.2.10 - Button
  * http://github.com/semantic-org/semantic-ui/

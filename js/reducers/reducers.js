@@ -1,5 +1,21 @@
 var clone = require('clone');
 
+const defaultCode = `var test = "blah";
+
+if( test === 'blah' ) return;
+
+var b = (c,d)=> {
+  console.log( 'answer', c+d )
+  return c + d
+}
+
+b()
+
+let test2 = {
+  blah:1,
+  blah2:2
+}` 
+
 const initialState = {
                         currentUser: null,
                         currentNotifications: [],
@@ -10,9 +26,9 @@ const initialState = {
                         targetGroupMembers:[],
                         targetGroupPendingMembers:[],
                         breadcrumbValues: ["Home"],
-                        tabs:  [{_id: "Tab 1", text: "content1", published: false, filedata:{}},
-                                {_id: "Tab 2", text: "content2", published: false, filedata:{}},
-                                {_id: "Tab 3", text: "content3", published: false, filedata:{}},
+                        tabs:  [{_id: "Tab 1", text: defaultCode, published: false, filedata:{}},
+                                {_id: "Tab 2", text: defaultCode, published: false, filedata:{}},
+                                {_id: "Tab 3", text: defaultCode, published: false, filedata:{}},
                                 {_id: "+", text: "", published: false, filedata:{}}]
                      };
 
