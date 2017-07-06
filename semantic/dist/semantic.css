@@ -16618,6 +16618,10 @@ ol.ui.horizontal.list li:before,
 /*******************************
          Site Overrides
 *******************************/
+
+.segment {
+  padding: 0 !important;
+}
 /*!
  * # Semantic UI 2.2.10 - Step
  * http://github.com/semantic-org/semantic-ui/

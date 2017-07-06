@@ -796,3 +796,6 @@
          Site Overrides
 *******************************/
 
+.segment {
+  padding: 0 !important;
+}
