@@ -1,5 +1,4 @@
 import React from 'react'
-
 import TabContent from './TabContent.jsx';
 import SureModal from './SureModal.jsx';
 import LoginModal from './LoginModal.jsx';
@@ -14,6 +13,7 @@ class GUIClass extends React.Component
         {
                 super(props);
                 this.state = { active:1};
+                this.refreshCMInstances = this.refreshCMInstances.bind(this);
         }
 
         componentDidMount()
@@ -26,6 +26,10 @@ class GUIClass extends React.Component
                 $('.tabular .item').tab();
         }
 
+        refreshCMInstances()
+        {
+                $('.CodeMirror').each((i,e)=>{e.CodeMirror.refresh();})
+        }
 
         render()
         {
@@ -42,22 +46,20 @@ class GUIClass extends React.Component
                 return (
                 <div>
                         <div id="tabmenu" className="ui top attached tabular menu">
-                                <div><a className="item" onClick={this.props.sidebarToggler}><i className="sidebar icon"></i></a></div>
                                 {this.props.tabs.map((tab,i)=>{
                                         if(i==0)
                                         {
-                                                return(<a className="active item" key={i.toString()} data-tab={i.toString()}>{this.props.tabs[i]._id}<SureModal modalId={"modal"+i.toString()}/></a>);
+                                                return(<a className="active item" key={i.toString()} onClick={this.refreshCMInstances} data-tab={i.toString()}>{this.props.tabs[i]._id}<SureModal modalId={"sm"+i.toString()}/></a>);
                                         }
                                         else if(i<(this.props.tabs.length - 1))
                                         {
-                                                return(<a className="item" key={i.toString()} data-tab={i.toString()}>{this.props.tabs[i]._id}<SureModal modalId={"modal"+i.toString()}/></a>);
+                                                return(<a className="item" key={i.toString()} onClick={this.refreshCMInstances} data-tab={i.toString()}>{this.props.tabs[i]._id}<SureModal modalId={"sm"+i.toString()}/></a>);
                                         }
                                         else
                                         {
-                                                return(<a className="item" key={i.toString()} onClick={()=>{this.props.addTab(); $('.tabular .item').tab();}}>{this.props.tabs[i]._id}</a>);
+                                                return(<a className="item" key={i.toString()} onClick={()=>{this.props.addTab(); $('.tabular .item').tab(); this.refreshCMInstances();}}>{this.props.tabs[i]._id}</a>);
                                         }
                                 })}
-                        {greeting}
                         </div>
                         {
                                 this.props.tabs.map((tab,i)=>{
@@ -71,7 +73,8 @@ class GUIClass extends React.Component
                                         }
                                         else
                                         {
-                                                return(/*<div className="ui bottom attached tab segment" key={i.toString()}><TabContent tabContentID={i} store={store}/>*/<div key={i.toString()}></div>);
+                                                //return(/*<div className="ui bottom attached tab segment" key={i.toString()}><TabContent tabContentID={i} store={store}/>*/<div key={i.toString()}></div>);
+                                                return null;
                                         }
                                 })
                         }

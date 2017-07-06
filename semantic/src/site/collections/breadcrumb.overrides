@@ -1,3 +1,20 @@
 /*******************************
          Site Overrides
 *******************************/
+
+.ui.breadcrumb {
+  .button-shadow(@gray-dark);
+
+  color: darken(@white, 10%);
+  border:none; 
+  text-shadow: none;
+  padding: 0.6em;
+  border-radius: 4px;
+
+  background-image:none;
+
+  a {
+    color: darken(@white, 15% );
+    &:hover { color:@white; }
+  }
+}

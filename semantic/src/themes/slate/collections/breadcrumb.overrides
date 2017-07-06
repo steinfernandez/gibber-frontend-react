@@ -12,7 +12,7 @@
   }
 
   .divider {
-    color: @gray-light;
+    color: @white
   }
 
   .active.section {

@@ -86,7 +86,6 @@ class GroupPane extends React.Component
 
         activateCreateGroupForm()
         {
-                console.log("activating create group form");
                 $('.creategroupform')
                 .api({
                     url: window.location.origin+"/groupcreate",
@@ -113,7 +112,6 @@ class GroupPane extends React.Component
 
         activateAddMemberForm()
         {
-                console.log("activating add member form");
                 $('.addmemberform')
                 .api({
                     url: window.location.origin+"/groupaddpendingusers",
@@ -275,7 +273,6 @@ class GroupPane extends React.Component
                 }
                 else
                 {
-                        console.log(this.props.userGroups);
                         groupbuttons = this.props.userGroups.map( (group,i) =>
                                                         {
                                                                 let groupid={group}.group+"id";

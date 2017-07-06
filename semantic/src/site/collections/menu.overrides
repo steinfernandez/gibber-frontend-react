@@ -1,3 +1,16 @@
 /*******************************
          Site Overrides
 *******************************/
+
+.menu {
+
+  .item { 
+      color: darken(@white, 15%) !important;
+      &:hover { color:@white !important; } 
+  }
+
+  border:none !important;
+  border-top: 1px solid rgba(0,0,0,.5);
+  border-radius:0 !important;
+
+}

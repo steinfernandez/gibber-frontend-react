@@ -1,8 +1,10 @@
 import React from 'react';
 import GUIClass from './GibberTabs.jsx';
 //import CommunityPane from './CommunityPane.jsx';
+import BrowsePane from './BrowsePane.jsx';
 import GroupPane from './GroupPane.jsx';
 import FeedPane from './Feed.jsx';
+import TitleBar from './TitleBar.jsx';
 import NotificationPopup from './NotificationPopup.jsx';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
@@ -35,9 +37,12 @@ class GibberSidebar extends React.Component
         componentDidMount()
         {
                 $('.ui.sidebar').sidebar({
-                    transition: 'overlay',
-                    dimPage: true,
-                    closable: true
+                    transition: 'push',
+                    dimPage: false,
+                    closable: false,
+                    context: '#container',
+                    onVisible: function() {$('.pusher').css({width:"83vw"})},
+                    onHide: function() {$('.pusher').css({width:"99vw"})}
                 });
                 //$('.pane').each( function() { $(this).transition('hide'); } );
                 $('.browsepane').transition('hide');
@@ -116,8 +121,10 @@ class GibberSidebar extends React.Component
                 {
                         $('.menupane').transition('slide right');
                 }
-                $('.browsepane').transition('slide left');
-                $('.backbutton').transition('slide left');
+                $('.userbrowsepane').transition('hide');
+                $('.browsepane').transition('show');
+                $('.browsemenu').transition('show');
+                //$('.backbutton').transition('slide left');
                 this.props.addBreadcrumb("Browse");
                 this.props.removeBreadcrumb(2);
                 this.forceUpdate();
@@ -255,42 +262,37 @@ class GibberSidebar extends React.Component
                                                 break;
                 }
 		return (
-        	<div id="layout">
-        		<div className="ui left vertical menu sidebar">
-                                <div className="ui breadcrumb">
-                                        {bc1}{bc2}{bc3}{bc4}
-                                </div>
-
-                                <div className="menupane">
-                                        <div className="massive fluid ui vertical menu">
-                                                <a className="item" id="browsebutton" onClick={this.showBrowsepane}>Browse</a>
-                                                <a className="item" id="groupbutton" onClick={this.showCommunitypane}>Groups</a>
-                                                <a className="item" onClick={this.showFeedpane}>Feed</a>
+        	<div>
+                        <div id="container">
+                		<div className="ui left vertical menu sidebar">
+                                        <div className="ui breadcrumb">
+                                                {bc1}{bc2}{bc3}{bc4}
                                         </div>
-                                </div>
-                                <div className="browsepane">
-                                        {
-                                                this.props.currentGiblets.map(
-                                                        (giblet,i) =>
-                                                        {
-                                                                return(<a className="item loadgiblet" key={i} data-filename={giblet._id}>{giblet._id}</a>)
-                                                        }
-                                                )
-                                        }
-                                </div>
-                                <div className="communitypane">
-                                        <GroupPane store={store} />
-                                </div>
-                                <div className="feedpane">
-                                        <FeedPane store={store} />
-                                </div>
-			</div>
-            	<div className="pusher">
-                	<div className="ui segment">
-                        <GUIClass sidebarToggler={this.toggleSidebar} store={store}/>
-                        <NotificationPopup store={store}/>
+                                        <div className="menupane">
+                                                <div className="massive fluid ui vertical menu">
+                                                        <a className="item" id="browsebutton" onClick={this.showBrowsepane}>Browse</a>
+                                                        <a className="item" id="groupbutton" onClick={this.showCommunitypane}>Groups</a>
+                                                        <a className="item" id="userbutton">Users</a>
+                                                        <a className="item" onClick={this.showFeedpane}>Feed</a>
+                                                </div>
+                                        </div>
+                                        <div className="browsepane">
+                                                <BrowsePane store={store} />
+                                        </div>
+                                        <div className="communitypane">
+                                                <GroupPane store={store} />
+                                        </div>
+                                        <div className="feedpane">
+                                                <FeedPane store={store} />
+                                        </div>
+			        </div>
+                            	<div className="pusher">
+                                	<div className="ui segment">
+                                        <GUIClass sidebarToggler={this.toggleSidebar} store={store}/>
+                                        <NotificationPopup store={store}/>
+                                        </div>
+                            	</div>
                         </div>
-            	</div>
         	</div>
 		);
     }

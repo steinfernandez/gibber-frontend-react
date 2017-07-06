@@ -3,7 +3,7 @@
  */
 
 export const ADD_TAB = 'ADD_TAB'
-export const REMOVE_TAB = 'REMOVE_TAB'
+export const CLOSE_TAB = 'CLOSE_TAB'
 export const LOGIN = 'LOGIN'
 export const LOGOUT = 'LOGOUT'
 export const UPDATE_CURRENT_NOTIFICATIONS = 'UPDATE_CURRENT_NOTIFICATIONS';
@@ -16,6 +16,7 @@ export const UPDATE_TARGET_GROUP = 'UPDATE_TARGET_GROUP';
 export const UPDATE_TARGET_GROUP_MEMBERS = 'UPDATE_TARGET_GROUP_MEMBERS';
 export const UPDATE_TARGET_GROUP_PENDING_MEMBERS = 'UPDATE_TARGET_GROUP_PENDING_MEMBERS';
 export const OPEN_GIBLET = 'OPEN_GIBLET';
+export const UPDATE_GIBLET_TEXT = 'UPDATE_GIBLET_TEXT';
 export const PUBLISH_GIBLET = 'PUBLISH_GIBLET';
 export const UPDATE_GIBLET_FILE_DATA = 'UPDATE_GIBLET_FILE_DATA';
 export const SAVE_GIBLET = 'SAVE_GIBLET';
@@ -33,6 +34,11 @@ export const REMOVE_BREADCRUMB = 'REMOVE_BREADCRUMB';
 export function addTab()
 {
         return { type: ADD_TAB }
+}
+
+export function closeTab(tabIndex)
+{
+        return { type: CLOSE_TAB, tabIndex }
 }
 
 export function login(text)
@@ -93,6 +99,11 @@ export function updateTargetGroupPendingMembers(pendingmemberarray)
 export function openGiblet(gibletData)
 {
         return { type: OPEN_GIBLET, gibletData }
+}
+
+export function updateGibletText(index,text)
+{
+        return { type: UPDATE_GIBLET_TEXT, index, text }
 }
 
 export function publishGiblet(tabId, newName)

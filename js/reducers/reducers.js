@@ -27,6 +27,20 @@ function gibberReducer(state = initialState, action)
                                 tabs_temp.push({_id:"+", text:""});
                                 return(Object.assign({}, state, {tabs: tabs_temp}));
                                 break;}
+                case "CLOSE_TAB":
+                                {let tabs_temp = state.tabs.slice();
+                                console.log("tabindex "+action.tabIndex);
+                                tabs_temp.splice(action.tabIndex,1);
+                                if(action.tabIndex>0)
+                                {
+                                        setTimeout(function(){
+                                                $('#tabmenu .item')[action.tabIndex-1].click();
+                                                //$.tab('change tab',action.tabIndex-1);
+                                        },100);
+                                }
+                                console.log(tabs_temp);
+                                return(Object.assign({}, state, {tabs: tabs_temp}));
+                                break;}
                 case "LOGIN":   return(Object.assign({}, state, {currentUser: action.text}));
                                 break;
                 case "LOGOUT":  return(Object.assign({}, state, {currentUser: null}));
@@ -44,8 +58,6 @@ function gibberReducer(state = initialState, action)
                 case "DEQUEUE_POPUP":
                                 {let popup_temp = state.popupQueue.slice();
                                 popup_temp.shift();
-                                console.log("dequeued popup");
-                                console.log(popup_temp);
                                 return(Object.assign({}, state, {popupQueue:popup_temp}));
                                 break;}
                 case "DISMISS_POPUP":
@@ -79,6 +91,11 @@ function gibberReducer(state = initialState, action)
                                 console.log(tabs_temp);
                                 return(Object.assign({}, state, {tabs: tabs_temp}));
                                 break;}
+                case "UPDATE_GIBLET_TEXT":
+                                {let tabs_temp = state.tabs.slice();
+                                tabs_temp[action.index].text = action.text;
+                                return(Object.assign({}, state, {tabs: tabs_temp}));
+                                break;}
                 case "PUBLISH_GIBLET":
                                 {let tabs_temp = state.tabs.slice();
                                 tabs_temp[action.tabId].tabName = action.newName;
@@ -89,7 +106,7 @@ function gibberReducer(state = initialState, action)
                                 {let tabs_temp = state.tabs.slice();
                                 tabs_temp[action.tabId] = Object.assign({},action.filedata,{published:true});
                                 console.log("updated giblet data");
-                                console.log(tabs_temp[action.tabId].filedata);
+                                console.log(tabs_temp[action.tabId]);
                                 return(Object.assign({}, state, {tabs: tabs_temp}));
                                 break;}
                 case "ADD_BREADCRUMB":

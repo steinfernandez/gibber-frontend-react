@@ -478,3 +478,9 @@
     User Variable Overrides
 *******************************/
 
+.item {
+  color: #d9d9d9;
+}
+.item:hover {
+  color: #FFFFFF;
+}
