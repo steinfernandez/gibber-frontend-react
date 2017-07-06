@@ -233,6 +233,7 @@ span.cm-string {
 }
 .CodeMirror-gutters {
   background-color: transparent !important;
+  border-right: 1px solid #aaa;
 }
 
 /* gibber */

@@ -118,8 +118,6 @@ class EditMetadataModal extends React.Component
                           <button className="ui basic button mini" style={{height:'100%'}} onClick={this.activateModal} tabIndex="0">
                                   <i className="list icon" /> Edit Metagiblet
                                 </button>
-act/node_modules/babylon/lib/p
-
 
                                 <div className="ui modal" id={this.props.modalId}>
                                         <i className="close icon"></i>

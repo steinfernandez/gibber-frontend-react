@@ -114,13 +114,17 @@ class TabContent extends React.Component
                 let savebutton = null;
                 let editmetadatabutton = null;
                 let heartbutton = null;
+                let _heartbutton = <button className="ui basic button mini">
+                    <i className="icon heart" /> Like
+                </button>
+
                 if(this.props.tabs[this.props.tabContentID].published && this.props.currentUser!=null)
                 {
-                        savebutton = <div className="ui vertical animated savebutton button" tabIndex="0">
-                                        <div className="hidden content">Save</div>
-                                        <div className="visible content"><i className="save icon"/></div>
-                                </div>;
+                        savebutton = <button className="ui basic button mini" onClick={this.activateModal} tabIndex="0">
+                                  <i className="save icon" />Save 
+                                </button>
                         editmetadatabutton = <EditMetadataModal modalId={"em"+this.props.tabContentID}/>;
+                        heartbutton = _heartbutton
                 }
                 else if(this.props.currentUser!=null)
                 {
@@ -133,28 +137,6 @@ class TabContent extends React.Component
                         editmetadatabutton = null;
                 }
                 var likes = this.props.tabs[this.props.tabContentID];
-                heartbutton = <button className="ui basic button mini">
-                    <i className="icon heart" /> Like
-                    </button>
-
-//<div className="ui labeled mini button" tabindex="0">
-//  <div className="ui button">
-//    <i className="red heart icon"></i> Like
-//  </div>
-//  <a className="ui basic left pointing label">
-//    1,048
-//  </a>
-//</div>
-
-
-//<div className="ui labeled mini button" tabIndex="0">
-//  <div className="ui button">
-//    <i className="heart icon"></i> Like
-//  </div>
-//  <a className="ui basic black label">
-//    2,048
-//  </a>
-//</div>
 
                 return( <div id={"tabcontent"+this.props.tabContentID} className="cmdiv">
                                 <div className="ui top attached menu">
