@@ -36,7 +36,7 @@ class LogoutButton extends React.Component
         {
                 return(
                         <div style={{"display":"inline-block","paddingLeft":"0.5em","paddingTop":"0.15em"}}>
-                                <button className="ui basic button">
+                                <button className="ui basic tiny button">
                                         <i className="sign out icon"></i>
                                         Logout?
                                 </button>

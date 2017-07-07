@@ -34590,6 +34590,10 @@ html.ios {
 .sidebar .ui.vertical.menu {
   background-color: transparent;
 }
+
+.ui.left.visible.sidebar {
+  box-shadow: none;
+}
 /*!
  * # Semantic UI 2.2.10 - Sticky
  * http://github.com/semantic-org/semantic-ui/
@@ -34755,6 +34759,10 @@ html.ios {
 .ui.tabular.menu .item {
   font-weight: normal;
   font-size: .85em;
+}
+
+.tab {
+  border: none !important;
 }
 /*!
  * # Semantic UI 2.2.10 - Transition

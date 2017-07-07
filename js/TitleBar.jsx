@@ -37,11 +37,11 @@ class TitleBar extends React.Component
                 let store = this.props.store;
                 if(this.props.currentUser==null)
                 {
-                greeting = <div style={{"marginLeft":"auto","marginRight":"1%"}}>Not currently logged in.   <LoginModal store={store} modalId={"modal999"}/></div>;
+                greeting = <div style={{"marginLeft":"auto","marginRight":"1%"}}><LoginModal store={store} modalId={"modal999"}/></div>;
                 }
                 else
                 {
-                greeting = <div style={{"marginLeft":"auto","marginRight":"1%"}}>Currently logged in as {this.props.currentUser}.<LogoutButton store={store}/></div>;
+                greeting = <div style={{"marginLeft":"auto","marginRight":"1%"}}>welcome, {this.props.currentUser}.<LogoutButton store={store}/></div>;
                 }
                 let titlestyle={position:"fixed",top:"0px"};
                 return(

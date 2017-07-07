@@ -636,3 +636,6 @@ html.ios {
 .sidebar .ui.vertical.menu {
   background-color: transparent;
 }
+.ui.left.visible.sidebar {
+  box-shadow: none;
+}

@@ -7,3 +7,5 @@
   font-weight:normal;
   font-size:.85em;
 }
+
+.tab { border:none !important }

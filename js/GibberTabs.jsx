@@ -47,17 +47,19 @@ class GUIClass extends React.Component
                 <div>
                         <div id="tabmenu" className="ui top attached tabular menu hidden">
                                 {this.props.tabs.map((tab,i)=>{
+                                        let tabNameSplit = this.props.tabs[i]._id.split('/')
+                                        let tabName = tabNameSplit[ tabNameSplit.length - 1 ]
                                         if(i==0)
                                         {
-                                                return(<a className="active item" key={i.toString()} onClick={this.refreshCMInstances} data-tab={i.toString()}>{this.props.tabs[i]._id}<SureModal modalId={"sm"+i.toString()}/></a>);
+                                          return(<a className="active item" key={i.toString()} onClick={this.refreshCMInstances} data-tab={i.toString()}>{tabName}<SureModal modalId={"sm"+i.toString()}/></a>);
                                         }
                                         else if(i<(this.props.tabs.length - 1))
                                         {
-                                                return(<a className="item" key={i.toString()} onClick={this.refreshCMInstances} data-tab={i.toString()}>{this.props.tabs[i]._id}<SureModal modalId={"sm"+i.toString()}/></a>);
+                                                return(<a className="item" key={i.toString()} onClick={this.refreshCMInstances} data-tab={i.toString()}>{tabName}<SureModal modalId={"sm"+i.toString()}/></a>);
                                         }
                                         else
                                         {
-                                                return(<a className="item" key={i.toString()} onClick={()=>{this.props.addTab(); $('.tabular .item').tab(); this.refreshCMInstances();}}>{this.props.tabs[i]._id}</a>);
+                                                return(<a className="item" key={i.toString()} onClick={()=>{this.props.addTab(); $('.tabular .item').tab(); this.refreshCMInstances();}}>{tabName}</a>);
                                         }
                                 })}
                         </div>
