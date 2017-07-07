@@ -124,7 +124,7 @@ class GibberSidebar extends React.Component
                 $('.userbrowsepane').transition('hide');
                 $('.browsepane').transition('show');
                 $('.browsemenu').transition('show');
-                //$('.backbutton').transition('slide left');
+                $('.backbutton').transition('slide left');
                 this.props.addBreadcrumb("Browse");
                 this.props.removeBreadcrumb(2);
                 this.forceUpdate();

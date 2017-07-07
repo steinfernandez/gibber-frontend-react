@@ -40,6 +40,7 @@ gulp.task( 'test', ['js'], ()=> {                     // runs gulp.task('js') fi
 // Run Tests on any file change in js/ folder
 gulp.task( 'watch', function() {
   gulp.watch( './js/**.js*', ['js'] )
+  gulp.watch( './js/**/**.js*', ['js'] )
 })
 
 gulp.task( 'default', ['js'] )

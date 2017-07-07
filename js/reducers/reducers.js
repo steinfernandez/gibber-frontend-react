@@ -27,8 +27,6 @@ const initialState = {
                         targetGroupPendingMembers:[],
                         breadcrumbValues: ["Home"],
                         tabs:  [{_id: "Tab 1", text: defaultCode, published: false, filedata:{}},
-                                {_id: "Tab 2", text: defaultCode, published: false, filedata:{}},
-                                {_id: "Tab 3", text: defaultCode, published: false, filedata:{}},
                                 {_id: "+", text: "", published: false, filedata:{}}]
                      };
 
@@ -38,10 +36,17 @@ function gibberReducer(state = initialState, action)
         {
                 case "ADD_TAB": {let tabs_temp = state.tabs.slice();
                                 tabs_temp[tabs_temp.length - 1]._id = "Tab "+ tabs_temp.length.toString();
-                                tabs_temp[tabs_temp.length - 1].text = "here's some empty text";
+                                tabs_temp[tabs_temp.length - 1].text = defaultCode 
                                 tabs_temp[tabs_temp.length - 1].published = false;
                                 tabs_temp.push({_id:"+", text:""});
+
+                                if( tabs_temp.length > 1 ) {
+                                  $( '#tabmenu' ).removeClass( 'hidden' )
+                                  $( '#tabmenu' )[0].style = '' // remove random display:none that is being added
+                                }
+
                                 return(Object.assign({}, state, {tabs: tabs_temp}));
+
                                 break;}
                 case "CLOSE_TAB":
                                 {let tabs_temp = state.tabs.slice();
@@ -52,6 +57,14 @@ function gibberReducer(state = initialState, action)
                                         setTimeout(function(){
                                                 $('#tabmenu .item')[action.tabIndex-1].click();
                                                 //$.tab('change tab',action.tabIndex-1);
+                                                console.log('closing')
+
+                                                // XXX + button should not be a tab!
+                                                // check for two while + button is a tab...
+                                                if( tabs_temp.length <= 2 ) {
+                                                  console.log( 'HIDING')
+                                                  $( '#tabmenu' ).addClass( 'hidden' )
+                                                }
                                         },100);
                                 }
                                 console.log(tabs_temp);
@@ -104,8 +117,14 @@ function gibberReducer(state = initialState, action)
                                 tabs_temp.push(newTab);
                                 console.log(action.gibletData);
                                 tabs_temp.push({_id:"+", text:""});
+
+                                if( tabs_temp.length > 1 ) {
+                                  $( '#tabmenu' ).removeClass( 'hidden' )
+                                  $( '#tabmenu' )[0].style = '' // remove random display:none that is being added
+                                }
                                 console.log(tabs_temp);
                                 return(Object.assign({}, state, {tabs: tabs_temp}));
+
                                 break;}
                 case "UPDATE_GIBLET_TEXT":
                                 {let tabs_temp = state.tabs.slice();

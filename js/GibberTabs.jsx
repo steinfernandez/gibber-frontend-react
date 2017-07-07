@@ -45,7 +45,7 @@ class GUIClass extends React.Component
                 }
                 return (
                 <div>
-                        <div id="tabmenu" className="ui top attached tabular menu">
+                        <div id="tabmenu" className="ui top attached tabular menu hidden">
                                 {this.props.tabs.map((tab,i)=>{
                                         if(i==0)
                                         {
