@@ -12,3 +12,6 @@
 
 
 .ui.bottom.attached.tab.segment { margin-bottom:0 !important }
+
+
+.ui.tabular.menu .item { padding: .9285em 1em }

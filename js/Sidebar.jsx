@@ -41,8 +41,8 @@ class GibberSidebar extends React.Component
                     dimPage: false,
                     closable: false,
                     context: '#container',
-                    onVisible: function() {$('.pusher').css({width:"83vw"})},
-                    onHide: function() {$('.pusher').css({width:"99vw"})}
+                    onShow: function() { $('.pusher').css({ width:"84.5vw" }) },
+                    onHide: function() { $('.pusher').css({ width:"100%" }) }
                 });
                 //$('.pane').each( function() { $(this).transition('hide'); } );
                 $('.browsepane').transition('hide');
@@ -262,7 +262,7 @@ class GibberSidebar extends React.Component
                                                 break;
                 }
 		return (
-        	<div>
+        	<div id="outercontainer">
                         <div id="container">
                 		<div className="ui left vertical menu sidebar">
                                         <div className="ui breadcrumb">
