@@ -48,3 +48,5 @@ docs/assets
 # vim
 *.swp
 *.swo
+
+index.js
