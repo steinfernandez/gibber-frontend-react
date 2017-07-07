@@ -214,8 +214,8 @@ class GibberSidebar extends React.Component
 
         render() {
 
-                $('.hidden').css({display:"none"});
-                $('.visible').css({display:"block"});
+                $('.sidebar .hidden').css({display:"none"});
+                $('.sidebar .visible').css({display:"block"});
 
                 let store = this.props.store;
                 let bc1 = <a className="section" onClick={this.showMenupane}>Home</a>;
