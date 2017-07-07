@@ -139,6 +139,7 @@ function gibberReducer(state = initialState, action)
                                 break;}
                 case "UPDATE_GIBLET_FILE_DATA":
                                 {let tabs_temp = state.tabs.slice();
+                                console.log(action.filedata);
                                 tabs_temp[action.tabId] = Object.assign({},action.filedata,{published:true});
                                 console.log("updated giblet data");
                                 console.log(tabs_temp[action.tabId]);

@@ -5,6 +5,7 @@ import EditMetadataModal from './EditMetadataModal.jsx';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {updateGibletText} from './actions/actions.js';
+import {updateGibletFileData} from './actions/actions.js';
 import 'codemirror/mode/javascript/javascript.js'
 
 class TabContent extends React.Component
@@ -57,7 +58,7 @@ class TabContent extends React.Component
                     onSuccess: (response) => { console.log("successfully updated file!"); }
                      });
                 //heartbutton
-                $('#tabcontent'+this.props.tabContentID+' .heart')
+                $('#tabcontent'+this.props.tabContentID+' .heartbutton')
                 .api({
                     on: 'click',
                     url: window.location.origin+"/likefile",
@@ -72,7 +73,7 @@ class TabContent extends React.Component
                       else
                         return false;
                     },
-                    onSuccess: (response) => { console.log("successfully liked file!"); }
+                    onSuccess: (response) => { console.log("successfully liked file!"); this.props.updateGibletFileData(this.props.tabcontentID,response.filedata); }
                      });
         }
 
@@ -114,14 +115,14 @@ class TabContent extends React.Component
                 let savebutton = null;
                 let editmetadatabutton = null;
                 let heartbutton = null;
-                let _heartbutton = <button className="ui basic button mini">
+                let _heartbutton = <button className="ui basic button mini heartbutton">
                     <i className="icon heart" /> Like
                 </button>
 
                 if(this.props.tabs[this.props.tabContentID].published && this.props.currentUser!=null)
                 {
                         savebutton = <button className="ui basic button mini" onClick={this.activateModal} tabIndex="0">
-                                  <i className="save icon" />Save 
+                                  <i className="save icon" />Save
                                 </button>
                         editmetadatabutton = <EditMetadataModal modalId={"em"+this.props.tabContentID}/>;
                         heartbutton = _heartbutton
@@ -136,13 +137,19 @@ class TabContent extends React.Component
                         savebutton = <div className="ui compact mini message">Please log in to save your giblets.</div>;
                         editmetadatabutton = null;
                 }
-                var likes = this.props.tabs[this.props.tabContentID];
-
+                var likes = null;
+                if(this.props.tabs[this.props.tabContentID].likes != undefined)
+                {
+                        if(this.props.tabs[this.props.tabContentID].likes>0)
+                        {
+                                likes = <div>{this.props.tabs[this.props.tabContentID].likes}</div>
+                        }
+                }
                 return( <div id={"tabcontent"+this.props.tabContentID} className="cmdiv">
                                 <div className="ui top attached menu">
                                         {savebutton}
                                         {editmetadatabutton}
-                                        {heartbutton}
+                                        {heartbutton}{likes}
                                 </div>
                                 <Codemirror id={"codemirror"+this.props.tabContentID} value={this.props.tabs[this.props.tabContentID].text} onChange={this.updateCode} options={options} ref={(Codemirror) => { this.cmRef = Codemirror; }}/>
                         </div>
@@ -157,7 +164,7 @@ const mapStateToProps = function(state)
 
 const mapDispatchToProps = function(dispatch)
 {
-        return bindActionCreators({ updateGibletText:updateGibletText }, dispatch);
+        return bindActionCreators({ updateGibletText:updateGibletText, updateGibletFileData:updateGibletFileData }, dispatch);
 }
 
 
