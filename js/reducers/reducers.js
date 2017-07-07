@@ -14,7 +14,7 @@ b()
 let test2 = {
   blah:1,
   blah2:2
-}` 
+}`
 
 const initialState = {
                         currentUser: null,
@@ -36,13 +36,13 @@ function gibberReducer(state = initialState, action)
         {
                 case "ADD_TAB": {let tabs_temp = state.tabs.slice();
                                 tabs_temp[tabs_temp.length - 1]._id = "Tab "+ tabs_temp.length.toString();
-                                tabs_temp[tabs_temp.length - 1].text = defaultCode 
+                                tabs_temp[tabs_temp.length - 1].text = defaultCode
                                 tabs_temp[tabs_temp.length - 1].published = false;
                                 tabs_temp.push({_id:"+", text:""});
 
                                 if( tabs_temp.length > 1 ) {
                                   $( '#tabmenu' ).removeClass( 'hidden' )
-                                  $( '#tabmenu' )[0].style = '' // remove random display:none that is being added
+                                  //$( '#tabmenu' )[0].style = '' // remove random display:none that is being added
                                 }
 
                                 return(Object.assign({}, state, {tabs: tabs_temp}));
@@ -120,7 +120,7 @@ function gibberReducer(state = initialState, action)
 
                                 if( tabs_temp.length > 1 ) {
                                   $( '#tabmenu' ).removeClass( 'hidden' )
-                                  $( '#tabmenu' )[0].style = '' // remove random display:none that is being added
+                                  //$( '#tabmenu' )[0].style = '' // remove random display:none that is being added
                                 }
                                 console.log(tabs_temp);
                                 return(Object.assign({}, state, {tabs: tabs_temp}));
@@ -139,6 +139,7 @@ function gibberReducer(state = initialState, action)
                                 break;}
                 case "UPDATE_GIBLET_FILE_DATA":
                                 {let tabs_temp = state.tabs.slice();
+                                console.log(action.filedata);
                                 tabs_temp[action.tabId] = Object.assign({},action.filedata,{published:true});
                                 console.log("updated giblet data");
                                 console.log(tabs_temp[action.tabId]);

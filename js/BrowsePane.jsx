@@ -22,12 +22,10 @@ class BrowsePane extends React.Component
         {
                 if($('.browsemenu').transition('is visible'))
                 {
-                        console.log("yes");
-                        $('.browsemenu').transition('slide right');
+                        $('.browsemenu').transition('hide');
                 }
                 if(!$('.userbrowsepane').transition('is visible'))
                 {
-                        console.log("no");
                         $('.userbrowsepane').transition('show');
                         this.props.addBreadcrumb('User');
                 }
