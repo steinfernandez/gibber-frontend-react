@@ -34764,6 +34764,10 @@ html.ios {
 .tab {
   border: none !important;
 }
+
+.ui.bottom.attached.tab.segment {
+  margin-bottom: 0 !important;
+}
 /*!
  * # Semantic UI 2.2.10 - Transition
  * http://github.com/semantic-org/semantic-ui/

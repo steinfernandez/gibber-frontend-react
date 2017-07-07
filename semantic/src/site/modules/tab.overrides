@@ -9,3 +9,6 @@
 }
 
 .tab { border:none !important }
+
+
+.ui.bottom.attached.tab.segment { margin-bottom:0 !important }
