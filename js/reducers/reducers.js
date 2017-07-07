@@ -41,7 +41,8 @@ function gibberReducer(state = initialState, action)
                                 tabs_temp.push({_id:"+", text:""});
 
                                 if( tabs_temp.length > 1 ) {
-                                  $( '#tabmenu' ).removeClass( 'hidden' )
+                                  //$( '#tabmenu' ).removeClass( 'hidden' )
+                                  $('.tab.segment').css({ top:'2.5em' })
                                   //$( '#tabmenu' )[0].style = '' // remove random display:none that is being added
                                 }
 
@@ -62,8 +63,8 @@ function gibberReducer(state = initialState, action)
                                                 // XXX + button should not be a tab!
                                                 // check for two while + button is a tab...
                                                 if( tabs_temp.length <= 2 ) {
+                                                  $('.tab.segment').css({ top:0 })
                                                   console.log( 'HIDING')
-                                                  $( '#tabmenu' ).addClass( 'hidden' )
                                                 }
                                         },100);
                                 }
@@ -119,7 +120,8 @@ function gibberReducer(state = initialState, action)
                                 tabs_temp.push({_id:"+", text:""});
 
                                 if( tabs_temp.length > 1 ) {
-                                  $( '#tabmenu' ).removeClass( 'hidden' )
+                                  //$( '#tabmenu' ).removeClass( 'hidden' )
+                                  $('.tab.segment').css({ top:'2.5em' })
                                   //$( '#tabmenu' )[0].style = '' // remove random display:none that is being added
                                 }
                                 console.log(tabs_temp);

@@ -45,7 +45,7 @@ class GUIClass extends React.Component
                 }
                 return (
                 <div>
-                        <div id="tabmenu" className="ui top attached tabular menu hidden">
+                        <div id="tabmenu" className="ui top attached tabular menu">
                                 {this.props.tabs.map((tab,i)=>{
                                         let tabNameSplit = this.props.tabs[i]._id.split('/')
                                         let tabName = tabNameSplit[ tabNameSplit.length - 1 ]
