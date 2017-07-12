@@ -45,12 +45,20 @@ class EditMetadataModal extends React.Component
                 $('.edittags').dropdown({
                         allowAdditions: true
                 });
+                $('.heartlist').dropdown({
+                        allowAdditions: true
+                });
                 $('form input').on('keypress', function(e) {
                     return e.which !== 13;
                 });
                 $('.edittags').dropdown('refresh');
                 //populate with pre-existing tags from redux store
                 setTimeout(() => {$('#'+this.props.modalId.toString()+' form .edittags').dropdown('set selected',this.props.tabs[this.props.modalId.toString()[2]].tags);},1000);
+                if(this.props.tabs[this.props.modalId.toString()[2]].likedby!=undefined)
+                {
+                        console.log(this.props.tabs[this.props.modalId.toString()[2]].likedby);
+                        setTimeout(() => {$('#'+this.props.modalId.toString()+' form .heartlist').dropdown('set selected',this.props.tabs[this.props.modalId.toString()[2]].likedby);},1000);
+                }
                 //set existing isPublic state
                 if(this.props.tabs[this.props.modalId.toString()[2]].isPublic)
                 {
@@ -102,6 +110,15 @@ class EditMetadataModal extends React.Component
                      });
         }
 
+        componentDidUpdate()
+        {
+                if(this.props.tabs[this.props.modalId.toString()[2]].likedby!=undefined)
+                {
+                        console.log(this.props.tabs[this.props.modalId.toString()[2]].likedby);
+                        setTimeout(() => {$('#'+this.props.modalId.toString()+' form .heartlist').dropdown('set selected',this.props.tabs[this.props.modalId.toString()[2]].likedby);},1000);
+                }
+        }
+
         render()
         {
                 let store = this.props.store;
@@ -111,10 +128,8 @@ class EditMetadataModal extends React.Component
                                 padding: 10,
                                 margin: 50,
                         };
-
                 return (
                         <div>
-
                           <button className="ui basic button mini" style={{height:'100%'}} onClick={this.activateModal} tabIndex="0">
                                   <i className="list icon" /> Edit Metagiblet
                                 </button>
@@ -125,10 +140,7 @@ class EditMetadataModal extends React.Component
                                                 Edit File Metadata
                                         </div>
                                         <div className="image content">
-                                                <div className="image">
-                                                        <i className="save icon"/>
-                                                </div>
-                                                <div className="formdiv" style={formdivStyle}>
+                                                <div className="formdiv">
                                                         <form className="ui form">
                                                         <div className="ui stacked segment">
                                                                 <div className="field">
@@ -148,6 +160,11 @@ class EditMetadataModal extends React.Component
                                                                 <div className="field">
                                                                                 <label>Giblet Tags</label>
                                                                                 <select multiple className="edittags large ui fluid multiple search selection dropdown" name="newtags">
+                                                                                </select>
+                                                                </div>
+                                                                <div className="field" readOnly>
+                                                                                <label>Liked By</label>
+                                                                                <select multiple className="heartlist large ui fluid multiple search selection dropdown" name="heartlist" disabled>
                                                                                 </select>
                                                                 </div>
                                                                 <div className="field">
