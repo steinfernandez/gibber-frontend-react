@@ -73,7 +73,12 @@ class TabContent extends React.Component
                       else
                         return false;
                     },
-                    onSuccess: (response) => { console.log("successfully liked file!"); this.props.updateGibletFileData(this.props.tabcontentID,response.filedata); }
+                    onSuccess: (response) =>
+                                {
+                                        console.log("successfully liked file!");
+                                        this.props.updateGibletFileData(this.props.tabContentID,response.filedata);
+                                        setTimeout(()=>{console.log(this.props.tabs[this.props.tabContentID]);},2000);
+                                }
                      });
         }
 
@@ -102,6 +107,29 @@ class TabContent extends React.Component
                     },
                     onSuccess: (response) => { console.log("successfully updated file!"); }
                      });
+                $('#tabcontent'+this.props.tabContentID+' .heartbutton')
+                .api({
+                    on: 'click',
+                    url: window.location.origin+"/likefile",
+                    method: 'POST',
+                    beforeSend: function(settings) { settings.data = { filename: temp_props.tabs[temp_props.tabContentID]._id }; console.log(settings.data); return settings; },
+                    successTest: function(response)
+                    {
+                      if(response && response.success)
+                      {
+                        return response.success;
+                      }
+                      else
+                        return false;
+                    },
+                    onSuccess: (response) =>
+                                {
+                                        console.log("successfully liked file!");
+                                        console.log(this.props.tabContentID);
+                                        this.props.updateGibletFileData(this.props.tabContentID,response.filedata);
+                                        console.log(this.props.tabs);
+                                }
+                     });
         }
 
         render()
@@ -116,16 +144,31 @@ class TabContent extends React.Component
                 let editmetadatabutton = null;
                 let heartbutton = null;
                 let _heartbutton = <button className="ui basic button mini heartbutton">
-                    <i className="icon heart" /> Like
+                    <i className="icon empty heart" /> Like
                 </button>
-
+                let _unheartbutton = <button className="ui basic button mini unheartbutton"><i className="icon heart"/>Unlike</button>
                 if(this.props.tabs[this.props.tabContentID].published && this.props.currentUser!=null)
                 {
                         savebutton = <button className="ui basic button mini" onClick={this.activateModal} tabIndex="0">
                                   <i className="save icon" />Save
                                 </button>
                         editmetadatabutton = <EditMetadataModal modalId={"em"+this.props.tabContentID}/>;
-                        heartbutton = _heartbutton
+                        if(this.props.tabs[this.props.tabContentID].likedby!=undefined)
+                        {
+                                console.log(this.props.tabs[this.props.tabContentID].likedby);
+                                if(this.props.tabs[this.props.tabContentID].likedby.indexOf(this.props.currentUser)==-1)
+                                {
+                                        heartbutton = _heartbutton;
+                                }
+                                else
+                                {
+                                        heartbutton = _unheartbutton;
+                                }
+                        }
+                        else
+                        {
+                                heartbutton = _heartbutton;
+                        }
                 }
                 else if(this.props.currentUser!=null)
                 {

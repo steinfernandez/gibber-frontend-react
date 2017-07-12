@@ -92,7 +92,9 @@ class PublishModal extends React.Component
                     {
                         console.log("onsuccess");
                         console.log(response.filedata);
+                        console.log(this.props.tabs[this.props.modalId[2]]);
                         this.props.updateGibletFileData(parseInt(this.props.modalId[2]),response.filedata);
+                        console.log(this.props.tabs[this.props.modalId[2]]);
                         this.props.publishGiblet(parseInt(this.props.modalId[2]),response.filename);
                         this.closeModal();
                     }
