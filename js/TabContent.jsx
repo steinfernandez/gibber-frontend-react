@@ -80,6 +80,27 @@ class TabContent extends React.Component
                                         setTimeout(()=>{console.log(this.props.tabs[this.props.tabContentID]);},2000);
                                 }
                      });
+                $('#tabcontent'+this.props.tabContentID+' .unheartbutton')
+                .api({
+                    on: 'click',
+                    url: window.location.origin+"/unlikefile",
+                    method: 'POST',
+                    beforeSend: function(settings) { settings.data = { filename: temp_props.tabs[temp_props.tabContentID]._id }; console.log(settings.data); return settings; },
+                    successTest: function(response)
+                    {
+                      if(response && response.success)
+                      {
+                        return response.success;
+                      }
+                      else
+                        return false;
+                    },
+                    onSuccess: (response) =>
+                                {
+                                        console.log("successfully unliked file!");
+                                        this.props.updateGibletFileData(this.props.tabContentID,response.filedata);
+                                }
+                     });
         }
 
         componentWillMount()
@@ -128,6 +149,27 @@ class TabContent extends React.Component
                                         console.log(this.props.tabContentID);
                                         this.props.updateGibletFileData(this.props.tabContentID,response.filedata);
                                         console.log(this.props.tabs);
+                                }
+                     });
+                $('#tabcontent'+this.props.tabContentID+' .unheartbutton')
+                .api({
+                    on: 'click',
+                    url: window.location.origin+"/unlikefile",
+                    method: 'POST',
+                    beforeSend: function(settings) { settings.data = { filename: temp_props.tabs[temp_props.tabContentID]._id }; console.log(settings.data); return settings; },
+                    successTest: function(response)
+                    {
+                      if(response && response.success)
+                      {
+                        return response.success;
+                      }
+                      else
+                        return false;
+                    },
+                    onSuccess: (response) =>
+                                {
+                                        console.log("successfully unliked file!");
+                                        this.props.updateGibletFileData(this.props.tabContentID,response.filedata);
                                 }
                      });
         }
