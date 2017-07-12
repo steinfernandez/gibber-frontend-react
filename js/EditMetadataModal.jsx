@@ -45,20 +45,22 @@ class EditMetadataModal extends React.Component
                 $('.edittags').dropdown({
                         allowAdditions: true
                 });
+                /*
                 $('.heartlist').dropdown({
                         allowAdditions: true
-                });
+                });*/
                 $('form input').on('keypress', function(e) {
                     return e.which !== 13;
                 });
                 $('.edittags').dropdown('refresh');
                 //populate with pre-existing tags from redux store
                 setTimeout(() => {$('#'+this.props.modalId.toString()+' form .edittags').dropdown('set selected',this.props.tabs[this.props.modalId.toString()[2]].tags);},1000);
+                /*
                 if(this.props.tabs[this.props.modalId.toString()[2]].likedby!=undefined)
                 {
                         console.log(this.props.tabs[this.props.modalId.toString()[2]].likedby);
                         setTimeout(() => {$('#'+this.props.modalId.toString()+' form .heartlist').dropdown('set selected',this.props.tabs[this.props.modalId.toString()[2]].likedby);},1000);
-                }
+                }*/
                 //set existing isPublic state
                 if(this.props.tabs[this.props.modalId.toString()[2]].isPublic)
                 {
@@ -122,7 +124,11 @@ class EditMetadataModal extends React.Component
         render()
         {
                 let store = this.props.store;
-
+                let heartlist2 = null;
+                if(this.props.tabs[this.props.modalId.toString()[2]].likedby)
+                {
+                        heartlist2 = this.props.tabs[this.props.modalId.toString()[2]].likedby.map((user,i)=>{return(<div className="item" key={i}><i className="heart icon"/>{user}</div>);});
+                }
                 var formdivStyle = {
                                 float: "right",
                                 padding: 10,
@@ -162,11 +168,6 @@ class EditMetadataModal extends React.Component
                                                                                 <select multiple className="edittags large ui fluid multiple search selection dropdown" name="newtags">
                                                                                 </select>
                                                                 </div>
-                                                                <div className="field" readOnly>
-                                                                                <label>Liked By</label>
-                                                                                <select multiple className="heartlist large ui fluid multiple search selection dropdown" name="heartlist" disabled>
-                                                                                </select>
-                                                                </div>
                                                                 <div className="field">
                                                                         <div className="editispublic ui checkbox">
                                                                                 <input type="checkbox" name="ispublic"/>
@@ -178,6 +179,7 @@ class EditMetadataModal extends React.Component
                                                         <div className="ui error message"></div>
                                                         </form>
                                                 </div>
+                                                <div className="ui horizontal list heartlist2">{heartlist2}</div>
                                         </div>
                                 </div>
                         </div>
