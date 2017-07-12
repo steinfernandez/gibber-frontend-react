@@ -27,7 +27,7 @@ class BrowsePane extends React.Component
                 if(!$('.userbrowsepane').transition('is visible'))
                 {
                         $('.userbrowsepane').transition('show');
-                        this.props.addBreadcrumb('User');
+                        this.props.addBreadcrumb('Your Giblets');
                 }
         }
 
@@ -39,7 +39,7 @@ class BrowsePane extends React.Component
                         <div>
                                 <div className="browsemenu">
                                         <div className="massive fluid ui vertical menu">
-                                                <a className="item" onClick={this.showUserBrowsePane}>User</a>
+                                                <a className="item" onClick={this.showUserBrowsePane}>Your Giblets</a>
                                                 <a className="item">Demos</a>
                                                 <a className="item">Tutorials</a>
                                                 <a className="item">Search</a>
@@ -52,7 +52,7 @@ class BrowsePane extends React.Component
                                                 this.props.currentGiblets.map(
                                                         (giblet,i) =>
                                                         {
-                                                                return(<a className="item loadgiblet" key={i} data-filename={giblet._id}>{giblet._id}</a>)
+                                                          return(<a className="item loadgiblet" key={i} data-filename={giblet._id}>{giblet._id.split('/')[2]}</a>)
                                                         }
                                                 )
                                         }

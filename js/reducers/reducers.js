@@ -19,7 +19,8 @@ let test2 = {
 const initialState = {
                         currentUser: null,
                         currentNotifications: [],
-                        popupQueue: [{header:"Test Header",body:"this is the text in the notification body"},{header:"Test Header 2",body:"this is the text in the notification body"},{header:"Test Header 3",body:"this is the text in the notification body"}],
+                        popupQueue: [],
+                        //popupQueue: [{header:"Test Header",body:"this is the text in the notification body"},{header:"Test Header 2",body:"this is the text in the notification body"},{header:"Test Header 3",body:"this is the text in the notification body"}],
                         currentGiblets: [],
                         userGroups: [],
                         targetGroup: null,

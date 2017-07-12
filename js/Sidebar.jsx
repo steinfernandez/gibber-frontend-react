@@ -218,7 +218,7 @@ class GibberSidebar extends React.Component
                 $('.sidebar .visible').css({display:"block"});
 
                 let store = this.props.store;
-                let bc1 = <a className="section" onClick={this.showMenupane}>Home</a>;
+                let bc1 = <a className="section" onClick={this.showMenupane}><i className='ui home icon' /></a>;
                 let bc2 = null;
                 let bc3 = null;
                 let bc4 = null;
@@ -268,7 +268,7 @@ class GibberSidebar extends React.Component
                                         <div className="ui breadcrumb">
                                                 {bc1}{bc2}{bc3}{bc4}
                                         </div>
-                                        <div className="menupane">
+                                        <div className="menupane sidebar-section">
                                                 <div className="massive fluid ui vertical menu">
                                                         <a className="item" id="browsebutton" onClick={this.showBrowsepane}>Browse</a>
                                                         <a className="item" id="groupbutton" onClick={this.showCommunitypane}>Groups</a>
@@ -276,13 +276,13 @@ class GibberSidebar extends React.Component
                                                         <a className="item" onClick={this.showFeedpane}>Feed</a>
                                                 </div>
                                         </div>
-                                        <div className="browsepane">
+                                        <div className="browsepane sidebar-section">
                                                 <BrowsePane store={store} />
                                         </div>
-                                        <div className="communitypane">
+                                        <div className="communitypane sidebar-section">
                                                 <GroupPane store={store} />
                                         </div>
-                                        <div className="feedpane">
+                                        <div className="feedpane sidebar-section">
                                                 <FeedPane store={store} />
                                         </div>
 			        </div>

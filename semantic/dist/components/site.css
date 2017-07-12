@@ -283,3 +283,6 @@ h1 {
 .ReactCodeMirror {
   height: 100% !important;
 }
+.sidebar-section {
+  border-top: 1px solid #555;
+}
