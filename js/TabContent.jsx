@@ -47,7 +47,7 @@ class TabContent extends React.Component
                 .api({
                     url: window.location.origin+"/update",
                     method: 'POST',
-                    beforeSend: function(settings) { settings.data = { filename: temp_props.tabs[temp_props.tabContentID]._id, newtext: newText }; console.log(settings.data); return settings; },
+                    beforeSend: (settings) => { settings.data = { filename: temp_props.tabs[temp_props.tabContentID]._id, newtext: this.state.code }; console.log(settings.data); return settings; },
                     successTest: function(response)
                     {
                       if(response && response.success)
@@ -118,7 +118,7 @@ class TabContent extends React.Component
                 .api({
                     url: window.location.origin+"/update",
                     method: 'POST',
-                    beforeSend: function(settings) { settings.data = { filename: temp_props.tabs[temp_props.tabContentID]._id, newtext: newText }; console.log(settings.data); return settings; },
+                    beforeSend: (settings) => { settings.data = { filename: temp_props.tabs[temp_props.tabContentID]._id, newtext: this.state.code }; console.log(settings.data); return settings; },
                     successTest: function(response)
                     {
                       if(response && response.success)
@@ -193,7 +193,7 @@ class TabContent extends React.Component
                 let _unheartbutton = <button className="ui basic button mini unheartbutton"><i className="icon heart"/>Unlike</button>
                 if(this.props.tabs[this.props.tabContentID].published && this.props.currentUser!=null)
                 {
-                        savebutton = <button className="ui basic button mini" onClick={this.activateModal} tabIndex="0">
+                        savebutton = <button className="ui basic button mini savebutton" onClick={this.activateModal} tabIndex="0">
                                   <i className="save icon" />Save
                                 </button>
                         editmetadatabutton = <EditMetadataModal modalId={"em"+this.props.tabContentID}/>;
