@@ -15,11 +15,13 @@ class TabContent extends React.Component
                 super(props);
                 this.updateCode = this.updateCode.bind(this);
                 this.sizeCM = this.sizeCM.bind(this);
+                this.state = {code:"//code"};
         }
 
         updateCode(newCode)
         {
-                this.props.updateGibletText(this.props.tabContentID,newCode);
+                //this.props.updateGibletText(this.props.tabContentID,newCode);
+                this.setState({code:newCode});
         }
 
         sizeCM()
@@ -40,7 +42,7 @@ class TabContent extends React.Component
         {
                 this.sizeCM();
                 let temp_props = this.props;
-                let newText = this.props.tabs[this.props.tabContentID].text;
+                let newText = this.state.code;
                 $('#tabcontent'+this.props.tabContentID+' .savebutton')
                 .api({
                     url: window.location.origin+"/update",
@@ -111,7 +113,7 @@ class TabContent extends React.Component
         componentDidUpdate()
         {
                 let temp_props = this.props;
-                let newText = this.props.tabs[this.props.tabContentID].text;
+                let newText = this.state.code;
                 $('#tabcontent'+this.props.tabContentID+' .savebutton')
                 .api({
                     url: window.location.origin+"/update",
@@ -236,7 +238,7 @@ class TabContent extends React.Component
                                         {editmetadatabutton}
                                         {heartbutton}{likes}
                                 </div>
-                                <Codemirror id={"codemirror"+this.props.tabContentID} value={this.props.tabs[this.props.tabContentID].text} onChange={this.updateCode} options={options} ref={(Codemirror) => { this.cmRef = Codemirror; }}/>
+                                <Codemirror id={"codemirror"+this.props.tabContentID} value={this.state.code} onChange={this.updateCode} options={options} ref={(Codemirror) => { this.cmRef = Codemirror; }}/>
                         </div>
                       );
         }
