@@ -13,7 +13,7 @@ class LogoutButton extends React.Component
 
         componentDidMount()
         {
-                $('button')
+                $('.logoutbutton')
                 .api({
                     url: window.location.origin+"/logout",
                     method: 'GET',
@@ -36,7 +36,7 @@ class LogoutButton extends React.Component
         {
                 return(
                         <div style={{"display":"inline-block","paddingLeft":"0.5em","paddingTop":"0.15em"}}>
-                                <button className="ui basic tiny button">
+                                <button className="ui basic tiny button logoutbutton">
                                         <i className="sign out icon"></i>
                                         Logout?
                                 </button>

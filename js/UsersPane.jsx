@@ -10,22 +10,38 @@ class UsersPane extends React.Component
         {
                 super(props);
                 this.state = { active:1 };
+                this.showSearchUserPane = this.showSearchUserPane.bind(this);
         }
 
         componentDidMount()
         {
-                //$('.userbrowsepane').transition('hide');
+                $('.searchuserpane').transition('hide');
+        }
+
+        showSearchUserPane()
+        {
+                $('.usermenu').transition('hide');
+                $('.searchuserpane').transition('show');
         }
 
         render()
         {
                 return(
                         <div>
-                                <div className="usermenu">
+                                <div className="usermenu" style={{display:"inline-block !important", overflow:"hidden"}}>
                                         <div className="massive fluid ui vertical menu">
-                                                <a className="item">Search Users</a>
+                                                <a className="item" onClick={this.showSearchUserPane}>Search Users</a>
                                                 <a className="item">Friends</a>
                                         </div>
+                                </div>
+                                <div className="searchuserpane">
+                                        <form className="ui form">
+                                                <div className="field">
+                                                        <label>Search User</label>
+                                                        <input type="text" name="username"/>
+                                                </div>
+                                                <button className="ui button" type="submit">Submit</button>
+                                        </form>
                                 </div>
                         </div>
                 );

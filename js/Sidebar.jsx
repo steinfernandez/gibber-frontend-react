@@ -4,6 +4,7 @@ import GUIClass from './GibberTabs.jsx';
 import BrowsePane from './BrowsePane.jsx';
 import GroupPane from './GroupPane.jsx';
 import FeedPane from './Feed.jsx';
+import UsersPane from './UsersPane.jsx';
 import TitleBar from './TitleBar.jsx';
 import NotificationPopup from './NotificationPopup.jsx';
 import {bindActionCreators} from 'redux';
@@ -32,6 +33,7 @@ class GibberSidebar extends React.Component
                 this.showCommunitypane = this.showCommunitypane.bind(this);
                 this.showGroupMenuPane = this.showGroupMenuPane.bind(this);
                 this.showGroupIDPane = this.showGroupIDPane.bind(this);
+                this.showUsersPane = this.showUsersPane.bind(this);
         }
 
         componentDidMount()
@@ -47,6 +49,7 @@ class GibberSidebar extends React.Component
                 //$('.pane').each( function() { $(this).transition('hide'); } );
                 $('.browsepane').transition('hide');
                 $('.communitypane').transition('hide');
+                $('.userspane').transition('hide');
                 $('.feedpane').transition('hide');
                 $('.backbutton').transition('hide');
                 $('#browsebutton')
@@ -157,7 +160,22 @@ class GibberSidebar extends React.Component
                 }
                 $('.feedpane').transition('show');
                 $('.backbutton').transition('show');
-                this.props.addBreadcrumb("Help");
+                this.props.removeBreadcrumb(2);
+                this.props.addBreadcrumb("Feed");
+                this.forceUpdate();
+        }
+
+        showUsersPane()
+        {
+                if($('.menupane').transition('is visible'))
+                {
+                        $('.menupane').transition('hide');
+                }
+                $('.userspane').transition('show');
+                $('.backbutton').transition('show');
+                console.log(this.props.breadcrumbValues);
+                this.props.addBreadcrumb("Users");
+                console.log(this.props.breadcrumbValues);
                 this.props.removeBreadcrumb(2);
                 this.forceUpdate();
         }
@@ -171,6 +189,10 @@ class GibberSidebar extends React.Component
                 if($('.communitypane').transition('is visible'))
                 {
                         $('.communitypane').transition('hide');
+                }
+                if($('.userspane').transition('is visible'))
+                {
+                        $('.userspane').transition('hide');
                 }
                 if($('.feedpane').transition('is visible'))
                 {
@@ -210,11 +232,6 @@ class GibberSidebar extends React.Component
                 $('#'+id).transition('show');
                 this.props.addBreadcrumb(id.slice(0,id.length-2));
                 this.props.removeBreadcrumb(3);
-        }
-
-        showUsersPane()
-        {
-
         }
 
         render() {
@@ -277,7 +294,7 @@ class GibberSidebar extends React.Component
                                                 <div className="massive fluid ui vertical menu">
                                                         <a className="item" id="browsebutton" onClick={this.showBrowsepane}>Browse</a>
                                                         <a className="item" id="groupbutton" onClick={this.showCommunitypane}>Groups</a>
-                                                        <a className="item" id="userbutton">Users</a>
+                                                        <a className="item" id="userbutton" onClick={this.showUsersPane}>Users</a>
                                                         <a className="item" onClick={this.showFeedpane}>Feed</a>
                                                 </div>
                                         </div>
@@ -289,6 +306,9 @@ class GibberSidebar extends React.Component
                                         </div>
                                         <div className="feedpane sidebar-section">
                                                 <FeedPane store={store} />
+                                        </div>
+                                        <div className="userspane sidebar-section">
+                                                <UsersPane store={store} />
                                         </div>
 			        </div>
                             	<div className="pusher">
