@@ -134,6 +134,7 @@ class EditMetadataModal extends React.Component
                                 padding: 10,
                                 margin: 50,
                         };
+                console.log(this.props.tabs);
                 return (
                         <div>
                           <button className="ui basic button mini" style={{height:'100%'}} onClick={this.activateModal} tabIndex="0">

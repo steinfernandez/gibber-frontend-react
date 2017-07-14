@@ -27,7 +27,7 @@ const initialState = {
                         targetGroupMembers:[],
                         targetGroupPendingMembers:[],
                         breadcrumbValues: ["Home"],
-                        tabs:  [{_id: "Tab 1", text: defaultCode, published: false, filedata:{}},
+                        tabs:  [{_id: "Tab 1", text: defaultCode, published: false, modified:true, filedata:{}},
                                 {_id: "+", text: "", published: false, filedata:{}}]
                      };
 
@@ -39,6 +39,7 @@ function gibberReducer(state = initialState, action)
                                 tabs_temp[tabs_temp.length - 1]._id = "Tab "+ tabs_temp.length.toString();
                                 tabs_temp[tabs_temp.length - 1].text = defaultCode
                                 tabs_temp[tabs_temp.length - 1].published = false;
+                                tabs_temp[tabs_temp.length - 1].modified = false;
                                 tabs_temp.push({_id:"+", text:""});
 
                                 if( tabs_temp.length > 1 ) {
@@ -114,10 +115,14 @@ function gibberReducer(state = initialState, action)
                 case "OPEN_GIBLET":
                                 {let tabs_temp = state.tabs.slice();
                                 //let newTabName = action.gibletName.substring(action.gibletName.lastIndexOf('/')+1); /*get the name after the last slash*/
-                                let newTab = Object.assign({},action.gibletData,{published: true});
+                                let newTab = Object.assign({},action.gibletData,{published: true,modified:false});
+                                //let newTab = JSON.parse(JSON.stringify(action.gibletData));
+                                console.log(JSON.stringify(newTab));
+                                newTab.modified = false;
+                                newTab.published = true;
+                                console.log(JSON.stringify(newTab));
                                 tabs_temp.pop();
                                 tabs_temp.push(newTab);
-                                console.log(action.gibletData);
                                 tabs_temp.push({_id:"+", text:""});
 
                                 if( tabs_temp.length > 1 ) {
@@ -126,6 +131,8 @@ function gibberReducer(state = initialState, action)
                                   //$( '#tabmenu' )[0].style = '' // remove random display:none that is being added
                                 }
                                 console.log(tabs_temp);
+                                let tempvar = Object.assign({}, state, {tabs: tabs_temp});
+                                console.log(tempvar);
                                 return(Object.assign({}, state, {tabs: tabs_temp}));
 
                                 break;}
@@ -138,17 +145,19 @@ function gibberReducer(state = initialState, action)
                                 {let tabs_temp = state.tabs.slice();
                                 tabs_temp[action.tabId].tabName = action.newName;
                                 tabs_temp[action.tabId].published = true;
+                                tabs_temp[action.tabId].modified = false;
                                 return(Object.assign({}, state, {tabs: tabs_temp}));
                                 break;}
                 case "UPDATE_GIBLET_FILE_DATA":
                                 {let tabs_temp = state.tabs.slice();
-                                console.log(action.filedata);
-                                console.log(action.tabId);
                                 tabs_temp[action.tabId] = Object.assign({},action.filedata,{published:true});
-                                console.log("updated giblet data");
-                                console.log(tabs_temp[action.tabId]);
-                                let newstate = Object.assign({}, state, {tabs: tabs_temp});
-                                console.log(newstate.tabs);
+                                return(Object.assign({}, state, {tabs: tabs_temp}));
+                                break;}
+                case "SET_GIBLET_MODIFIED":
+                                {let tabs_temp = state.tabs.slice();
+                                tabs_temp[action.tabId].modified = action.modified;
+                                console.log("set giblet modified "+action.modified);
+                                console.log(tabs_temp);
                                 return(Object.assign({}, state, {tabs: tabs_temp}));
                                 break;}
                 case "ADD_BREADCRUMB":

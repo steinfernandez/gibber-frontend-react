@@ -18,6 +18,7 @@ export const UPDATE_TARGET_GROUP_PENDING_MEMBERS = 'UPDATE_TARGET_GROUP_PENDING_
 export const OPEN_GIBLET = 'OPEN_GIBLET';
 export const UPDATE_GIBLET_TEXT = 'UPDATE_GIBLET_TEXT';
 export const PUBLISH_GIBLET = 'PUBLISH_GIBLET';
+export const SET_GIBLET_MODIFIED = 'SET_GIBLET_MODIFIED';
 export const UPDATE_GIBLET_FILE_DATA = 'UPDATE_GIBLET_FILE_DATA';
 export const SAVE_GIBLET = 'SAVE_GIBLET';
 export const ADD_BREADCRUMB = 'ADD_BREADCRUMB';
@@ -114,6 +115,11 @@ export function publishGiblet(tabId, newName)
 export function updateGibletFileData(tabId, filedata)
 {
         return { type: UPDATE_GIBLET_FILE_DATA, tabId, filedata }
+}
+
+export function setGibletModified(tabId, modified)
+{
+        return { type: SET_GIBLET_MODIFIED, tabId, modified }
 }
 
 export function addBreadcrumb(value)

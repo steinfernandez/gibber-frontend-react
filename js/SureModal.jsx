@@ -14,6 +14,7 @@ class SureModal extends React.Component
                 this.closeModal = this.closeModal.bind(this);
                 this.closeWithoutSaving = this.closeWithoutSaving.bind(this);
                 this.activateSaveAndCloseButton = this.activateSaveAndCloseButton.bind(this);
+                this.checkModified = this.checkModified.bind(this);
         }
 
         componentDidMount()
@@ -109,14 +110,28 @@ class SureModal extends React.Component
         {
                 this.props.closeTab(this.props.modalId[2]);
                 this.closeModal();
-                this.props.queuePopup({header:"Giblet closed",body:"Your giblet was not saved."})
+                this.props.queuePopup({header:"Giblet closed",body:"Your changes were not saved."})
+        }
+
+        checkModified()
+        {
+                console.log(this.props.tabs[this.props.modalId[2]].modified);
+                if(this.props.tabs[this.props.modalId[2]].modified != true)
+                {
+                        this.props.closeTab(this.props.modalId[2]);
+                        this.props.queuePopup({header:"Giblet closed",body:"No changes were made."})
+                }
+                else
+                {
+                        this.activateModal();
+                }
         }
 
         render()
         {
                 return (
                         <div>
-                                <i className="close icon" onClick={this.activateModal}></i>
+                                <i className="close icon" onClick={this.checkModified}></i>
                                 <div className="ui modal" id={this.props.modalId}>
                                         <i className="close icon"></i>
                                         <div className="header">

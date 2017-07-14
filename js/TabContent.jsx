@@ -6,6 +6,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {updateGibletText} from './actions/actions.js';
 import {updateGibletFileData} from './actions/actions.js';
+import {setGibletModified} from './actions/actions.js';
 import 'codemirror/mode/javascript/javascript.js'
 
 class TabContent extends React.Component
@@ -15,13 +16,26 @@ class TabContent extends React.Component
                 super(props);
                 this.updateCode = this.updateCode.bind(this);
                 this.sizeCM = this.sizeCM.bind(this);
-                this.state = {code:"//code"};
+                this.state = {code:"//code",firstload:true};
         }
 
         updateCode(newCode)
         {
                 //this.props.updateGibletText(this.props.tabContentID,newCode);
                 this.setState({code:newCode});
+                console.log("updateCode");
+                console.log(this.props.tabs[this.props.tabContentID].modified);
+                console.log(this.sta)
+                if((this.props.tabs[this.props.tabContentID].text != this.state.code)&&(this.props.tabs[this.props.tabContentID].modified==false)&&(this.state.firstload==false))
+                {
+                        console.log("setting giblet modified to true");
+                        this.props.setGibletModified(this.props.tabContentID,true);
+                }
+                if(this.state.firstload==true)
+                {
+                        console.log("firstload set to false");
+                        this.setState({firstload:false});
+                }
         }
 
         sizeCM()
@@ -57,7 +71,7 @@ class TabContent extends React.Component
                       else
                         return false;
                     },
-                    onSuccess: (response) => { console.log("successfully updated file!"); }
+                    onSuccess: (response) => { console.log("successfully updated file!"); this.props.setGibletModified(this.props.tabContentID,false); }
                      });
                 //heartbutton
                 $('#tabcontent'+this.props.tabContentID+' .heartbutton')
@@ -128,7 +142,7 @@ class TabContent extends React.Component
                       else
                         return false;
                     },
-                    onSuccess: (response) => { console.log("successfully updated file!"); }
+                    onSuccess: (response) => { console.log("successfully updated file!"); this.props.setGibletModified(this.props.tabContentID,false);  }
                      });
                 $('#tabcontent'+this.props.tabContentID+' .heartbutton')
                 .api({
@@ -251,7 +265,7 @@ const mapStateToProps = function(state)
 
 const mapDispatchToProps = function(dispatch)
 {
-        return bindActionCreators({ updateGibletText:updateGibletText, updateGibletFileData:updateGibletFileData }, dispatch);
+        return bindActionCreators({ updateGibletText:updateGibletText, updateGibletFileData:updateGibletFileData, setGibletModified:setGibletModified }, dispatch);
 }
 
 

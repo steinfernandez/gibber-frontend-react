@@ -212,6 +212,11 @@ class GibberSidebar extends React.Component
                 this.props.removeBreadcrumb(3);
         }
 
+        showUsersPane()
+        {
+
+        }
+
         render() {
 
                 $('.sidebar .hidden').css({display:"none"});
