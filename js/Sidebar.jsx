@@ -171,6 +171,11 @@ class GibberSidebar extends React.Component
                 {
                         $('.menupane').transition('hide');
                 }
+                $('.fupane').transition('hide');
+                $('.searchuserpane').transition('hide');
+                $('.usermenu').transition('show');
+                $('.searchuserform').transition('show');
+                $('.founduserlist').transition('show');
                 $('.userspane').transition('show');
                 $('.backbutton').transition('show');
                 console.log(this.props.breadcrumbValues);
@@ -253,9 +258,13 @@ class GibberSidebar extends React.Component
                 {
                         bc2 =  <span><div className="divider"> / </div><a className="section" onClick={()=>{this.showCommunitypane();}}>Groups</a></span>
                 }
-                else if(this.props.breadcrumbValues[1]=="Help")
+                else if(this.props.breadcrumbValues[1]=="Users")
                 {
-                        bc2 =  <span><div className="divider"> / </div><a className="section" onClick={this.showFeedpane}>Help</a></span>
+                        bc2 =  <span><div className="divider"> / </div><a className="section" onClick={()=>{console.log("showUsersPane");this.showUsersPane();}}>Users</a></span>
+                }
+                else if(this.props.breadcrumbValues[1]=="Feed")
+                {
+                        bc2 =  <span><div className="divider"> / </div><a className="section" onClick={this.showFeedpane}>Feed</a></span>
                 }
                 else
                 {
@@ -270,6 +279,8 @@ class GibberSidebar extends React.Component
                                                 break;
                         case "Friends":         bc3 = <span><div className="divider"> / </div><a className="section">Friends</a></span>
                                                 break;
+                        case "Search User":     bc3 = <span><div className="divider"> / </div><a className="section">Search User</a></span>
+                                                break;
                         case undefined :        bc3 = null;
                                                 break;
                         default:                bc3 = <span><div className="divider"> / </div><a className="section" onClick={()=>{this.showGroupIDPane(this.props.breadcrumbValues[2]+"id");}}>{this.props.breadcrumbValues[2]}</a></span>
@@ -278,7 +289,7 @@ class GibberSidebar extends React.Component
 
                 switch(this.props.breadcrumbValues[3])
                 {
-                        case undefined :             bc4 = null;
+                        case undefined :        bc4 = null;
                                                 break;
                         default:                bc4 = <span><div className="divider"> / </div><a className="section">{this.props.breadcrumbValues[3]}</a></span>
                                                 break;

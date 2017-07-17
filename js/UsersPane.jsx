@@ -56,6 +56,8 @@ class UsersPane extends React.Component
         {
                 $('.usermenu').transition('hide');
                 $('.searchuserpane').transition('show');
+                this.props.removeBreadcrumb(3);
+                this.props.addBreadcrumb("Search User");
         }
 
         showFUPane(id)
