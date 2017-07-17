@@ -9,13 +9,47 @@ class UsersPane extends React.Component
         constructor(props)
         {
                 super(props);
-                this.state = { active:1 };
+                this.state = { active:1, foundusers:[] };
                 this.showSearchUserPane = this.showSearchUserPane.bind(this);
         }
 
         componentDidMount()
         {
+                $('.fupane').each(function() { $(this).transition('hide'); })
                 $('.searchuserpane').transition('hide');
+                $('.searchuserpane .searchuserbutton')
+                .api({
+                    url: window.location.origin+"/searchuser",
+                    method: 'POST',
+                    serializeForm: true,
+                    beforeSend: function(settings)
+                    {
+                      console.log(settings.data);
+                      return settings;
+                    },
+                    successTest: function(response)
+                    {
+                      console.log(response);
+                      if(response && response.success)
+                      {
+                        console.log("successfully retrieved user info");
+                        return response.success;
+                      }
+                      return false;
+                    },
+                    onSuccess: (response) =>
+                    {
+                        console.log(response);
+                        var tempfoundusers = [];
+                        tempfoundusers.push(response.response);
+                        this.setState({foundusers: tempfoundusers});
+                    }
+                });
+        }
+
+        componentDidUpdate()
+        {
+                $('.fupane').each(function() { $(this).transition('hide'); })
         }
 
         showSearchUserPane()
@@ -24,8 +58,68 @@ class UsersPane extends React.Component
                 $('.searchuserpane').transition('show');
         }
 
+        showFUPane(id)
+        {
+                let fupaneid = id+"pane";
+                console.log(fupaneid);
+                $('.founduserlist').transition('hide');
+                $('.searchuserform').transition('hide');
+                $('#'+fupaneid).transition('show');
+        }
+
         render()
         {
+                let foundusers = null;
+                let fupanes = null;
+                console.log(this.state.foundusers);
+                foundusers = this.state.foundusers.map((user,i)=>{
+                        var fulinkid=user._id+"link";
+                        return(<a className="item fulink" id={fulinkid} key={i} onClick={ ()=>{ console.log(user);this.showFUPane(user._id) } }>{user._id}</a>);
+                })
+                fupanes = this.state.foundusers.map((user,i)=>{
+                        var userpaneid = user._id+"pane";
+                        return(
+                                <div className="fupane" key={i} id={userpaneid}>
+                                        <div className="ui list">
+                                                <div className="item">
+                                                        <i className="user icon"/>
+                                                        <div className="content">
+                                                                <div className="header">Username</div>
+                                                                <div className="description">{user._id}</div>
+                                                        </div>
+                                                </div>
+                                                <div className="item">
+                                                        <i className="mail icon"/>
+                                                        <div className="content">
+                                                                <div className="header">E-Mail</div>
+                                                                <div className="description">{user.email}</div>
+                                                        </div>
+                                                </div>
+                                                <div className="item">
+                                                        <i className="calendar icon"/>
+                                                        <div className="content">
+                                                                <div className="header">Join Date</div>
+                                                                <div className="description">{user.joinDate}</div>
+                                                        </div>
+                                                </div>
+                                                <div className="item">
+                                                        <i className="linkify icon"/>
+                                                        <div className="content">
+                                                                <div className="header">Website</div>
+                                                                <div className="description">{user.website}</div>
+                                                        </div>
+                                                </div>
+                                                <div className="item">
+                                                        <i className="file text icon"/>
+                                                        <div className="content">
+                                                                <div className="header">About Me</div>
+                                                                <div className="description">{user.aboutMe}</div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+                        );
+                })
                 return(
                         <div>
                                 <div className="usermenu" style={{display:"inline-block !important", overflow:"hidden"}}>
@@ -35,13 +129,17 @@ class UsersPane extends React.Component
                                         </div>
                                 </div>
                                 <div className="searchuserpane">
-                                        <form className="ui form">
+                                        <form className="searchuserform ui form">
                                                 <div className="field">
                                                         <label>Search User</label>
                                                         <input type="text" name="username"/>
                                                 </div>
-                                                <button className="ui button" type="submit">Submit</button>
+                                                <button className="ui button searchuserbutton" type="submit">Submit</button>
                                         </form>
+                                        <div className="massive fluid ui vertical menu founduserlist">
+                                                {foundusers}
+                                        </div>
+                                        {fupanes}
                                 </div>
                         </div>
                 );
