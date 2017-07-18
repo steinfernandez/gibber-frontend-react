@@ -50,6 +50,39 @@ class UsersPane extends React.Component
         componentDidUpdate()
         {
                 $('.fupane').each(function() { $(this).transition('hide'); })
+                this.state.foundusers.map((user,i) => {
+                        console.log(user);
+                        console.log("activating add friend button for "+user._id);
+                        $('#'+user._id+'pane .addfriendbutton')
+                        .api({
+                            url: window.location.origin+"/sendfriendrequest",
+                            method: 'POST',
+                            serializeForm: true,
+                            beforeSend: function(settings)
+                            {
+                              settings.data.username = user._id;
+                              console.log(settings.data);
+                              return settings;
+                            },
+                            successTest: function(response)
+                            {
+                              console.log(response);
+                              if(response && response.success)
+                              {
+                                console.log("successfully sent friend request to user");
+                                return response.success;
+                              }
+                              return false;
+                            },
+                            onSuccess: (response) =>
+                            {
+                                console.log(response);
+                                //var tempfoundusers = [];
+                                //tempfoundusers.push(response.response);
+                                //this.setState({foundusers: tempfoundusers});
+                            }
+                        });
+                })
         }
 
         showSearchUserPane()
@@ -79,6 +112,19 @@ class UsersPane extends React.Component
                         return(<a className="item fulink" id={fulinkid} key={i} onClick={ ()=>{ console.log(user);this.showFUPane(user._id) } }>{user._id}</a>);
                 })
                 fupanes = this.state.foundusers.map((user,i)=>{
+                        var addfriendbutton = null;
+                        if(this.props.currentUser!=null)
+                        {
+                                console.log(user.friends.indexOf(this.props.currentUser));
+                                if(user.friends.indexOf(this.props.currentUser)==-1)
+                                {
+                                        addfriendbutton = <button className="ui mini basic button addfriendbutton"><i className="add user icon"/></button>
+                                }
+                                else
+                                {
+                                        addfriendbutton = <button className="ui mini basic button unfriendbutton"><i className="remove user icon"/></button>
+                                }
+                        }
                         var userpaneid = user._id+"pane";
                         return(
                                 <div className="fupane" key={i} id={userpaneid}>
@@ -119,6 +165,7 @@ class UsersPane extends React.Component
                                                         </div>
                                                 </div>
                                         </div>
+                                        {addfriendbutton}
                                 </div>
                         );
                 })

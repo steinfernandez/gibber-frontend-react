@@ -111,15 +111,17 @@ class FeedPane extends React.Component
                                         }
                                 });
                 console.log(notifications);*/
+                console.log(this.props.currentNotifications)
                 return(
                         <div className="massive fluid ui vertical menu">
                                 {
                                         this.props.currentNotifications.map(
                                                 (notification,i) =>
                                                 {
+                                                        console.log(notification.type);
                                                         switch(String(notification.type))
                                                         {
-                                                                case "GROUP_INVITE":    var acceptid = "accept"+notification.groupname.slice(notification.groupname.lastIndexOf('/'+1));
+                                                                case "GROUP_INVITE":    {var acceptid = "accept"+notification.groupname.slice(notification.groupname.lastIndexOf('/'+1));
                                                                                         var rejectid = "reject"+notification.groupname.slice(notification.groupname.lastIndexOf('/'+1));
                                                                                         return(<div className="event" key={i}>
                                                                                                         <div className="content">
@@ -127,7 +129,16 @@ class FeedPane extends React.Component
                                                                                                                 <div className="ui tiny button" id={acceptid}>Accept</div><div className="ui tiny button" id={rejectid}>Reject</div>
                                                                                                         </div>
                                                                                                 </div>);
-                                                                                        break;
+                                                                                        break;}
+                                                                case "FRIEND_REQUEST":  {var acceptid = "faccept"+notification.source;
+                                                                                        var rejectid = "freject"+notification.source;
+                                                                                        return(<div className="event" key={i}>
+                                                                                                        <div className="content">
+                                                                                                                <a className="user">{notification.source}</a> would like to be your friend.
+                                                                                                                <div className="ui tiny button" id={acceptid}>Accept</div><div className="ui tiny button" id={rejectid}>Reject</div>
+                                                                                                        </div>
+                                                                                                </div>);
+                                                                                        break;}
                                                         }
                                                 }
                                         )
