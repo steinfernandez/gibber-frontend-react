@@ -29,7 +29,7 @@ class FeedPane extends React.Component
                                                 {
                                                         switch(String(notification.type))
                                                         {
-                                                                case "GROUP_INVITE":    var acceptid = "accept"+notification.groupname.slice(notification.groupname.lastIndexOf('/'+1));
+                                                                case "GROUP_INVITE":{   var acceptid = "accept"+notification.groupname.slice(notification.groupname.lastIndexOf('/'+1));
                                                                                         var rejectid = "reject"+notification.groupname.slice(notification.groupname.lastIndexOf('/'+1));
                                                                                         $('#'+acceptid)
                                                                                         .api({
@@ -74,7 +74,32 @@ class FeedPane extends React.Component
                                                                                                                         //update redux and delete from database
                                                                                                                      }
                                                                                         });
-                                                                                        break;
+                                                                                        break;}
+                                                                case "FRIEND_REQUEST":{ var acceptid = "faccept"+notification.source;
+                                                                                        var rejectid = "freject"+notification.source;
+                                                                                        $('#'+acceptid)
+                                                                                        .api({
+                                                                                            url: window.location.origin+"/acceptfriendrequest",
+                                                                                            method: 'POST',
+                                                                                            on: 'click',
+                                                                                            beforeSend: (settings) => { settings.data.username = notification.source; return settings; },
+                                                                                            successTest: function(response)
+                                                                                            {
+                                                                                              if(response && response.success)
+                                                                                              {
+                                                                                                return response.success;
+                                                                                              }
+                                                                                              else
+                                                                                                return false;
+                                                                                            },
+                                                                                            onSuccess: (response) => {
+                                                                                                                        //console.log(response.response);
+                                                                                                                        console.log("successfully accepted friend request");
+                                                                                                                        this.props.queuePopup({header:"Friend request accepted.",body:"You are now friends with "+notification.source+"."})
+                                                                                                                        //update redux and delete from database
+                                                                                                                     }
+                                                                                        });
+                                                                                        break;}
                                                         }
                                                 }
                 )},100)
@@ -136,6 +161,12 @@ class FeedPane extends React.Component
                                                                                                         <div className="content">
                                                                                                                 <a className="user">{notification.source}</a> would like to be your friend.
                                                                                                                 <div className="ui tiny button" id={acceptid}>Accept</div><div className="ui tiny button" id={rejectid}>Reject</div>
+                                                                                                        </div>
+                                                                                                </div>);
+                                                                                        break;}
+                                                                case "FR_ACCEPTED":     {return(<div className="event" key={i}>
+                                                                                                        <div className="content">
+                                                                                                                <a className="user">{notification.source}</a> is now your friend.
                                                                                                         </div>
                                                                                                 </div>);
                                                                                         break;}
