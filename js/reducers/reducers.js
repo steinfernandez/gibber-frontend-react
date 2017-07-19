@@ -75,7 +75,7 @@ function gibberReducer(state = initialState, action)
                                 break;}
                 case "LOGIN":   return(Object.assign({}, state, {currentUser: action.text}));
                                 break;
-                case "LOGOUT":  return(Object.assign({}, state, {currentUser: null}));
+                case "LOGOUT":  return(Object.assign({}, state, {currentUser: null, currentNotifications: [], popupQueue: [], currentGiblets: [], userGroups: [], targetGroup: null, targetGroupMembers:[], targetGroupPendingMembers:[]}));
                                 break;
                 case "UPDATE_CURRENT_NOTIFICATIONS":
                                 {let notif_temp = state.currentNotifications.slice();
