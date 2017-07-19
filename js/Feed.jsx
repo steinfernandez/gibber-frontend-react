@@ -99,6 +99,27 @@ class FeedPane extends React.Component
                                                                                                                         //update redux and delete from database
                                                                                                                      }
                                                                                         });
+                                                                                        $('#'+rejectid)
+                                                                                        .api({
+                                                                                            url: window.location.origin+"/rejectfriendrequest",
+                                                                                            method: 'POST',
+                                                                                            on: 'click',
+                                                                                            beforeSend: (settings) => { settings.data.username = notification.source; return settings; },
+                                                                                            successTest: function(response)
+                                                                                            {
+                                                                                              if(response && response.success)
+                                                                                              {
+                                                                                                return response.success;
+                                                                                              }
+                                                                                              else
+                                                                                                return false;
+                                                                                            },
+                                                                                            onSuccess: (response) => {
+                                                                                                                        //console.log(response.response);
+                                                                                                                        console.log("successfully rejected friend request");
+                                                                                                                        //update redux and delete from database
+                                                                                                                     }
+                                                                                        });
                                                                                         break;}
                                                         }
                                                 }

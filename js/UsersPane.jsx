@@ -82,6 +82,35 @@ class UsersPane extends React.Component
                                 //this.setState({foundusers: tempfoundusers});
                             }
                         });
+                        $('#'+user._id+'pane .unfriendbutton')
+                        .api({
+                            url: window.location.origin+"/removefriend",
+                            method: 'POST',
+                            serializeForm: true,
+                            beforeSend: function(settings)
+                            {
+                              settings.data.username = user._id;
+                              console.log(settings.data);
+                              return settings;
+                            },
+                            successTest: function(response)
+                            {
+                              console.log(response);
+                              if(response && response.success)
+                              {
+                                console.log("successfully removed friend");
+                                return response.success;
+                              }
+                              return false;
+                            },
+                            onSuccess: (response) =>
+                            {
+                                console.log(response);
+                                //var tempfoundusers = [];
+                                //tempfoundusers.push(response.response);
+                                //this.setState({foundusers: tempfoundusers});
+                            }
+                        });
                 })
         }
 
