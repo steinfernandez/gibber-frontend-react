@@ -111,6 +111,64 @@ class UsersPane extends React.Component
                                 //this.setState({foundusers: tempfoundusers});
                             }
                         });
+                        $('#'+user._id+'pane .followuserbutton')
+                        .api({
+                            url: window.location.origin+"/followuser",
+                            method: 'POST',
+                            serializeForm: true,
+                            beforeSend: function(settings)
+                            {
+                              settings.data.username = user._id;
+                              console.log(settings.data);
+                              return settings;
+                            },
+                            successTest: function(response)
+                            {
+                              console.log(response);
+                              if(response && response.success)
+                              {
+                                console.log("successfully followed user");
+                                return response.success;
+                              }
+                              return false;
+                            },
+                            onSuccess: (response) =>
+                            {
+                                console.log(response);
+                                //var tempfoundusers = [];
+                                //tempfoundusers.push(response.response);
+                                //this.setState({foundusers: tempfoundusers});
+                            }
+                        });
+                        $('#'+user._id+'pane .unfollowuserbutton')
+                        .api({
+                            url: window.location.origin+"/unfollowuser",
+                            method: 'POST',
+                            serializeForm: true,
+                            beforeSend: function(settings)
+                            {
+                              settings.data.username = user._id;
+                              console.log(settings.data);
+                              return settings;
+                            },
+                            successTest: function(response)
+                            {
+                              console.log(response);
+                              if(response && response.success)
+                              {
+                                console.log("successfully unfollowed user");
+                                return response.success;
+                              }
+                              return false;
+                            },
+                            onSuccess: (response) =>
+                            {
+                                console.log(response);
+                                //var tempfoundusers = [];
+                                //tempfoundusers.push(response.response);
+                                //this.setState({foundusers: tempfoundusers});
+                            }
+                        });
                 })
         }
 
@@ -154,6 +212,19 @@ class UsersPane extends React.Component
                                         addfriendbutton = <button className="ui mini basic button unfriendbutton"><i className="remove user icon"/></button>
                                 }
                         }
+                        var followuserbutton = null;
+                        if(this.props.currentUser!=null)
+                        {
+                                console.log(user.friends.indexOf(this.props.currentUser));
+                                if(user.followers.indexOf(this.props.currentUser)==-1)
+                                {
+                                        followuserbutton = <button className="ui mini basic button followuserbutton"><i className="alarm icon"/></button>
+                                }
+                                else
+                                {
+                                        followuserbutton = <button className="ui mini basic button unfollowuserbutton"><i className="alarm mute icon"/></button>
+                                }
+                        }
                         var userpaneid = user._id+"pane";
                         return(
                                 <div className="fupane" key={i} id={userpaneid}>
@@ -194,7 +265,7 @@ class UsersPane extends React.Component
                                                         </div>
                                                 </div>
                                         </div>
-                                        {addfriendbutton}
+                                        {addfriendbutton}{followuserbutton}
                                 </div>
                         );
                 })
