@@ -63,7 +63,7 @@ class GroupPane extends React.Component
         showViewGroupPane()
         {
                 //retrieve latest usergroups by simulating a click on group button
-                $('#groupbutton').trigger('click');
+                $('#groupbutton').api('query');
                 //hide all other panes, at least under the group menu
                 //$('.pane').each(() => { if($(this).transition('is visible')) { $(this).transition('hide'); console.log($this);} })
                 //show view group pane
