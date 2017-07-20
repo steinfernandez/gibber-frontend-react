@@ -191,6 +191,12 @@ class FeedPane extends React.Component
                                                                                                         </div>
                                                                                                 </div>);
                                                                                         break;}
+                                                                case "FOLLOWEE_UPDATE": {return(<div className="event" key={i}>
+                                                                                                        <div className="content">
+                                                                                                                <a className="user">{notification.source}</a> has published a new giblet named {notification.filename}.
+                                                                                                        </div>
+                                                                                                </div>);
+                                                                                        break;}
                                                         }
                                                 }
                                         )
