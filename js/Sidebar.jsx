@@ -73,7 +73,7 @@ class GibberSidebar extends React.Component
                             url: window.location.origin+"/usercheckinfo",
                             method: 'POST',
                             on: 'click',
-                            beforeSend: function(settings) { console.log(settings.data); return settings; },
+                            beforeSend: function(settings) { console.log(settings.data); console.log("running user check info to retrieve groups"); return settings; },
                             successTest: function(response)
                             {
                               if(response && response.success)
