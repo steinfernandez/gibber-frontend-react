@@ -4,6 +4,7 @@ import LogoutButton from './LogoutButton.jsx';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {queuePopup} from './actions/actions.js';
+import {login} from './actions/actions.js';
 
 class TitleBar extends React.Component
 {
@@ -16,6 +17,23 @@ class TitleBar extends React.Component
 
         componentDidMount()
         {
+                $('#titlebar')
+                .api({
+                    url: window.location.origin+"/loginStatus",
+                    method: 'GET',
+                    on: 'now',
+                    beforeSend: function(settings) { console.log(settings.data); return settings; },
+                    successTest: function(response)
+                    {
+                      if(response && response.success)
+                      {
+                        return response.success;
+                      }
+                      else
+                        return false;
+                    },
+                    onSuccess: (response) => { console.log("user was already logged in"); console.log(response); this.props.login(response.username);}
+                });
 
         }
 
@@ -61,7 +79,7 @@ const mapStateToProps = function(state)
 
 const mapDispatchToProps = function(dispatch)
 {
-        return bindActionCreators({ queuePopup: queuePopup }, dispatch);
+        return bindActionCreators({ queuePopup: queuePopup, login:login }, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(TitleBar);
