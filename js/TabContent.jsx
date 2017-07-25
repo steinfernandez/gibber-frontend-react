@@ -2,6 +2,7 @@ import React from 'react';
 import Codemirror from 'react-codemirror';
 import PublishModal from './PublishModal.jsx';
 import EditMetadataModal from './EditMetadataModal.jsx';
+import ForkModal from './ForkModal.jsx';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {updateGibletText} from './actions/actions.js';
@@ -188,6 +189,50 @@ class TabContent extends React.Component
                                         this.props.updateGibletFileData(this.props.tabContentID,response.filedata);
                                 }
                      });
+                //heartbutton
+                $('#tabcontent'+this.props.tabContentID+' .heartbutton')
+                .api({
+                    on: 'click',
+                    url: window.location.origin+"/likefile",
+                    method: 'POST',
+                    beforeSend: function(settings) { settings.data = { filename: temp_props.tabs[temp_props.tabContentID]._id }; console.log(settings.data); return settings; },
+                    successTest: function(response)
+                    {
+                      if(response && response.success)
+                      {
+                        return response.success;
+                      }
+                      else
+                        return false;
+                    },
+                    onSuccess: (response) =>
+                                {
+                                        console.log("successfully liked file!");
+                                        this.props.updateGibletFileData(this.props.tabContentID,response.filedata);
+                                        setTimeout(()=>{console.log(this.props.tabs[this.props.tabContentID]);},2000);
+                                }
+                     });
+                $('#tabcontent'+this.props.tabContentID+' .unheartbutton')
+                .api({
+                    on: 'click',
+                    url: window.location.origin+"/unlikefile",
+                    method: 'POST',
+                    beforeSend: function(settings) { settings.data = { filename: temp_props.tabs[temp_props.tabContentID]._id }; console.log(settings.data); return settings; },
+                    successTest: function(response)
+                    {
+                      if(response && response.success)
+                      {
+                        return response.success;
+                      }
+                      else
+                        return false;
+                    },
+                    onSuccess: (response) =>
+                                {
+                                        console.log("successfully unliked file!");
+                                        this.props.updateGibletFileData(this.props.tabContentID,response.filedata);
+                                }
+                     });
         }
 
         render()
@@ -205,6 +250,7 @@ class TabContent extends React.Component
                     <i className="icon empty heart" /> Like
                 </button>
                 let _unheartbutton = <button className="ui basic button mini unheartbutton"><i className="icon heart"/>Unlike</button>
+                let forkbutton = null;
                 if(this.props.tabs[this.props.tabContentID].published && this.props.currentUser!=null)
                 {
                         savebutton = <button className="ui basic button mini savebutton" onClick={this.activateModal} tabIndex="0">
@@ -246,11 +292,16 @@ class TabContent extends React.Component
                                 likes = <div>{this.props.tabs[this.props.tabContentID].likes}</div>
                         }
                 }
+                if(this.props.currentUser!=null && this.props.tabs[this.props.tabContentID].published)
+                {
+                        forkbutton = <ForkModal modalId={"fm"+this.props.tabContentID}/>
+                }
                 return( <div id={"tabcontent"+this.props.tabContentID} className="cmdiv">
                                 <div className="ui top attached menu">
                                         {savebutton}
                                         {editmetadatabutton}
                                         {heartbutton}{likes}
+                                        {forkbutton}
                                 </div>
                                 <Codemirror id={"codemirror"+this.props.tabContentID} value={this.state.code} onChange={this.updateCode} options={options} ref={(Codemirror) => { this.cmRef = Codemirror; }}/>
                         </div>

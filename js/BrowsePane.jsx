@@ -52,7 +52,7 @@ class BrowsePane extends React.Component
                                                 this.props.currentGiblets.map(
                                                         (giblet,i) =>
                                                         {
-                                                          return(<a className="item loadgiblet" key={i} data-filename={giblet._id}>{giblet._id.split('/')[2]}</a>)
+                                                          return(<a className="item loadgiblet" id={giblet._id.split('/')[2]+'loadgiblet'} key={i} data-filename={giblet._id}>{giblet._id.split('/')[2]}</a>)
                                                         }
                                                 )
                                         }
