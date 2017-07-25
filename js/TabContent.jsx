@@ -292,6 +292,14 @@ class TabContent extends React.Component
                                 likes = <div>{this.props.tabs[this.props.tabContentID].likes}</div>
                         }
                 }
+                var forks = null;
+                if(this.props.tabs[this.props.tabContentID].forks != undefined)
+                {
+                        if(this.props.tabs[this.props.tabContentID].forks>0)
+                        {
+                                forks = <div>{this.props.tabs[this.props.tabContentID].forks}</div>
+                        }
+                }
                 if(this.props.currentUser!=null && this.props.tabs[this.props.tabContentID].published)
                 {
                         forkbutton = <ForkModal modalId={"fm"+this.props.tabContentID}/>
@@ -301,7 +309,7 @@ class TabContent extends React.Component
                                         {savebutton}
                                         {editmetadatabutton}
                                         {heartbutton}{likes}
-                                        {forkbutton}
+                                        {forkbutton}{forks}
                                 </div>
                                 <Codemirror id={"codemirror"+this.props.tabContentID} value={this.state.code} onChange={this.updateCode} options={options} ref={(Codemirror) => { this.cmRef = Codemirror; }}/>
                         </div>

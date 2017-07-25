@@ -2,6 +2,7 @@ import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {publishGiblet} from './actions/actions.js';
+import {updateGibletFileData} from './actions/actions.js';
 
 class ForkModal extends React.Component
 {
@@ -80,6 +81,9 @@ class ForkModal extends React.Component
                     {
                         console.log("file forked");
                         $('#browsebutton').api('query');
+                        console.log(response);
+                        console.log(this.props.modalId[2]);
+                        this.props.updateGibletFileData(this.props.modalId[2],response.response);
                         setTimeout(()=>{$('#'+nameref+'loadgiblet').api('query');},1000);
                         this.closeModal();
                     },
@@ -154,7 +158,7 @@ const mapStateToProps = function(state)
 
 const mapDispatchToProps = function(dispatch)
 {
-        return bindActionCreators({publishGiblet: publishGiblet}, dispatch)
+        return bindActionCreators({publishGiblet: publishGiblet, updateGibletFileData: updateGibletFileData}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ForkModal);
