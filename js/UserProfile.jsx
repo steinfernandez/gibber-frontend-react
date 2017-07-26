@@ -226,6 +226,7 @@ class UserProfile extends React.Component
         render()
         {
                 var userprofilepane = null;
+                var arrowicon = null;
                 if(this.state.userdata!=null)
                 {
                         console.log(this.state.userdata);
@@ -294,9 +295,14 @@ class UserProfile extends React.Component
                                         </div>
                                         {addfriendbutton}{followuserbutton}
                                 </div>
+                        arrowicon = <i className="angle down icon"/>
+                }
+                else
+                {
+                        arrowicon = <i className="angle right icon"/>
                 }
                 return( <div>
-                        <a className="item userprofile" onClick={()=>{this.retrieveUserData();}} id={this.props.userprofilename+"_userprofile"}>{this.props.userprofilename}</a>
+                        <a className="item userprofile" onClick={()=>{this.retrieveUserData();}} id={this.props.userprofilename+"_userprofile"}>{arrowicon}{this.props.userprofilename}</a>
                         {userprofilepane}
                         </div>
                 );
