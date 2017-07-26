@@ -4,63 +4,35 @@ import {connect} from 'react-redux';
 import {addBreadcrumb} from './actions/actions.js';
 import {removeBreadcrumb} from './actions/actions.js';
 
-class UsersPane extends React.Component
+class UserProfile extends React.Component
 {
         constructor(props)
         {
                 super(props);
-                this.state = { active:1, foundusers:[] };
-                this.showSearchUserPane = this.showSearchUserPane.bind(this);
+                this.state = { active:1, userdata:null };
+                this.retrieveUserData = this.retrieveUserData.bind(this);
+                this.updateUserData = this.updateUserData.bind(this);
         }
 
         componentDidMount()
         {
-                $('.fupane').each(function() { $(this).transition('hide'); })
-                $('.searchuserpane').transition('hide');
-                $('.searchuserpane .searchuserbutton')
-                .api({
-                    url: window.location.origin+"/getuser",
-                    method: 'POST',
-                    serializeForm: true,
-                    beforeSend: function(settings)
-                    {
-                      console.log(settings.data);
-                      return settings;
-                    },
-                    successTest: function(response)
-                    {
-                      console.log(response);
-                      if(response && response.success)
-                      {
-                        console.log("successfully retrieved user info");
-                        return response.success;
-                      }
-                      return false;
-                    },
-                    onSuccess: (response) =>
-                    {
-                        console.log(response);
-                        var tempfoundusers = [];
-                        tempfoundusers.push(response.response);
-                        this.setState({foundusers: tempfoundusers});
-                    }
-                });
         }
 
         componentDidUpdate()
         {
-                $('.fupane').each(function() { $(this).transition('hide'); })
-                this.state.foundusers.map((user,i) => {
-                        console.log(user);
-                        console.log("activating add friend button for "+user._id);
-                        $('#'+user._id+'pane .addfriendbutton')
+                //activate buttons
+                var userprofilename = this.props.userprofilename;
+                if(this.state.userdata!=null)
+                {
+                        console.log("activating all profile buttons");
+                        $('#'+this.state.userdata._id+'_userprofilepane .addfriendbutton')
                         .api({
                             url: window.location.origin+"/sendfriendrequest",
                             method: 'POST',
                             serializeForm: true,
                             beforeSend: function(settings)
                             {
-                              settings.data.username = user._id;
+                              settings.data.username = userprofilename;
                               console.log(settings.data);
                               return settings;
                             },
@@ -82,14 +54,14 @@ class UsersPane extends React.Component
                                 //this.setState({foundusers: tempfoundusers});
                             }
                         });
-                        $('#'+user._id+'pane .unfriendbutton')
+                        $('#'+this.state.userdata._id+'_userprofilepane .unfriendbutton')
                         .api({
                             url: window.location.origin+"/removefriend",
                             method: 'POST',
                             serializeForm: true,
                             beforeSend: function(settings)
                             {
-                              settings.data.username = user._id;
+                              settings.data.username = userprofilename;
                               console.log(settings.data);
                               return settings;
                             },
@@ -111,14 +83,14 @@ class UsersPane extends React.Component
                                 //this.setState({foundusers: tempfoundusers});
                             }
                         });
-                        $('#'+user._id+'pane .followuserbutton')
+                        $('#'+this.state.userdata._id+'_userprofilepane .followuserbutton')
                         .api({
                             url: window.location.origin+"/followuser",
                             method: 'POST',
                             serializeForm: true,
                             beforeSend: function(settings)
                             {
-                              settings.data.username = user._id;
+                              settings.data.username = userprofilename;
                               console.log(settings.data);
                               return settings;
                             },
@@ -138,16 +110,17 @@ class UsersPane extends React.Component
                                 //var tempfoundusers = [];
                                 //tempfoundusers.push(response.response);
                                 //this.setState({foundusers: tempfoundusers});
+                                this.updateUserData();
                             }
                         });
-                        $('#'+user._id+'pane .unfollowuserbutton')
+                        $('#'+this.state.userdata._id+'_userprofilepane .unfollowuserbutton')
                         .api({
                             url: window.location.origin+"/unfollowuser",
                             method: 'POST',
                             serializeForm: true,
                             beforeSend: function(settings)
                             {
-                              settings.data.username = user._id;
+                              settings.data.username = userprofilename;
                               console.log(settings.data);
                               return settings;
                             },
@@ -166,44 +139,100 @@ class UsersPane extends React.Component
                                 console.log(response);
                                 //var tempfoundusers = [];
                                 //tempfoundusers.push(response.response);
-                                //this.setState({foundusers: tempfoundusers});
+                                this.updateUserData();
                             }
                         });
-                })
+                        $('#'+this.state.userdata._id+'_userprofilepane').transition('hide');
+                }
         }
 
-        showSearchUserPane()
+        retrieveUserData()
         {
-                $('.usermenu').transition('hide');
-                $('.searchuserpane').transition('show');
-                this.props.removeBreadcrumb(3);
-                this.props.addBreadcrumb("Search User");
+                var userprofilename = this.props.userprofilename;
+                if(this.state.userdata==null)
+                {
+                        $('#'+this.props.userprofilename+"_userprofile")
+                        .api({
+                            url: window.location.origin+"/getuser",
+                            on:'now',
+                            method: 'POST',
+                            serializeForm: true,
+                            beforeSend: function(settings)
+                            {
+                              settings.data.username = userprofilename;
+                              console.log(settings.data);
+                              return settings;
+                            },
+                            successTest: function(response)
+                            {
+                              console.log(response);
+                              if(response && response.success)
+                              {
+                                console.log("successfully retrieved user info");
+                                return response.success;
+                              }
+                              return false;
+                            },
+                            onSuccess: (response) =>
+                            {
+                                console.log(response);
+                                this.setState({userdata: response.response});
+                                //expand profile pane
+                                $('#'+this.props.userprofilename+'_userprofilepane').transition('show');
+                            }
+                        });
+                }
+                else
+                {
+                        $('#'+this.state.userdata._id+'_userprofilepane').transition('hide');
+                        this.setState({userdata:null});
+                }
         }
 
-        showFUPane(id)
+        updateUserData()
         {
-                let fupaneid = id+"pane";
-                console.log(fupaneid);
-                $('.founduserlist').transition('hide');
-                $('.searchuserform').transition('hide');
-                $('#'+fupaneid).transition('show');
+                var userprofilename = this.props.userprofilename;
+                $('#'+this.props.userprofilename+"_userprofile")
+                .api({
+                    url: window.location.origin+"/getuser",
+                    on:'now',
+                    method: 'POST',
+                    serializeForm: true,
+                    beforeSend: function(settings)
+                    {
+                      settings.data.username = userprofilename;
+                      console.log(settings.data);
+                      return settings;
+                    },
+                    successTest: function(response)
+                    {
+                      console.log(response);
+                      if(response && response.success)
+                      {
+                        console.log("successfully retrieved user info");
+                        return response.success;
+                      }
+                      return false;
+                    },
+                    onSuccess: (response) =>
+                    {
+                        console.log(response);
+                        this.setState({userdata: response.response});
+                        $('#'+this.state.userdata._id+'_userprofilepane').transition('show');
+                    }
+                });
         }
 
         render()
         {
-                let foundusers = null;
-                let fupanes = null;
-                console.log(this.state.foundusers);
-                foundusers = this.state.foundusers.map((user,i)=>{
-                        var fulinkid=user._id+"link";
-                        return(<a className="item fulink" id={fulinkid} key={i} onClick={ ()=>{ console.log(user);this.showFUPane(user._id) } }>{user._id}</a>);
-                })
-                fupanes = this.state.foundusers.map((user,i)=>{
+                var userprofilepane = null;
+                if(this.state.userdata!=null)
+                {
+                        console.log(this.state.userdata);
                         var addfriendbutton = null;
-                        if(this.props.currentUser!=null)
+                        if((this.props.currentUser!=null)&&(this.props.currentUser!=this.props.userprofilename))
                         {
-                                console.log(user.friends.indexOf(this.props.currentUser));
-                                if(user.friends.indexOf(this.props.currentUser)==-1)
+                                if(this.state.userdata.friends.indexOf(this.props.currentUser)==-1)
                                 {
                                         addfriendbutton = <button className="ui mini basic button addfriendbutton"><i className="add user icon"/></button>
                                 }
@@ -213,10 +242,9 @@ class UsersPane extends React.Component
                                 }
                         }
                         var followuserbutton = null;
-                        if(this.props.currentUser!=null)
+                        if((this.props.currentUser!=null)&&(this.props.currentUser!=this.props.userprofilename))
                         {
-                                console.log(user.friends.indexOf(this.props.currentUser));
-                                if(user.followers.indexOf(this.props.currentUser)==-1)
+                                if(this.state.userdata.followers.indexOf(this.props.currentUser)==-1)
                                 {
                                         followuserbutton = <button className="ui mini basic button followuserbutton"><i className="alarm icon"/></button>
                                 }
@@ -225,75 +253,57 @@ class UsersPane extends React.Component
                                         followuserbutton = <button className="ui mini basic button unfollowuserbutton"><i className="alarm mute icon"/></button>
                                 }
                         }
-                        var userpaneid = user._id+"pane";
-                        return(
-                                <div className="fupane" key={i} id={userpaneid}>
+                        userprofilepane =
+                                <div className="userprofilepane" id={this.props.userprofilename+"_userprofilepane"}>
                                         <div className="ui list">
                                                 <div className="item">
                                                         <i className="user icon"/>
                                                         <div className="content">
                                                                 <div className="header">Username</div>
-                                                                <div className="description">{user._id}</div>
+                                                                <div className="description">{this.state.userdata._id}</div>
                                                         </div>
                                                 </div>
                                                 <div className="item">
                                                         <i className="mail icon"/>
                                                         <div className="content">
                                                                 <div className="header">E-Mail</div>
-                                                                <div className="description">{user.email}</div>
+                                                                <div className="description">{this.state.userdata.email}</div>
                                                         </div>
                                                 </div>
                                                 <div className="item">
                                                         <i className="calendar icon"/>
                                                         <div className="content">
                                                                 <div className="header">Join Date</div>
-                                                                <div className="description">{user.joinDate}</div>
+                                                                <div className="description">{this.state.userdata.joinDate}</div>
                                                         </div>
                                                 </div>
                                                 <div className="item">
                                                         <i className="linkify icon"/>
                                                         <div className="content">
                                                                 <div className="header">Website</div>
-                                                                <div className="description">{user.website}</div>
+                                                                <div className="description">{this.state.userdata.website}</div>
                                                         </div>
                                                 </div>
                                                 <div className="item">
                                                         <i className="file text icon"/>
                                                         <div className="content">
                                                                 <div className="header">About Me</div>
-                                                                <div className="description">{user.aboutMe}</div>
+                                                                <div className="description">{this.state.userdata.aboutMe}</div>
                                                         </div>
                                                 </div>
                                         </div>
                                         {addfriendbutton}{followuserbutton}
                                 </div>
-                        );
-                })
-                return(
-                        <div>
-                                <div className="usermenu" style={{display:"inline-block !important", overflow:"hidden"}}>
-                                        <div className="massive fluid ui vertical menu">
-                                                <a className="item" onClick={this.showSearchUserPane}>Search Users</a>
-                                                <a className="item">Friends</a>
-                                        </div>
-                                </div>
-                                <div className="searchuserpane">
-                                        <form className="searchuserform ui form">
-                                                <div className="field">
-                                                        <label>Search User</label>
-                                                        <input type="text" name="username"/>
-                                                </div>
-                                                <button className="ui button searchuserbutton" type="submit">Submit</button>
-                                        </form>
-                                        <div className="massive fluid ui vertical menu founduserlist">
-                                                {foundusers}
-                                        </div>
-                                        {fupanes}
-                                </div>
+                }
+                return( <div>
+                        <a className="item userprofile" onClick={()=>{this.retrieveUserData();}} id={this.props.userprofilename+"_userprofile"}>{this.props.userprofilename}</a>
+                        {userprofilepane}
                         </div>
                 );
         }
+
 }
+
 
 const mapStateToProps = function(state)
 {
@@ -305,4 +315,4 @@ const mapDispatchToProps = function(dispatch)
         return bindActionCreators({ addBreadcrumb: addBreadcrumb, removeBreadcrumb: removeBreadcrumb }, dispatch)
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(UsersPane);
+export default connect(mapStateToProps,mapDispatchToProps)(UserProfile);

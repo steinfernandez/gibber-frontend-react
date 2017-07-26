@@ -1,4 +1,5 @@
 import React from 'react';
+import UserProfile from './UserProfile.jsx';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {addBreadcrumb} from './actions/actions.js';
@@ -283,7 +284,7 @@ class GroupPane extends React.Component
                 }
                 let viewmemberspane = this.props.targetGroupMembers.map( (member,i) =>
                                                         {
-                                                                return (<a className="item" key={i}>{member}</a>);
+                                                                return (<UserProfile key={i} userprofilename={member}/>);
                                                         }
                                                                 );
                 let viewpendingmemberspane = this.props.targetGroupPendingMembers.map( (pendingmember,i) =>
