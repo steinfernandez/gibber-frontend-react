@@ -31,7 +31,7 @@ class LoginModal extends React.Component
         componentDidMount()
         {
                 //validation rules
-                $('.ui.form')
+                $('.ui.loginform')
                 .form({
                   fields: {
                     username: {
@@ -58,8 +58,8 @@ class LoginModal extends React.Component
                     }
                   }
                 });
-                //submit button api
-                $('#'+this.props.modalId.toString()+' form')
+                //submit button api for login
+                $('#'+this.props.modalId.toString()+' .loginform')
                   .api({
                     url: window.location.origin+"/login",
                     method: 'POST',
@@ -81,6 +81,30 @@ class LoginModal extends React.Component
                     },
                     onSuccess: (response) => { this.props.login(response.username); this.closeModal(); }
                      });
+                console.log('#'+this.props.modalId.toString()+' .signupform');
+                //submit button api for signup
+                $('#'+this.props.modalId.toString()+' .signupform')
+                  .api({
+                    url: window.location.origin+"/createnewuser",
+                    method: 'POST',
+                    serializeForm: true,
+                    beforeSend: function(settings)
+                    {
+                      console.log(settings.data);
+                      return settings;
+                    },
+                    successTest: function(response)
+                    {
+                      console.log(response);
+                      if(response && response.success)
+                      {
+                        console.log("new user created successfully");
+                        return response.success;
+                      }
+                      return false;
+                    },
+                    onSuccess: (response) => { /*this.props.login(response.username);*/ this.closeModal(); }
+                     });
         }
 
         render()
@@ -95,7 +119,7 @@ class LoginModal extends React.Component
 
                 return (
                         <div style={{"display":"inline-block","paddingLeft":"0.5em","paddingTop":"0.15em"}}>
-                                <button className="ui basic button"  onClick={this.activateModal}><i className="sign in icon"></i>Login</button>
+                                <button className="ui basic button"  onClick={this.activateModal}><i className="sign in icon"></i>Login / Sign Up</button>
                                 <div className="ui modal" id={this.props.modalId}>
                                         <i className="close icon"></i>
                                         <div className="header">
@@ -106,7 +130,7 @@ class LoginModal extends React.Component
                                                         <i className="sign in icon"/>
                                                 </div>
                                                 <div className="formdiv" style={formdivStyle}>
-                                                        <form className="ui large form">
+                                                        <form className="ui large form loginform">
                                                         <div className="ui stacked segment">
                                                                 <div className="field">
                                                                         <div className="ui left icon input">
@@ -125,6 +149,33 @@ class LoginModal extends React.Component
                                                         <div className="ui error message"></div>
                                                         </form>
                                                 </div>
+                                                <div className="formdiv2">
+                                                        <form className="ui large form signupform">
+                                                        <div className="ui stacked segment">
+                                                                <div className="field">
+                                                                        <div className="ui left icon input">
+                                                                                <i className="user icon"></i>
+                                                                                <input type="text" name="dusername" placeholder="Desired username"/>
+                                                                        </div>
+                                                                </div>
+                                                                <div className="field">
+                                                                        <div className="ui left icon input">
+                                                                                <i className="lock icon"></i>
+                                                                                <input type="password" name="dpassword" placeholder="Password"/>
+                                                                        </div>
+                                                                </div>
+                                                                <div className="field">
+                                                                        <div className="ui left icon input">
+                                                                                <i className="mail icon"></i>
+                                                                                <input type="password" name="repassword" placeholder="Re-enter Password"/>
+                                                                        </div>
+                                                                </div>
+                                                                <div className="ui fluid large teal submit button">Sign Up</div>
+                                                        </div>
+                                                        <div className="ui error message"></div>
+                                                        </form>
+                                                </div>
+
                                         </div>
                                 </div>
                         </div>
