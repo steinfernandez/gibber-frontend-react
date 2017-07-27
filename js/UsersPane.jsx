@@ -1,4 +1,5 @@
 import React from 'react';
+import UserProfile from './UserProfile.jsx'
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {addBreadcrumb} from './actions/actions.js';
@@ -15,7 +16,6 @@ class UsersPane extends React.Component
 
         componentDidMount()
         {
-                $('.fupane').each(function() { $(this).transition('hide'); })
                 $('.searchuserpane').transition('hide');
                 $('.searchuserpane .searchuserbutton')
                 .api({
@@ -49,7 +49,6 @@ class UsersPane extends React.Component
 
         componentDidUpdate()
         {
-                $('.fupane').each(function() { $(this).transition('hide'); })
                 this.state.foundusers.map((user,i) => {
                         console.log(user);
                         console.log("activating add friend button for "+user._id);
@@ -82,93 +81,6 @@ class UsersPane extends React.Component
                                 //this.setState({foundusers: tempfoundusers});
                             }
                         });
-                        $('#'+user._id+'pane .unfriendbutton')
-                        .api({
-                            url: window.location.origin+"/removefriend",
-                            method: 'POST',
-                            serializeForm: true,
-                            beforeSend: function(settings)
-                            {
-                              settings.data.username = user._id;
-                              console.log(settings.data);
-                              return settings;
-                            },
-                            successTest: function(response)
-                            {
-                              console.log(response);
-                              if(response && response.success)
-                              {
-                                console.log("successfully removed friend");
-                                return response.success;
-                              }
-                              return false;
-                            },
-                            onSuccess: (response) =>
-                            {
-                                console.log(response);
-                                //var tempfoundusers = [];
-                                //tempfoundusers.push(response.response);
-                                //this.setState({foundusers: tempfoundusers});
-                            }
-                        });
-                        $('#'+user._id+'pane .followuserbutton')
-                        .api({
-                            url: window.location.origin+"/followuser",
-                            method: 'POST',
-                            serializeForm: true,
-                            beforeSend: function(settings)
-                            {
-                              settings.data.username = user._id;
-                              console.log(settings.data);
-                              return settings;
-                            },
-                            successTest: function(response)
-                            {
-                              console.log(response);
-                              if(response && response.success)
-                              {
-                                console.log("successfully followed user");
-                                return response.success;
-                              }
-                              return false;
-                            },
-                            onSuccess: (response) =>
-                            {
-                                console.log(response);
-                                //var tempfoundusers = [];
-                                //tempfoundusers.push(response.response);
-                                //this.setState({foundusers: tempfoundusers});
-                            }
-                        });
-                        $('#'+user._id+'pane .unfollowuserbutton')
-                        .api({
-                            url: window.location.origin+"/unfollowuser",
-                            method: 'POST',
-                            serializeForm: true,
-                            beforeSend: function(settings)
-                            {
-                              settings.data.username = user._id;
-                              console.log(settings.data);
-                              return settings;
-                            },
-                            successTest: function(response)
-                            {
-                              console.log(response);
-                              if(response && response.success)
-                              {
-                                console.log("successfully unfollowed user");
-                                return response.success;
-                              }
-                              return false;
-                            },
-                            onSuccess: (response) =>
-                            {
-                                console.log(response);
-                                //var tempfoundusers = [];
-                                //tempfoundusers.push(response.response);
-                                //this.setState({foundusers: tempfoundusers});
-                            }
-                        });
                 })
         }
 
@@ -180,94 +92,14 @@ class UsersPane extends React.Component
                 this.props.addBreadcrumb("Search User");
         }
 
-        showFUPane(id)
-        {
-                let fupaneid = id+"pane";
-                console.log(fupaneid);
-                $('.founduserlist').transition('hide');
-                $('.searchuserform').transition('hide');
-                $('#'+fupaneid).transition('show');
-        }
-
         render()
         {
                 let foundusers = null;
-                let fupanes = null;
                 console.log(this.state.foundusers);
                 foundusers = this.state.foundusers.map((user,i)=>{
                         var fulinkid=user._id+"link";
-                        return(<a className="item fulink" id={fulinkid} key={i} onClick={ ()=>{ console.log(user);this.showFUPane(user._id) } }>{user._id}</a>);
-                })
-                fupanes = this.state.foundusers.map((user,i)=>{
-                        var addfriendbutton = null;
-                        if(this.props.currentUser!=null)
-                        {
-                                console.log(user.friends.indexOf(this.props.currentUser));
-                                if(user.friends.indexOf(this.props.currentUser)==-1)
-                                {
-                                        addfriendbutton = <button className="ui mini basic button addfriendbutton"><i className="add user icon"/></button>
-                                }
-                                else
-                                {
-                                        addfriendbutton = <button className="ui mini basic button unfriendbutton"><i className="remove user icon"/></button>
-                                }
-                        }
-                        var followuserbutton = null;
-                        if(this.props.currentUser!=null)
-                        {
-                                console.log(user.friends.indexOf(this.props.currentUser));
-                                if(user.followers.indexOf(this.props.currentUser)==-1)
-                                {
-                                        followuserbutton = <button className="ui mini basic button followuserbutton"><i className="alarm icon"/></button>
-                                }
-                                else
-                                {
-                                        followuserbutton = <button className="ui mini basic button unfollowuserbutton"><i className="alarm mute icon"/></button>
-                                }
-                        }
-                        var userpaneid = user._id+"pane";
-                        return(
-                                <div className="fupane" key={i} id={userpaneid}>
-                                        <div className="ui list">
-                                                <div className="item">
-                                                        <i className="user icon"/>
-                                                        <div className="content">
-                                                                <div className="header">Username</div>
-                                                                <div className="description">{user._id}</div>
-                                                        </div>
-                                                </div>
-                                                <div className="item">
-                                                        <i className="mail icon"/>
-                                                        <div className="content">
-                                                                <div className="header">E-Mail</div>
-                                                                <div className="description">{user.email}</div>
-                                                        </div>
-                                                </div>
-                                                <div className="item">
-                                                        <i className="calendar icon"/>
-                                                        <div className="content">
-                                                                <div className="header">Join Date</div>
-                                                                <div className="description">{user.joinDate}</div>
-                                                        </div>
-                                                </div>
-                                                <div className="item">
-                                                        <i className="linkify icon"/>
-                                                        <div className="content">
-                                                                <div className="header">Website</div>
-                                                                <div className="description">{user.website}</div>
-                                                        </div>
-                                                </div>
-                                                <div className="item">
-                                                        <i className="file text icon"/>
-                                                        <div className="content">
-                                                                <div className="header">About Me</div>
-                                                                <div className="description">{user.aboutMe}</div>
-                                                        </div>
-                                                </div>
-                                        </div>
-                                        {addfriendbutton}{followuserbutton}
-                                </div>
-                        );
+                        //return(<a className="item fulink" id={fulinkid} key={i} onClick={ ()=>{ console.log(user);this.showFUPane(user._id) } }>{user._id}</a>);
+                        return(<UserProfile key={i} userprofilename={user._id}/>);
                 })
                 return(
                         <div>
@@ -288,7 +120,6 @@ class UsersPane extends React.Component
                                         <div className="massive fluid ui vertical menu founduserlist">
                                                 {foundusers}
                                         </div>
-                                        {fupanes}
                                 </div>
                         </div>
                 );
