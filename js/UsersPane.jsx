@@ -10,8 +10,9 @@ class UsersPane extends React.Component
         constructor(props)
         {
                 super(props);
-                this.state = { active:1, foundusers:[] };
+                this.state = { active:1, foundusers:[], friends:[] };
                 this.showSearchUserPane = this.showSearchUserPane.bind(this);
+                this.showFriendsPane = this.showFriendsPane.bind(this);
         }
 
         componentDidMount()
@@ -84,6 +85,45 @@ class UsersPane extends React.Component
                 })
         }
 
+        showFriendsPane()
+        {
+                if(this.props.currentUser!=null)
+                {
+                        $('.getfriendsbutton')
+                        .api({
+                            url: window.location.origin+"/getuser",
+                            method: 'POST',
+                            on: 'now',
+                            serializeForm: true,
+                            beforeSend: (settings) =>
+                            {
+                              settings.data.username = this.props.currentUser;
+                              console.log(settings.data);
+                              return settings;
+                            },
+                            successTest: function(response)
+                            {
+                              console.log(response);
+                              if(response && response.success)
+                              {
+                                console.log("successfully retrieved user info");
+                                return response.success;
+                              }
+                              return false;
+                            },
+                            onSuccess: (response) =>
+                            {
+                                console.log(response);
+                                this.setState({friends: response.response.friends});
+                                $('.usermenu').transition('hide');
+                                $('.friendspane').transition('show');
+                                this.props.removeBreadcrumb(3);
+                                this.props.addBreadcrumb("Friends");
+                            }
+                        });
+                }
+        }
+
         showSearchUserPane()
         {
                 $('.usermenu').transition('hide');
@@ -98,15 +138,19 @@ class UsersPane extends React.Component
                 console.log(this.state.foundusers);
                 foundusers = this.state.foundusers.map((user,i)=>{
                         var fulinkid=user._id+"link";
-                        //return(<a className="item fulink" id={fulinkid} key={i} onClick={ ()=>{ console.log(user);this.showFUPane(user._id) } }>{user._id}</a>);
                         return(<UserProfile key={i} userprofilename={user._id}/>);
+                })
+                let friends = null;
+                console.log(this.state.friends);
+                friends = this.state.friends.map((user,i)=>{
+                        return(<UserProfile key={i} userprofilename={user}/>);
                 })
                 return(
                         <div>
                                 <div className="usermenu" style={{display:"inline-block !important", overflow:"hidden"}}>
                                         <div className="massive fluid ui vertical menu">
                                                 <a className="item" onClick={this.showSearchUserPane}>Search Users</a>
-                                                <a className="item">Friends</a>
+                                                <a className="item getfriendsbutton" onClick={this.showFriendsPane}>Friends</a>
                                         </div>
                                 </div>
                                 <div className="searchuserpane">
@@ -119,6 +163,11 @@ class UsersPane extends React.Component
                                         </form>
                                         <div className="massive fluid ui vertical menu founduserlist">
                                                 {foundusers}
+                                        </div>
+                                </div>
+                                <div className="friendspane">
+                                        <div className="massive fluid ui vertical menu friendslist">
+                                                {friends}
                                         </div>
                                 </div>
                         </div>
