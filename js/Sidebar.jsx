@@ -172,6 +172,9 @@ class GibberSidebar extends React.Component
                         $('.menupane').transition('hide');
                 }
                 $('.fupane').transition('hide');
+                $('.friendspane').transition('hide');
+                $('.followerspane').transition('hide');
+                $('.followingpane').transition('hide');
                 $('.searchuserpane').transition('hide');
                 $('.usermenu').transition('show');
                 $('.searchuserform').transition('show');

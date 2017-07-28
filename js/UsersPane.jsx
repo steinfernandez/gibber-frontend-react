@@ -10,9 +10,11 @@ class UsersPane extends React.Component
         constructor(props)
         {
                 super(props);
-                this.state = { active:1, foundusers:[], friends:[] };
+                this.state = { active:1, foundusers:[], friends:[], followers:[], following:[] };
                 this.showSearchUserPane = this.showSearchUserPane.bind(this);
                 this.showFriendsPane = this.showFriendsPane.bind(this);
+                this.showFollowersPane = this.showFollowersPane.bind(this);
+                this.showFollowingPane = this.showFollowingPane.bind(this);
         }
 
         componentDidMount()
@@ -87,41 +89,110 @@ class UsersPane extends React.Component
 
         showFriendsPane()
         {
-                if(this.props.currentUser!=null)
-                {
-                        $('.getfriendsbutton')
-                        .api({
-                            url: window.location.origin+"/getuser",
-                            method: 'POST',
-                            on: 'now',
-                            serializeForm: true,
-                            beforeSend: (settings) =>
-                            {
-                              settings.data.username = this.props.currentUser;
-                              console.log(settings.data);
-                              return settings;
-                            },
-                            successTest: function(response)
-                            {
-                              console.log(response);
-                              if(response && response.success)
-                              {
-                                console.log("successfully retrieved user info");
-                                return response.success;
-                              }
-                              return false;
-                            },
-                            onSuccess: (response) =>
-                            {
-                                console.log(response);
-                                this.setState({friends: response.response.friends});
-                                $('.usermenu').transition('hide');
-                                $('.friendspane').transition('show');
-                                this.props.removeBreadcrumb(3);
-                                this.props.addBreadcrumb("Friends");
-                            }
-                        });
-                }
+                $('.getfriendsbutton')
+                .api({
+                    url: window.location.origin+"/getuser",
+                    method: 'POST',
+                    on: 'now',
+                    serializeForm: true,
+                    beforeSend: (settings) =>
+                    {
+                      settings.data.username = this.props.currentUser;
+                      console.log(settings.data);
+                      return settings;
+                    },
+                    successTest: function(response)
+                    {
+                      console.log(response);
+                      if(response && response.success)
+                      {
+                        console.log("successfully retrieved user info");
+                        return response.success;
+                      }
+                      return false;
+                    },
+                    onSuccess: (response) =>
+                    {
+                        console.log(response);
+                        this.setState({friends: response.response.friends});
+                    }
+                });
+                $('.usermenu').transition('hide');
+                $('.friendspane').transition('show');
+                this.props.removeBreadcrumb(3);
+                this.props.addBreadcrumb("Friends");
+        }
+
+        showFollowersPane()
+        {
+                $('.getfollowersbutton')
+                .api({
+                    url: window.location.origin+"/getuser",
+                    method: 'POST',
+                    on: 'now',
+                    serializeForm: true,
+                    beforeSend: (settings) =>
+                    {
+                      settings.data.username = this.props.currentUser;
+                      console.log(settings.data);
+                      return settings;
+                    },
+                    successTest: function(response)
+                    {
+                      console.log(response);
+                      if(response && response.success)
+                      {
+                        console.log("successfully retrieved user info");
+                        return response.success;
+                      }
+                      return false;
+                    },
+                    onSuccess: (response) =>
+                    {
+                        console.log(response);
+                        this.setState({followers: response.response.followers});
+                    }
+                });
+                $('.usermenu').transition('hide');
+                $('.followerspane').transition('show');
+                this.props.removeBreadcrumb(3);
+                this.props.addBreadcrumb("Followers");
+        }
+
+        showFollowingPane()
+        {
+                $('.getfollowingbutton')
+                .api({
+                    url: window.location.origin+"/getuser",
+                    method: 'POST',
+                    on: 'now',
+                    serializeForm: true,
+                    beforeSend: (settings) =>
+                    {
+                      settings.data.username = this.props.currentUser;
+                      console.log(settings.data);
+                      return settings;
+                    },
+                    successTest: function(response)
+                    {
+                      console.log(response);
+                      if(response && response.success)
+                      {
+                        console.log("successfully retrieved user info");
+                        return response.success;
+                      }
+                      return false;
+                    },
+                    onSuccess: (response) =>
+                    {
+                        console.log(response);
+                        this.setState({following: response.response.following});
+                    }
+                });
+                $('.usermenu').transition('hide');
+                $('.followingpane').transition('show');
+                this.props.removeBreadcrumb(3);
+                this.props.addBreadcrumb("Following");
         }
 
         showSearchUserPane()
@@ -145,12 +216,33 @@ class UsersPane extends React.Component
                 friends = this.state.friends.map((user,i)=>{
                         return(<UserProfile key={i} userprofilename={user}/>);
                 })
+                let followers = null;
+                console.log(this.state.followers);
+                followers = this.state.followers.map((user,i)=>{
+                        return(<UserProfile key={i} userprofilename={user}/>);
+                })
+                let following = null;
+                console.log(this.state.following);
+                following = this.state.following.map((user,i)=>{
+                        return(<UserProfile key={i} userprofilename={user}/>);
+                })
+                let friendsbutton = null;
+                let followersbutton = null;
+                let followingbutton = null;
+                if(this.props.currentUser!=null)
+                {
+                        friendsbutton = <a className="item getfriendsbutton" onClick={this.showFriendsPane}>Friends</a>;
+                        followersbutton = <a className="item getfollowersbutton" onClick={this.showFollowersPane}>Followers</a>;
+                        followingbutton = <a className="item getfollowingbutton" onClick={this.showFollowingPane}>Following</a>;
+                }
                 return(
                         <div>
                                 <div className="usermenu" style={{display:"inline-block !important", overflow:"hidden"}}>
                                         <div className="massive fluid ui vertical menu">
                                                 <a className="item" onClick={this.showSearchUserPane}>Search Users</a>
-                                                <a className="item getfriendsbutton" onClick={this.showFriendsPane}>Friends</a>
+                                                {friendsbutton}
+                                                {followersbutton}
+                                                {followingbutton}
                                         </div>
                                 </div>
                                 <div className="searchuserpane">
@@ -168,6 +260,16 @@ class UsersPane extends React.Component
                                 <div className="friendspane">
                                         <div className="massive fluid ui vertical menu friendslist">
                                                 {friends}
+                                        </div>
+                                </div>
+                                <div className="followerspane">
+                                        <div className="massive fluid ui vertical menu followerslist">
+                                                {followers}
+                                        </div>
+                                </div>
+                                <div className="followingpane">
+                                        <div className="massive fluid ui vertical menu followinglist">
+                                                {following}
                                         </div>
                                 </div>
                         </div>
