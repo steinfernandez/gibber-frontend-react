@@ -82,8 +82,35 @@ class LoginModal extends React.Component
                     onSuccess: (response) => { this.props.login(response.username); this.closeModal(); }
                      });
                 console.log('#'+this.props.modalId.toString()+' .signupform');
+                console.log($('#'+this.props.modalId.toString()+' .signupform'));
                 //submit button api for signup
-                $('#'+this.props.modalId.toString()+' .signupform')
+                $('#'+this.props.modalId.toString()+' .signupform .submit')
+                  .api({
+                    url: window.location.origin+"/createnewuser",
+                    method: 'POST',
+                    serializeForm: true,
+                    beforeSend: function(settings)
+                    {
+                      console.log(settings.data);
+                      return settings;
+                    },
+                    successTest: function(response)
+                    {
+                      console.log(response);
+                      if(response && response.success)
+                      {
+                        console.log("new user created successfully");
+                        return response.success;
+                      }
+                      return false;
+                    },
+                    onSuccess: (response) => { /*login*/ this.closeModal(); }
+                     });
+        }
+
+        componentDidUpdate()
+        {
+                $('#'+this.props.modalId.toString()+' .signupform .submit')
                   .api({
                     url: window.location.origin+"/createnewuser",
                     method: 'POST',
