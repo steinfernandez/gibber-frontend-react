@@ -130,33 +130,12 @@ class FeedPane extends React.Component
         {
                 if(this.props.currentUser!=null && subscribed==false)
                 {
-                        //console.log("requesting notifications!");
-                        //console.log("http://127.0.0.1/notifications?username="+this.props.currentUser);
                         var es = new EventSource("/notifications?username="+this.props.currentUser);
                         es.onopen = function(e){ console.log("onopen"); console.log(e) };
                         es.onmessage = (e) => { console.log("onmessage"); console.log(e.data); this.props.updateCurrentNotifications(e.data);};
                         es.onerror = function(e){ console.log("onerror"); console.log(e) };
                         subscribed = true;
                 }
-
-                /*let notifications = [];
-                notifications = this.props.currentNotifications.forEach(function(notification,i)
-                                {
-                                        console.log(notification);
-                                        switch(String(notification.type))
-                                        {
-                                                case "GROUP_INVITE":    {
-                                                                        console.log("case groupinvite triggered");
-                                                                        notifications.push(
-                                                                                <div className="item">
-                                                                                        <a className="user">{notification.source}</a> is a weirdo and wants you to join {notification.groupname}
-                                                                                <div className="ui button">Accept</div>
-                                                                                </div>
-                                                                        );
-                                                                        break;}
-                                        }
-                                });
-                console.log(notifications);*/
                 console.log(this.props.currentNotifications)
                 return(
                         <div className="massive fluid ui vertical menu">

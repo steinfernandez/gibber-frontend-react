@@ -1,3 +1,5 @@
+/*this file is no longer used*/
+
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
@@ -114,13 +116,7 @@ class CommunityPane extends React.Component{
                         return false;
                     },
                     onSuccess: (response) => { console.log("onsuccess"); this.props.updateUserGroups(response.response.grouplist);}
-                     });
-        }
-
-        activateGroupInfoButton(groupname)
-        {
-
-
+                });
         }
 
         showCreateGroupPane()

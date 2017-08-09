@@ -28,7 +28,7 @@ class LogoutButton extends React.Component
                       else
                         return false;
                     },
-                    onSuccess: (response) => { console.log("onsuccessbutton"); this.props.logout();}
+                    onSuccess: (response) => { this.props.logout();}
                      });
         }
 

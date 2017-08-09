@@ -140,6 +140,7 @@ class GibberSidebar extends React.Component
                 {
                         $('.menupane').transition('hide');
                 }
+                //all subpanes under the group pane need to be hidden here
                 $('.groupidpane').transition('hide');
                 $('.addmemberpane').transition('hide');
                 $('.viewmemberpane').transition('hide');
@@ -171,6 +172,7 @@ class GibberSidebar extends React.Component
                 {
                         $('.menupane').transition('hide');
                 }
+                //all subpanes under the users pane needs to be hidden here
                 $('.fupane').transition('hide');
                 $('.friendspane').transition('hide');
                 $('.followerspane').transition('hide');

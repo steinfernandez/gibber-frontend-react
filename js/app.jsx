@@ -25,6 +25,7 @@ class App extends React.Component
                 $('.CodeMirror').each(function(i, el){
                     el.CodeMirror.refresh();
                 });
+                {/* Note: Provider component must encompass the rest of the app to allow access to the store*/}
                 return (
                         <div>
                         <Provider store={store}>

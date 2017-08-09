@@ -44,7 +44,6 @@ class TitleBar extends React.Component
 
         toggleSidebar()
         {
-                console.log("toggling sidebar");
                 $('.ui.sidebar').sidebar('toggle');
         }
 

@@ -1,3 +1,7 @@
+/* This is a reusable component that can be included anywhere with the appropriate username supplied as the prop `userprofilename`.
+   For example, <UserProfile userprofilename={user._id}/>.
+*/
+
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
